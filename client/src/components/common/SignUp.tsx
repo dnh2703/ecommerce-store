@@ -22,9 +22,10 @@ const SignUpForm = () => {
   //   }
   // };
   const onSubmit = (data: IRegisterForm) => {
+    console.log(data);
     authApi
       .register(data)
-      .then((data) => {
+      .then((res) => {
         setIsSuccess(true);
       })
       .catch((error) => {
@@ -34,7 +35,7 @@ const SignUpForm = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto pt-20">
-      <h1 className="text-center text-3xl">Create Account</h1>
+      <h1 className="text-center text-5xl">Create Account</h1>
       <form
         className="bg-white  rounded-none px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit(onSubmit)}
@@ -59,7 +60,12 @@ const SignUpForm = () => {
             type="email"
             placeholder="Email"
           />
-          {errors.email && (
+          {errors.email?.type == "required" && (
+            <span className="text-red-500 text-xs">
+              Please enter email address
+            </span>
+          )}
+          {errors.email?.type == "pattern" && (
             <span className="text-red-500 text-xs">
               Please enter a valid email address
             </span>
@@ -73,16 +79,23 @@ const SignUpForm = () => {
             type="password"
             placeholder="Password"
           />
-          {errors.password && (
+          {errors.password?.type == "required" && (
+            <span className="text-red-500 text-xs">
+              Please enter the password
+            </span>
+          )}
+          {errors.password?.type == "minLength" && (
             <span className="text-red-500 text-xs">
               Password must be at least 6 characters
             </span>
           )}
-          <p className="mt-5">
+          <p className="mt-5 text-sm">
             Sign up for early Sale access plus tailored new arrivals, trends and
             promotions.
           </p>
-          <p className="mb-5 ">To opt out, click unsubscribe in our emails.</p>
+          <p className="mb-5 text-sm ">
+            To opt out, click unsubscribe in our emails.
+          </p>
         </div>
         <div>
           <button
