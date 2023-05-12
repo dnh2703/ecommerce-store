@@ -19,4 +19,11 @@ interface IProduct {
   id: string;
 }
 
+export interface IFilterProducts {
+  collection: string;
+  availability: string;
+  brand: boolean;
+  price: boolean;
+}
+
 export type { IProduct };
