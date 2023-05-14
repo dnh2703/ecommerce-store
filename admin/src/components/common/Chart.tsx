@@ -56,9 +56,9 @@ const Chart = () => {
   ];
 
   return (
-    <ResponsiveContainer width="95%" height={320}>
+    <ResponsiveContainer width="100%" height={320}>
       <LineChart
-        width={500}
+        width={600}
         height={300}
         data={data}
         margin={{

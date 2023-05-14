@@ -1,10 +1,13 @@
 import useComponentVisible from "../../hooks/useComponentVisible";
 import { NavLink } from "react-router-dom";
 import appRoutes from "../../routes/appRoutes";
+import { useState } from "react";
 
 const Sidebar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(true);
+
+  const [show, setShow] = useState(false);
 
   return (
     <>
@@ -113,22 +116,27 @@ const Sidebar = () => {
             {appRoutes.map((route, index) => {
               return (
                 <li key={route.sidebarProps?.displayText}>
-                  <NavLink
-                    to={`${route.path}`}
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? "pending"
-                        : isActive
-                        ? "bg-gray-700 flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
-                        : "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
-                    }
-                  >
-                    <div className="transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                      {route.sidebarProps?.icon}
-                    </div>
-                    <span className="ml-3">
-                      {route.sidebarProps?.displayText}
-                    </span>
+                  <NavLink to={`${route.path}`}>
+                    {({ isActive, isPending }) => (
+                      <div
+                        className={
+                          isActive
+                            ? "bg-gray-700 flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                            : "flex items-center p-2 text-gray-900 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                        }
+                      >
+                        <div
+                          className={`transition duration-75 ${
+                            isActive ? "dark:text-white" : "dark:text-gray-400"
+                          } group-hover:text-gray-900 dark:group-hover:text-white`}
+                        >
+                          {route.sidebarProps?.icon}
+                        </div>
+                        <span className="ml-3">
+                          {route.sidebarProps?.displayText}
+                        </span>
+                      </div>
+                    )}
                   </NavLink>
                 </li>
               );
