@@ -1,3 +1,4 @@
+import AddProduct from "../components/common/AddProduct";
 import Customer from "../pages/Customer";
 import Dashboard from "../pages/Dashboard";
 import Order from "../pages/Order";

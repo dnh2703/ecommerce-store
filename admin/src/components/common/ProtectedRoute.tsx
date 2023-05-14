@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   ) : isAuthenticated ? (
     children
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/" />
   );
 };
 
