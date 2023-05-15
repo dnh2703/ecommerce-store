@@ -15,6 +15,7 @@
     "@types/node": "^16.18.25",
     "axios": "^1.4.0",
     "js-cookie": "^3.0.5",
+    "normalize.css": "^8.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
@@ -57,6 +58,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4"
+    "@types/react-dom": "^18.2.4",
+    "tailwindcss": "^3.3.2"
   }
 }

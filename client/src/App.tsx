@@ -7,16 +7,17 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./components/common/SignIn";
 import SignUp from "./components/common/SignUp";
 import { withCookies } from "react-cookie";
+import ProductPage from "./pages/ProductCatalogPage";
+import "normalize.css";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
-
   return (
     <>
       <Routes>
         <Route index element={<HomePage />}></Route>
-        <Route path="/product">
-          <Route path=":id" />
-        </Route>
+        <Route path="/products" element={<ProductPage />}></Route>
+        <Route path="/products/:id" element={<ProductDetailPage />}></Route>
         <Route path="/account" element={<AccountPage />}>
           <Route
             index
