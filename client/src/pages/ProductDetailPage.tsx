@@ -1,14 +1,14 @@
 import { Typography } from "@mui/material";
 import * as React from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { ProductRoute } from "../components/common/ProductCatalogComponent/ProductCatalogComponent";
+import { ProductRoute } from "../components/common/ProductCatalog/ProductCatalogComponent";
 import { useEffect, useState } from "react";
 import { IProduct } from "../interfaces/product";
 import productApi from "../api/productApi";
-import ProductDetail from "../components/common/ProductDetailComponent/ProductDetail";
-import TermsAndConditions from "../components/common/ProductDetailComponent/TermsAndConditions";
-import AskModal from "../components/common/ProductDetailComponent/AskModal";
-import DeliveryModal from "../components/common/ProductDetailComponent/DeliveryModal";
+import ProductDetail from "../components/common/ProductDetail/ProductDetail";
+import TermsAndConditions from "../components/common/ProductDetail/TermsAndConditions";
+import AskModal from "../components/common/ProductDetail/AskModal";
+import DeliveryModal from "../components/common/ProductDetail/DeliveryModal";
 
 interface ShowModal {
   termsAndConditions: boolean;
@@ -74,7 +74,9 @@ export default function ProductDetailPage() {
             style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
             className="fa-solid fa-angle-right"
           ></i>
-          <Typography sx={{ fontSize: 12 }}>Products</Typography>
+          <Typography className="capitalize" sx={{ fontSize: 12 }}>
+            {product?.name}
+          </Typography>
         </header>
 
         <div className="flex">

@@ -1,7 +1,6 @@
-import { Modal } from "../../../interfaces/product";
 import CloseButton from "../CloseButton";
 
-export default function DeliveryModal(props: Modal) {
+export default function DeliveryModal(props: any) {
   return (
     <div className="absolute z-[2] w-full h-[100vh] top-0 left-0 ">
       <div

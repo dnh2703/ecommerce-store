@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
-import { IProduct, ProductDetailProps } from "../../../interfaces/product";
 
-export default function AddToCart(props: ProductDetailProps) {
+
+export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
   let [isAgree, setIsAgree] = useState<boolean>(false);
 

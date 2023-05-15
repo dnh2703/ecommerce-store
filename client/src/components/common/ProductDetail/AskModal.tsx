@@ -1,8 +1,27 @@
 import * as React from "react";
-import { Modal } from "../../../interfaces/product";
-import CloseButton from "../CloseButton";
 
-export default function AskModal(props: Modal) {
+import CloseButton from "../CloseButton";
+import { ChangeEvent, useState } from "react";
+
+interface Customer {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+export default function AskModal(props: any) {
+  let [customer, setCustomer] = useState<Customer>({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setCustomer({ ...customer, name: e.target.value });
+  };
+
   return (
     <div className="absolute z-[2] w-full h-[100vh] top-0 left-0 ">
       <div

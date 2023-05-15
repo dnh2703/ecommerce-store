@@ -3,30 +3,25 @@ import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect, ChangeEvent } from "react";
 import { IFilterProducts, IProduct } from "../interfaces/product";
 import productApi from "../api/productApi";
+
+import { FilterPannel } from "../components/common/ProductCatalog/FilterPannel";
 import {
   GridView,
   ProductRoute,
   ProductRow,
   ProductsColumn,
-  SideComponent,
-} from "../components/common/ProductCatalogComponent/ProductCatalogComponent";
+} from "../components/common/ProductCatalog/ProductCatalogComponent";
 import {
   Bar,
-  FeaturedProductItem,
   Filter,
-  FilterSide,
-  FilterSideItem,
-  InputPrice,
   activeGridView,
-} from "../components/common/ProductCatalogComponent/style";
-import { FilterPannel } from "../components/common/ProductCatalogComponent/FilterPannel";
+} from "../components/common/ProductCatalog/style";
 
 export default function ProductPage() {
   let [products, setProducts] = useState<IProduct[]>([]);
   let [cols, setCols] = useState<number>(4);
   let [isRow, setIsRow] = useState<boolean>(false);
 
-  const [resultsFound, setResultsFound] = useState(true);
   let [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   let [filterSide, setFilterSide] = useState<IFilterProducts>({
     collection: "",
@@ -34,9 +29,6 @@ export default function ProductPage() {
     brand: "",
     price: false,
   });
-
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedRating, setSelectedRating] = useState(null);
 
   useEffect(() => {
     productApi
@@ -51,27 +43,6 @@ export default function ProductPage() {
   const handleMinChange = (e: ChangeEvent<HTMLInputElement>) => {};
 
   const handleMaxChange = (e: ChangeEvent<HTMLInputElement>) => {};
-
-  const handleSelectCategory = (event: any, value: any) =>
-    !value ? null : setSelectedCategory(value);
-
-  const applyFilters = () => {
-    let updatedList = [...products];
-    console.log(updatedList);
-
-    if (selectedCategory) {
-      updatedList = updatedList.filter(
-        (item) => item.category === selectedCategory
-      );
-    }
-    setFilteredProducts(updatedList);
-
-    !updatedList.length ? setResultsFound(false) : setResultsFound(true);
-  };
-
-  useEffect(() => {
-    applyFilters();
-  }, [selectedRating, selectedCategory]);
 
   return (
     <Container maxWidth="xl">
@@ -96,11 +67,7 @@ export default function ProductPage() {
 
       <Grid container sx={{ px: 3 }}>
         <Grid item xs={3} sx={{ justifyContent: "center" }}>
-          <FilterPannel
-            selectCollection={selectedCategory}
-            products={[...products]}
-            selectedCollection={handleSelectCategory}
-          ></FilterPannel>
+          <FilterPannel products={[...products]}></FilterPannel>
         </Grid>
         <Grid xs={9}>
           <Grid container item sx={{ justifyContent: "space-between" }}>

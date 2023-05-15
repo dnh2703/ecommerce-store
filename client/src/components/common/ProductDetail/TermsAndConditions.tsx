@@ -1,8 +1,7 @@
 import * as React from "react";
 import CloseButton from "../CloseButton";
-import { Modal } from "../../../interfaces/product";
 
-export default function TermsAndConditions(props: Modal) {
+export default function TermsAndConditions(props: any) {
   return (
     <div className="absolute z-[2] w-full h-[100vh] top-0 left-0 ">
       <div

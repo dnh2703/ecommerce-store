@@ -6,7 +6,6 @@ export default {
       animation: {
         modalOpacity: "modalOpacity 0.5s ease-in-out",
         buy: "buy 0.2s ease-in-out",
-        modalHeight: "modalHeight 0.5  ease-in-out",
       },
       keyframes: {
         modalOpacity: {
