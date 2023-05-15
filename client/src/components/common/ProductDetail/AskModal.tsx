@@ -53,7 +53,6 @@ export default function AskModal(props: any) {
               placeholder="Your email"
               className="bg-gray-200 leading-[50px] basis-1/2 outline-none px-5"
               type="email"
-              required
             />
           </div>
           <div className="mb-5">
@@ -61,7 +60,6 @@ export default function AskModal(props: any) {
               placeholder="Phone number"
               className="bg-gray-200 leading-[50px] w-full outline-none px-5"
               type="text"
-              required
             />
           </div>
           <div className="mb-5">

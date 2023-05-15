@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect, ChangeEvent } from "react";
-import { IFilterProducts, IProduct } from "../interfaces/product";
+import { IProduct } from "../interfaces/product";
 import productApi from "../api/productApi";
 
 import { FilterPannel } from "../components/common/ProductCatalog/FilterPannel";
@@ -23,12 +23,6 @@ export default function ProductPage() {
   let [isRow, setIsRow] = useState<boolean>(false);
 
   let [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
-  let [filterSide, setFilterSide] = useState<IFilterProducts>({
-    collection: "",
-    availability: "",
-    brand: "",
-    price: false,
-  });
 
   useEffect(() => {
     productApi
@@ -71,30 +65,7 @@ export default function ProductPage() {
         </Grid>
         <Grid xs={9}>
           <Grid container item sx={{ justifyContent: "space-between" }}>
-            <Grid item xs={7}>
-              {(filterSide.availability ||
-                filterSide.brand ||
-                filterSide.collection ||
-                filterSide.price) && (
-                <Filter
-                  onClick={() => {
-                    setFilteredProducts([...products]);
-                    setFilterSide({
-                      collection: "",
-                      availability: "",
-                      brand: "",
-                      price: false,
-                    });
-                  }}
-                >
-                  Clear All{" "}
-                  <i
-                    style={{ marginLeft: "10px" }}
-                    className="fa-solid fa-xmark"
-                  ></i>
-                </Filter>
-              )}
-            </Grid>
+            <Grid item xs={7}></Grid>
             <Grid
               container
               item

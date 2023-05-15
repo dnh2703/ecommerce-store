@@ -8,11 +8,7 @@ import {
   styled,
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
-import {
-  IProduct,
-  IProductLayout,
-  ISideFilter,
-} from "../../../interfaces/product";
+import { IProduct, IProductLayout } from "../../../interfaces/product";
 import { useState } from "react";
 import {
   FeaturedProductItem,
@@ -190,7 +186,7 @@ export const GridView = styled("div")({
   gap: 2,
 });
 
-export const SideComponent = (props: ISideFilter) => {
+export const SideComponent = (props: any) => {
   const [isShow, setIsShow] = useState<boolean>(true);
 
   return (
