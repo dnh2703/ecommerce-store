@@ -1,5 +1,167 @@
+import { type } from "os";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import authApi from "../../api/authApi";
+import { useNavigate, Link } from "react-router-dom";
+import { AxiosError } from "axios";
+import { ILoginForm } from "../../interfaces/auth";
+
 const SignIn = () => {
-  return <div>SignIn</div>;
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
+  const [checkPassword, setCheckPassword] = useState<boolean>(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<ILoginForm>();
+
+  const onSubmit = (data: ILoginForm) => {
+    console.log(data);
+
+    setLoading(true);
+    async function PostApi() {
+      authApi
+        .login(data)
+        .then((res) => {
+          if (res.status == 200) {
+            alert("successful login");
+
+            navigate("/account");
+          }
+        })
+        .catch((reason: AxiosError) => {
+          if (reason.response!.status === 401) {
+            alert("Incorrect account or password");
+          }
+          console.log(reason.message);
+        });
+    }
+    PostApi();
+  };
+
+  const handleCheckPassword = () => {
+    setCheckPassword(!checkPassword);
+  };
+
+  return (
+    <div className="box-border flex w-full text-center justify-center items-center">
+      <div className="w-4/5">
+        <h1 className="text-6xl">Account</h1>
+
+        <div className="flex text-left max-[700px]:block">
+          <div className="w-2/4 max-[700px]:w-full">
+            <div>
+              <h1 className="text-4xl">Sign In</h1>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                  <input
+                    className="border border-slate-400 h-12 w-4/5 mt-4 max-[700px]:w-full "
+                    id="email"
+                    placeholder="Email"
+                    {...register("email", {
+                      required: true,
+                      minLength: 5,
+                      maxLength: 30,
+                      pattern: /^\S+@\S+$/i,
+                    })}
+                  />
+                  <div>
+                    {errors.email?.type === "required" && (
+                      <p className="text-red-600">you can not your email</p>
+                    )}
+                    {errors.email?.type === "minLength" && (
+                      <p className="  text-red-600">min length 5</p>
+                    )}
+                    {errors.email?.type === "maxLength" && (
+                      <p className="  text-red-600">Max length 30</p>
+                    )}
+                    {errors.email?.type === "pattern" && (
+                      <p className="  text-red-600">
+                        Please enter a valid email address
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <input
+                    type={checkPassword ? "text" : "password"}
+                    className="border border-slate-400 h-12 w-4/5 mt-5 max-[700px]:w-full "
+                    id="password"
+                    placeholder="Password"
+                    {...register("password", {
+                      required: true,
+                      minLength: 5,
+                      maxLength: 30,
+                      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                    })}
+                  />
+                  <button
+                    className="absolute right-36 top-8 max-[1300px]:right-32 max-[1200px]:right-28 max-[1000px]:right-24  max-[800px]:right-20   max-[700px]:right-5"
+                    onClick={handleCheckPassword}
+                  >
+                    <i className="fa-solid fa-eye "></i>
+                  </button>
+                  <div>
+                    {errors.password?.type === "required" && (
+                      <p className="text-left text-red-600">
+                        you can not your password
+                      </p>
+                    )}
+                    {errors.password?.type === "minLength" && (
+                      <p className=" text-red-600">min length 5</p>
+                    )}
+                    {errors.password?.type === "maxLength" && (
+                      <p className=" text-red-600">Max length 30</p>
+                    )}
+                    {errors.password?.type === "pattern" && (
+                      <p className="  text-red-600">
+                        Password must be have at least one number, one lowercase
+                        letter and one uppercase letter.
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <p className=" mt-6  mb-6">lost your password</p>
+                </div>
+                <div>
+                  <button className="border border-slate-400 h-12 w-4/5 hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
+                    {loading ? "loading..." : " Sign In"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="w-2/4 max-[700px]:w-full ">
+            <div className="max-[700px]:w-full">
+              <h1 className="text-4xl mb-10">new customer?</h1>
+              <div>
+                <p className="text-2xl text-slate-500 leading-normal mb-7">
+                  Sign up for early Sale access plus tailored new arrivals,
+                  trends and promotions. To opt out, click unsubscribe in our
+                  emails.
+                </p>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="h-12 border border-slate-500 w-36 hover:bg-red-900 bg-slate-900 text-white"
+                >
+                  <Link to="/account/register"> REGISTER</Link>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SignIn;
