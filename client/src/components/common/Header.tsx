@@ -1,9 +1,8 @@
 const Header = () => {
   return (
-    <header className="flex justify-between items-center py-4 px-6 bg-white text-gray-900 border-b-2 border-gray-300 ">
+    <header className="flex justify-between items-center py-4 px-6 bg-white text-gray-900 border-b-2 border-gray-300 sticky top-0">
       <div className="flex items-center">
         <button className="text-3xl font-bold">FUNORI</button>
-        {/* <span className="text-3xl font-bold">FUNORI</span> */}
       </div>
       <div className="flex justify-center space-x-4">
         <button className="text-gray-900 hover:underline underline-offset-8">
