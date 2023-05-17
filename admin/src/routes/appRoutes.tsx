@@ -1,4 +1,6 @@
-import AddProduct from "../components/common/AddProduct";
+import EditProduct from "../components/product/EditProduct";
+import FormProduct from "../components/product/FormProduct";
+import Overview from "../components/product/Overview";
 import Customer from "../pages/Customer";
 import Dashboard from "../pages/Dashboard";
 import Order from "../pages/Order";
@@ -22,6 +24,11 @@ const appRoutes: RouteType[] = [
       displayText: "Products",
       icon: <i className="ri-shopping-cart-2-fill"></i>,
     },
+    child: [
+      { path: "", element: <Overview /> },
+      { path: "declaration", element: <FormProduct /> },
+      { path: "edit/:id", element: <EditProduct /> },
+    ],
   },
   {
     path: "/orders",

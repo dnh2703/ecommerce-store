@@ -13,7 +13,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route element={<MainLayout />}>{routes}</Route>
           <Route path="/not-found" element={<NotFoundPage />} />
-          <Route path="*" element={<Navigate to="/not-found" />} />
+          {/* <Route path="*" element={<Navigate to="/not-found" />} /> */}
         </Routes>
       </div>
     </div>

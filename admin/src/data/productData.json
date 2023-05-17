@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Product 1",
+        "category": "Category 1",
+        "inventory": 10,
+        "company": "Company 1",
+        "price": 100
+    },
+    {
+        "name": "Product 2",
+        "category": "Category 2",
+        "inventory": 20,
+        "company": "Company 2",
+        "price": 200
+    },
+    {
+        "name": "Product 3",
+        "category": "Category 3",
+        "inventory": 30,
+        "company": "Company 3",
+        "price": 300
+    },
+    {
+        "name": "Product 1",
+        "category": "Category 1",
+        "inventory": 10,
+        "company": "Company 1",
+        "price": 100
+    },
+    {
+        "name": "Product 2",
+        "category": "Category 2",
+        "inventory": 20,
+        "company": "Company 2",
+        "price": 200
+    },
+    {
+        "name": "Product 3",
+        "category": "Category 3",
+        "inventory": 30,
+        "company": "Company 3",
+        "price": 300
+    },
+    {
+        "name": "Product 1",
+        "category": "Category 1",
+        "inventory": 10,
+        "company": "Company 1",
+        "price": 100
+    },
+    {
+        "name": "Product 2",
+        "category": "Category 2",
+        "inventory": 20,
+        "company": "Company 2",
+        "price": 200
+    },
+    {
+        "name": "Product 2",
+        "category": "Category 2",
+        "inventory": 20,
+        "company": "Company 2",
+        "price": 200
+    },
+    {
+        "name": "Product 2",
+        "category": "Category 2",
+        "inventory": 20,
+        "company": "Company 2",
+        "price": 200
+    },
+    {
+        "name": "Product 3",
+        "category": "Category 3",
+        "inventory": 30,
+        "company": "Company 3",
+        "price": 300
+    }
+]
