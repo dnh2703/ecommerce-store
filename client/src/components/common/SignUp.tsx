@@ -3,6 +3,7 @@ import { IRegisterForm } from "../../interfaces/auth";
 import { useState } from "react";
 import axios from "axios";
 import authApi from "../../api/authApi";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const {
@@ -14,6 +15,7 @@ const SignUpForm = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const TogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -33,6 +35,7 @@ const SignUpForm = () => {
       .register(data)
       .then((res) => {
         setIsSuccess(true);
+        navigate("/account/login");
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -181,8 +184,7 @@ const SignUpForm = () => {
             className=" hover:bg-orange-900 hover:text-white text-orange-900 py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full border"
             type="button"
             onClick={() => {
-              // Redirect to sign-in page
-              // Add your own logic here
+              navigate("/account/login");
             }}
           >
             Sign In
