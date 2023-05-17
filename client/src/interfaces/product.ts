@@ -24,4 +24,25 @@ export interface IProductLayout {
 
 export interface ISideFilter {}
 
+export interface IBrand {
+  id: number;
+  checked: boolean;
+  label: string;
+}
+
+export interface ClearFilterProduct {
+  collection: string;
+  isInStock: boolean;
+  isOutOfStock: boolean;
+  resetCollection: any;
+  isPriceChange: boolean;
+  brands: IBrand[];
+  resetInStock: () => void;
+  resetIsOutOfStock: () => void;
+  resetAll: () => void;
+  resetPrice: () => void;
+  resetBrand: (id: number) => void;
+  price: number[];
+}
+
 export type { IProduct };
