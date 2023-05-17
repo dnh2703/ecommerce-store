@@ -67,7 +67,7 @@ export const borderCircleGray = {
   borderRadius: "50%",
   width: "20px",
   height: "20px",
-  display: "flex",
+  display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
   fontSize: "10px",
@@ -94,7 +94,9 @@ export const InputPrice = styled("input")({
 });
 
 export const Filter = styled("span")({
+  marginTop: "4px",
   backgroundColor: "#e1e1e1",
+  fontSize: "14px",
   color: "gray",
   padding: "8px",
   display: "inline-flex",
@@ -115,6 +117,7 @@ export const Filter = styled("span")({
     transition: "0.4s",
     color: "#000",
     fontSize: "14px",
+    marginLeft: "4px",
   },
 });
 
@@ -143,3 +146,11 @@ export const FilterSideItem = styled("div")({
   cursor: "pointer",
   "&:hover": { color: "#000" },
 });
+
+export const checkboxCss = {
+  fontWeight: "200",
+  fontSize: "14px",
+  display: "inline-flex",
+  width: "100%",
+  color: "#808080",
+};

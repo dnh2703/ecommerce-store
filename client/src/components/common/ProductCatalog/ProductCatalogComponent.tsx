@@ -1,7 +1,10 @@
 import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   Grid,
+  Slider,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -16,6 +19,7 @@ import {
   FilterSideItem,
   InputPrice,
   borderCircleGray,
+  checkboxCss,
   imgProductStyles,
   productStyles,
 } from "./style";
@@ -52,11 +56,11 @@ export const ProductsColumn = (props: IProductLayout) => {
         <i className="fa-regular fa-star"></i>
         <span>({props.product.numOfReviews})</span>
       </div>
-      <NavLink to={`/products/${props.product.id}`}>
+      <Link to={`/products/${props.product.id}`}>
         <Typography color={"black"} sx={{ textTransform: "capitalize", my: 2 }}>
           {props.product.name}
         </Typography>
-      </NavLink>
+      </Link>
       <Typography variant="body1" color="gray">
         ${props.product.price / 100}
       </Typography>
@@ -66,7 +70,7 @@ export const ProductsColumn = (props: IProductLayout) => {
 
 export const ProductRoute = (props: any) => {
   return (
-    <NavLink style={{ textDecoration: "none" }} to={`/${props.name}`}>
+    <Link style={{ textDecoration: "none" }} to={`/${props.name}`}>
       <Typography
         sx={{
           opacity: "0.6",
@@ -78,7 +82,7 @@ export const ProductRoute = (props: any) => {
       >
         {props.name}
       </Typography>
-    </NavLink>
+    </Link>
   );
 };
 
@@ -122,7 +126,7 @@ export const ProductRow = (props: IProductLayout) => {
           <span>({props.product.numOfReviews})</span>
         </div>
         <div>
-          <NavLink to={`/products/${props.product.id}`}>
+          <Link to={`/products/${props.product.id}`}>
             <Typography
               color={"black"}
               fontSize={27}
@@ -130,7 +134,7 @@ export const ProductRow = (props: IProductLayout) => {
             >
               {props.product.name}
             </Typography>
-          </NavLink>
+          </Link>
         </div>
         <div>
           <Typography fontSize={20} variant="body1" color="gray">
@@ -186,6 +190,76 @@ export const GridView = styled("div")({
   gap: 2,
 });
 
+export const CheckComponent = (props: any) => {
+  const [isShow, setIsShow] = useState<boolean>(true);
+
+  return (
+    <Grid
+      item
+      xs={12}
+      sx={{
+        mb: 3,
+        mr: 4,
+        overflow: "hidden",
+        height: `${
+          isShow ? (props.names.length === 3 ? "150px" : "120px") : "35px"
+        }`,
+        transition: "1s",
+      }}
+    >
+      <FilterSide
+        onClick={() => {
+          setIsShow(!isShow);
+        }}
+      >
+        {props.filter}
+        <i
+          style={{ transition: "0.5s" }}
+          className={`fa-solid fa-angle-down ${isShow || "fa-rotate-180"}`}
+        ></i>
+      </FilterSide>
+      <div>
+        {props.names?.map((name: string) => {
+          return (
+            <FilterSideItem
+              style={{ width: "100%" }}
+              onClick={
+                name === "In stock" ? props.setInStock : props.setOutOfStock
+              }
+            >
+              <span className="flex items-center">
+                <input
+                  checked={
+                    name === "In stock" ? props.inStock : props.outOfStock
+                  }
+                  id="default-checkbox"
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 text-blue-600 outline-none mr-3 bg-gray-100 border-gray-300 rounded focus:ring-blue-500
+                 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                {name}
+              </span>
+              <Box sx={borderCircleGray}>
+                {
+                  props.products.filter((product: IProduct) => {
+                    if (name === "In stock") {
+                      return product.inventory !== 0;
+                    }
+                    if (name === "Out of stock") {
+                      return product.inventory === 0;
+                    }
+                  }).length
+                }
+              </Box>
+            </FilterSideItem>
+          );
+        })}
+      </div>
+    </Grid>
+  );
+};
+
 export const SideComponent = (props: any) => {
   const [isShow, setIsShow] = useState<boolean>(true);
 
@@ -217,7 +291,12 @@ export const SideComponent = (props: any) => {
       <div>
         {props.names?.map((name: string) => {
           return (
-            <FilterSideItem style={{ width: "100%" }}>
+            <FilterSideItem
+              style={{ width: "100%" }}
+              onClick={() => {
+                props.onclik(name);
+              }}
+            >
               {name}
               <Box sx={borderCircleGray}>
                 {
@@ -229,12 +308,7 @@ export const SideComponent = (props: any) => {
                     ) {
                       return product.category === name;
                     }
-                    if (name === "In stock") {
-                      return product.inventory !== 0;
-                    }
-                    if (name === "Out of stock") {
-                      return product.inventory === 0;
-                    }
+
                     if (
                       name === "ikea" ||
                       name === "marcos" ||
@@ -250,5 +324,54 @@ export const SideComponent = (props: any) => {
         })}
       </div>
     </Grid>
+  );
+};
+
+export const CheckboxProton = (props: any) => {
+  const { checked, label, id } = props.cuisine;
+  return (
+    <div className={`flex items-center justify-between }`}>
+      <FormControlLabel
+        sx={{}}
+        style={checkboxCss}
+        control={
+          <Checkbox
+            sx={{
+              "&.Mui-checked": {
+                color: "black",
+              },
+            }}
+            size="small"
+            checked={checked}
+            onChange={() => props.changeChecked(id)}
+            inputProps={{ "aria-label": "checkbox with small size" }}
+          />
+        }
+        label={label}
+      />
+      <Box sx={borderCircleGray}>
+        {
+          props.filteredProducts.filter((product: IProduct) => {
+            return product.company === label.toLowerCase();
+          }).length
+        }
+      </Box>
+    </div>
+  );
+};
+
+export const SliderProton = (props: any) => {
+  return (
+    <div className="flex">
+      <Slider
+        style={{ color: "black " }}
+        className="mx-2"
+        value={props.value}
+        onChange={props.changePrice}
+        min={0}
+        max={3000}
+        size="small"
+      />
+    </div>
   );
 };

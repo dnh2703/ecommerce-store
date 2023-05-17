@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { SideComponent } from "./ProductCatalogComponent";
+import {
+  CheckComponent,
+  CheckboxProton,
+  SideComponent,
+  SliderProton,
+} from "./ProductCatalogComponent";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import {
   FeaturedProductItem,
@@ -16,25 +21,38 @@ interface IFilterPannelProps {
   selectedCollection?: any;
   selectAvailability?: any;
   selectedAvailability?: any;
+  filteredProducts?: IProduct[];
+  inStock?: boolean;
+  outOfStock?: boolean;
+  names?: string[];
+  setInStock?: () => void;
+  setOutOfStock?: () => void;
+  onclick?: any;
+  checked?: boolean;
+  setBrand?: any;
 }
 
-export const FilterPannel = (props: IFilterPannelProps) => {
+export const FilterPannel = (props: any) => {
   let [isShowPrice, setIsShowPrice] = useState<boolean>(true);
   let [isShowFProduct, setIsShowFProduct] = useState<boolean>(true);
+  let [isShow, setIsShow] = useState<boolean>(true);
 
   return (
     <>
       <SideComponent
-        onclick={() => {}}
+        onclik={props.onclick}
         names={["bedroom", "kitchen", "office"]}
         products={props.products}
         filter={"COLLECTIONS"}
       />
-      <SideComponent
-        onclick={() => {}}
-        products={props.products}
+      <CheckComponent
+        products={props.filteredProducts}
         names={["In stock", "Out of stock"]}
         filter={"AVAILABILITY"}
+        inStock={props.inStock}
+        setInStock={props.setInStock}
+        outOfStock={props.outOfStock}
+        setOutOfStock={props.setOutOfStock}
       />
 
       <Grid
@@ -44,7 +62,7 @@ export const FilterPannel = (props: IFilterPannelProps) => {
           mb: 3,
           mr: 4,
           overflow: "hidden",
-          height: `${isShowPrice ? "155px" : "35px"}`,
+          height: `${isShowPrice ? "100px" : "35px"}`,
           transition: "1s",
         }}
       >
@@ -63,44 +81,67 @@ export const FilterPannel = (props: IFilterPannelProps) => {
           ></i>
         </FilterSide>
         <Box sx={{ cursor: "default" }}>
-          <FilterSideItem>
-            <div>
-              <label htmlFor="min">
-                Min price:
-                <InputPrice autoCorrect="none" type="text" id="min" />
-              </label>
-            </div>
-            <div>
-              <label htmlFor="max">
-                Max price:
-                <InputPrice type="text" id="max" />
-              </label>
-            </div>
-          </FilterSideItem>
-          <Button
-            // disabled={minPrice > maxPrice || (maxPrice === 0 && minPrice === 0)}
-            sx={{
-              width: "100%",
-              backgroundColor: "#6e2f1b",
-              opacity: "0.7",
-              transition: "0.5s",
-              color: "#fff",
-              "&:hover": {
-                backgroundColor: "#6e2f1b",
-                opacity: "1",
-              },
-            }}
-          >
-            Check
-          </Button>
+          <SliderProton
+            value={props.selectedPrice}
+            changePrice={props.changePrice}
+          />
+          <div className="text-sm">
+            Price:{" "}
+            <span className="mx-2">
+              <span>${props.price[0]}</span>
+              <i className="mx-1 text-xs fa-solid fa-minus"></i>
+              <span>${props.price[1]}</span>
+            </span>
+          </div>
         </Box>
       </Grid>
-      <SideComponent
-        onclick={() => {}}
-        products={props.products}
+
+      {/* <CheckBrandComponent
         names={["ikea", "marcos", "liddy"]}
         filter={"BRANDS"}
-      />
+        products={props.products}
+        checked={props.checked}
+        onclick={props.setBrand}
+      ></CheckBrandComponent> */}
+      <Grid
+        item
+        xs={12}
+        sx={{
+          mb: 3,
+          mr: 4,
+          overflow: "hidden",
+          height: `${isShow ? "175px" : "35px"}`,
+          transition: "1s",
+        }}
+      >
+        <FilterSide
+          onClick={() => {
+            setIsShow(!isShow);
+          }}
+        >
+          BRANDS
+          <i
+            style={{ transition: "0.5s" }}
+            className={`fa-solid fa-angle-down ${isShow || "fa-rotate-180"}`}
+          ></i>
+        </FilterSide>
+        <div>
+          {props.brand.map((cuisine: any) => (
+            <CheckboxProton
+              key={cuisine.id}
+              cuisine={cuisine}
+              changeChecked={props.changeChecked}
+              filteredProducts={
+                props.collection === "all"
+                  ? props.isChangePrice
+                    ? props.products
+                    : props.filteredProducts
+                  : props.filteredProducts
+              }
+            />
+          ))}
+        </div>
+      </Grid>
 
       <Grid
         item
