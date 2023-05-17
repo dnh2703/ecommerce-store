@@ -49,18 +49,18 @@ const SignIn = () => {
   };
 
   return (
-    <div className="box-border flex w-full text-center justify-center items-center">
-      <div className="w-4/5">
-        <h1 className="text-6xl">Account</h1>
+    <div className="box-border px-10 flex w-full container justify-between mx-auto ">
+      <div className="">
+        <h1 className="text-6xl text-center">Account</h1>
 
-        <div className="flex text-left max-[700px]:block">
-          <div className="w-2/4 max-[700px]:w-full">
+        <div className="flex justify-between items-start   max-[700px]:block">
+          <div className="w-2/4 mx-3 max-[700px]:w-full">
             <div>
               <h1 className="text-4xl">Sign In</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <input
-                    className="border border-slate-400 h-12 w-4/5 mt-4 max-[700px]:w-full "
+                    className="border border-slate-400 h-12 w-full mt-4 max-[700px]:w-full pl-2 mb-2 "
                     id="email"
                     placeholder="Email"
                     {...register("email", {
@@ -91,7 +91,7 @@ const SignIn = () => {
                 <div className="relative">
                   <input
                     type={checkPassword ? "text" : "password"}
-                    className="border border-slate-400 h-12 w-4/5 mt-5 max-[700px]:w-full "
+                    className="border border-slate-400 h-12 w-full mt-5 max-[700px]:w-full  pl-2 mb-2"
                     id="password"
                     placeholder="Password"
                     {...register("password", {
@@ -102,7 +102,7 @@ const SignIn = () => {
                     })}
                   />
                   <button
-                    className="absolute right-36 top-8 max-[1300px]:right-32 max-[1200px]:right-28 max-[1000px]:right-24  max-[800px]:right-20   max-[700px]:right-5"
+                    className="absolute right-4 top-8 "
                     onClick={handleCheckPassword}
                   >
                     <i className="fa-solid fa-eye "></i>
@@ -128,21 +128,21 @@ const SignIn = () => {
                   </div>
                 </div>
                 <div>
-                  <p className=" mt-6  mb-6">lost your password</p>
+                  <p className=" mt-6  mb-6">Forgot your password</p>
                 </div>
                 <div>
-                  <button className="border border-slate-400 h-12 w-4/5 hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
+                  <button className="border border-slate-400 h-12 w-full hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
                     {loading ? "loading..." : " Sign In"}
                   </button>
                 </div>
               </form>
             </div>
           </div>
-          <div className="w-2/4 max-[700px]:w-full ">
+          <div className=" w-2/4 mx-20  max-[700px]:w-full ">
             <div className="max-[700px]:w-full">
               <h1 className="text-4xl mb-10">new customer?</h1>
               <div>
-                <p className="text-2xl text-slate-500 leading-normal mb-7">
+                <p className="text-2xl text-slate-500 leading-normal mb-7 w-3/4">
                   Sign up for early Sale access plus tailored new arrivals,
                   trends and promotions. To opt out, click unsubscribe in our
                   emails.
