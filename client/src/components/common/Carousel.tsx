@@ -1,115 +1,71 @@
+import { useState } from "react";
+
 const Carosel = () => {
+  const slides = [
+    {
+      url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-1.jpg?v=1656490821",
+    },
+    {
+      url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-2.jpg?v=1656490833",
+    },
+    {
+      url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-3_1296x.jpg?v=1656490844",
+    },
+  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
   return (
-    <div
-      id="default-carousel"
-      className="relative w-full"
-      data-carousel="slide"
-    >
-      {/* <!-- Carousel wrapper --> */}
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-        {/* <!-- Item 1 --> */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src="D:\FPT_academy\10. Mock Project Main\ecommerce-store\client\src\assets\slider-3.webp"
-            className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-            alt="..."
-          />
-          <div>
-            <h2>Clearance Sale</h2>
-            <p>Up to 20% off + free delivery</p>
-            <button>Shop now</button>
-          </div>
-        </div>
-        {/* <!-- Item 2 --> */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src="	https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-2.jpg?v=1656490833"
-            className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-            alt="..."
-          />
-        </div>
-        {/* <!-- Item 3 --> */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src="/docs/images/carousel/carousel-3.svg"
-            className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-            alt="..."
-          />
-        </div>
-      </div>
-      {/* <!-- Slider indicators --> */}
-      <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-        <button
-          type="button"
-          className="w-3 h-3 rounded-full"
-          aria-current="true"
-          aria-label="Slide 1"
-          data-carousel-slide-to="0"
-        ></button>
-        <button
-          type="button"
-          className="w-3 h-3 rounded-full"
-          aria-current="false"
-          aria-label="Slide 2"
-          data-carousel-slide-to="1"
-        ></button>
-        <button
-          type="button"
-          className="w-3 h-3 rounded-full"
-          aria-current="false"
-          aria-label="Slide 3"
-          data-carousel-slide-to="2"
-        ></button>
-      </div>
-      {/* <!-- Slider controls --> */}
-      <button
-        type="button"
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-        data-carousel-prev
+    <div className="relative max-w-full h-[780px] w-full m-auto py-16">
+      <div
+        style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+        className="w-full h-full bg-center bg-cover duration-500"
       >
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+        <div className="absolute top-[50%] -translate-x-0 translate-y-[50%] left-5 rounded-full text-2xl p-2 bg-black/20 text-white cursor-pointer">
           <svg
-            aria-hidden="true"
-            className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
             fill="none"
             stroke="currentColor"
+            stroke-width="1.5"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+            onClick={prevSlide}
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 19l-7-7 7-7"
+              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
             ></path>
           </svg>
-          <span className="sr-only">Previous</span>
-        </span>
-      </button>
-      <button
-        type="button"
-        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-        data-carousel-next
-      >
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+        </div>
+        <div className="absolute top-[50%] -translate-x-0 translate-y-[50%] right-5 rounded-full text-2xl p-2 bg-black/20 text-white cursor-pointer">
           <svg
-            aria-hidden="true"
-            className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
             fill="none"
             stroke="currentColor"
+            stroke-width="1.5"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+            onClick={nextSlide}
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
+              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
             ></path>
           </svg>
-          <span className="sr-only">Next</span>
-        </span>
-      </button>
+        </div>
+      </div>
     </div>
   );
 };
