@@ -81,10 +81,7 @@ export const FilterPannel = (props: any) => {
           ></i>
         </FilterSide>
         <Box sx={{ cursor: "default" }}>
-          <SliderProton
-            value={props.selectedPrice}
-            changePrice={props.changePrice}
-          />
+          <SliderProton value={props.price} changePrice={props.changePrice} />
           <div className="text-sm">
             Price:{" "}
             <span className="mx-2">
