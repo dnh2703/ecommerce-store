@@ -1,17 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IProduct } from "../../interfaces/product";
 
-const initialState = {
+interface ProductState {
+  products: IProduct[];
+  loading: boolean;
+  error: boolean;
+}
+
+const initialState: ProductState = {
   products: [],
-  loading: true,
-  
+  loading: false,
+  error: false,
 };
 
 const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    getProductsStart: (state) => {
+      state.loading = true;
+    },
+    getProductsSuccess: (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+    },
+    getProductsFailure: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    deleteProductAction: (state, action) => {
+      const index = state.products.findIndex(
+        (product) => product._id === action.payload
+      );
+      if (index !== -1) {
+        state.products = state.products.filter(
+          (product) => product._id !== action.payload
+        );
+      }
+    },
+  },
 });
 
-export const {} = productSlice.actions
+export const {
+  getProductsFailure,
+  getProductsStart,
+  getProductsSuccess,
+  deleteProductAction,
+} = productSlice.actions;
 
-export const productReducer = productSlice.reducer;
+const productReducer = productSlice.reducer;
+export default productReducer;
