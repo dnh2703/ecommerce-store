@@ -104,7 +104,7 @@ export const Filter = styled("span")({
   alignItems: "center",
   cursor: "pointer",
   transition: "0.5s",
-  marginLeft: "10px",
+  marginRight: "10px",
   "&:hover": {
     backgroundColor: "#000",
     color: "#fff",
@@ -140,7 +140,7 @@ export const FilterSideItem = styled("div")({
   justifyContent: "space-between",
   alignItems: "center",
   fontSize: 14,
-  color: "gray",
+
   marginBottom: "8px",
   paddingBottom: "8px",
   cursor: "pointer",

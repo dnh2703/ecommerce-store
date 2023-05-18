@@ -5,7 +5,7 @@ import { IBrand, ClearFilterProduct } from "../../../interfaces/product";
 
 export default function ClearFilter(props: ClearFilterProduct) {
   return (
-    <Grid item xs={9}>
+    <Grid item xs={8}>
       {props.collection !== "all" && (
         <Filter
           onClick={() => {
