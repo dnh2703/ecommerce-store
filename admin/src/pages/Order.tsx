@@ -1,70 +1,9 @@
+import Breadcrumb from "../components/common/Breadcrumb";
+
 const Order = () => {
   return (
     <div className="md:p-4">
-      <nav className="flex pb-4" aria-label="Breadcrumb">
-        <ol className="inline-flex items-center space-x-1 md:space-x-3">
-          <li className="inline-flex items-center">
-            <a
-              href="#"
-              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
-            >
-              <svg
-                aria-hidden="true"
-                className="w-4 h-4 mr-2"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <div className="flex items-center">
-              <svg
-                aria-hidden="true"
-                className="w-6 h-6 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <a
-                href="#"
-                className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"
-              >
-                Projects
-              </a>
-            </div>
-          </li>
-          <li aria-current="page">
-            <div className="flex items-center">
-              <svg
-                aria-hidden="true"
-                className="w-6 h-6 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
-                Flowbite
-              </span>
-            </div>
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb/>
 
       <div className="  flex items-center justify-between">
         <div>
@@ -126,7 +65,7 @@ const Order = () => {
               <th scope="col" className="px-6 py-3">
                 <div className="flex items-center">
                   Color
-                  <a href="#">
+                  <button type="button" title="button Gd">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-3 h-3 ml-1"
@@ -136,13 +75,13 @@ const Order = () => {
                     >
                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </th>
               <th scope="col" className="px-6 py-3">
                 <div className="flex items-center">
                   Category
-                  <a href="#">
+                  <button type="button" title="button Gd">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-3 h-3 ml-1"
@@ -152,13 +91,13 @@ const Order = () => {
                     >
                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </th>
               <th scope="col" className="px-6 py-3">
                 <div className="flex items-center">
                   Price
-                  <a href="#">
+                  <button type="button" title="button Gd">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-3 h-3 ml-1"
@@ -168,7 +107,7 @@ const Order = () => {
                     >
                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </th>
               <th scope="col" className="px-6 py-3">

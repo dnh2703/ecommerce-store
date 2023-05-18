@@ -1,44 +1,33 @@
 import React from "react";
-import { Line } from "recharts";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Colors,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
-const Data = [
-  {
-    id: 1,
-    year: 2016,
-    userGain: 80000,
-    userLost: 823,
-  },
-  {
-    id: 2,
-    year: 2017,
-    userGain: 45677,
-    userLost: 345,
-  },
-  {
-    id: 3,
-    year: 2018,
-    userGain: 78888,
-    userLost: 555,
-  },
-  {
-    id: 4,
-    year: 2019,
-    userGain: 90000,
-    userLost: 4555,
-  },
-  {
-    id: 5,
-    year: 2020,
-    userGain: 4300,
-    userLost: 234,
-  },
-];
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Colors
+);
 
-const LineChart = () => {
+ChartJS.defaults.color = "rgb(156 163 175)";
+ChartJS.defaults.borderColor = "rgb(55 65 81)";
+
+const LineChart = ({ data, options, height }: any) => {
   return (
     <div className="chart-container">
-      <h2>Line Chart</h2>
-      <Line data={Data} />
+      <Line options={options} data={data} height={height} />
     </div>
   );
 };

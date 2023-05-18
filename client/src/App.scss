@@ -62,3 +62,14 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+select {
+  /*for firefox*/
+  -moz-appearance: none;
+  /*for chrome*/
+  -webkit-appearance: none;
+  appearance: none;
+}
+/*for IE10+*/
+select::-ms-expand {
+  display: none;
+}

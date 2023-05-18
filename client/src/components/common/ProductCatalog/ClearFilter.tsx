@@ -5,7 +5,7 @@ import { IBrand, ClearFilterProduct } from "../../../interfaces/product";
 
 export default function ClearFilter(props: ClearFilterProduct) {
   return (
-    <Grid item xs={9}>
+    <Grid item xs={8}>
       {props.collection !== "all" && (
         <Filter
           onClick={() => {
@@ -69,12 +69,15 @@ export default function ClearFilter(props: ClearFilterProduct) {
       props.brands[1].checked ||
       props.brands[2].checked ||
       props.isPriceChange ? (
-        <Filter onClick={props.resetAll}>
+        <div
+          className="inline-flex ml-2 mt-1 p-2 cursor-pointer group/clear items-center hover:text-red-500"
+          onClick={props.resetAll}
+        >
           Clear All{" "}
           <span>
-            <i className="fa-solid fa-xmark"></i>
+            <i className="group-hover/clear:rotate-180 group-hover/clear:scale-75 ml-1 duration-500 fa-solid fa-xmark"></i>
           </span>
-        </Filter>
+        </div>
       ) : (
         ""
       )}
