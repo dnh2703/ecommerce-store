@@ -10,6 +10,9 @@ import TermsAndConditions from "../components/common/ProductDetail/TermsAndCondi
 import AskModal from "../components/common/ProductDetail/AskModal";
 import DeliveryModal from "../components/common/ProductDetail/DeliveryModal";
 import StoreInfo from "../components/common/ProductDetail/StoreInfo";
+import ProductReview from "../components/common/ProductDetail/ProductReview/ProductReview";
+import { IReview } from "../interfaces/review";
+import reviewApi from "../api/reviewApi";
 
 interface ShowModal {
   termsAndConditions: boolean;
@@ -21,6 +24,8 @@ interface ShowModal {
 export default function ProductDetailPage() {
   let { id } = useParams();
   let [product, setProduct] = useState<IProduct>();
+  let [reviews, setReviews] = useState<IReview[]>();
+  let [productReviews, setProductReviews] = useState<IReview[]>();
   let [isShowModal, setIsShowModal] = useState<ShowModal>({
     termsAndConditions: false,
     ask: false,
@@ -30,7 +35,25 @@ export default function ProductDetailPage() {
 
   useEffect(() => {
     productApi.getProductDetail(id).then((res) => setProduct(res.data.product));
+    reviewApi.getAllReview().then((res) => setReviews(res.data?.reviews));
   }, []);
+
+  useEffect(() => {
+    let filterReviews: IReview[] = [];
+    if (reviews !== undefined) {
+      filterReviews = [...reviews];
+    }
+    filterReviews = filterReviews.filter(
+      (review: IReview) => review.product.id === id
+    );
+    filterReviews.map((review: IReview) => {
+      let date = new Date(review.createdAt);
+      return (review.createdAt = `${date.getDate()}/${
+        date.getMonth() + 1
+      }/${date.getFullYear()}`);
+    });
+    setProductReviews(filterReviews);
+  }, [reviews]);
 
   return (
     <div className="relative">
@@ -122,7 +145,11 @@ export default function ProductDetailPage() {
             showStoreInfo={() => {
               setIsShowModal({ ...isShowModal, storeInfomation: true });
             }}
-          ></ProductDetail>
+          />
+        </div>
+
+        <div>
+          <ProductReview product={product} reviews={productReviews} />
         </div>
       </Container>
     </div>
