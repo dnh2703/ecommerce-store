@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import * as React from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { ProductRoute } from "../components/common/ProductCatalog/ProductCatalogComponent";
@@ -9,11 +9,13 @@ import ProductDetail from "../components/common/ProductDetail/ProductDetail";
 import TermsAndConditions from "../components/common/ProductDetail/TermsAndConditions";
 import AskModal from "../components/common/ProductDetail/AskModal";
 import DeliveryModal from "../components/common/ProductDetail/DeliveryModal";
+import StoreInfo from "../components/common/ProductDetail/StoreInfo";
 
 interface ShowModal {
   termsAndConditions: boolean;
   ask: boolean;
   delivery: boolean;
+  storeInfomation: boolean;
 }
 
 export default function ProductDetailPage() {
@@ -23,6 +25,7 @@ export default function ProductDetailPage() {
     termsAndConditions: false,
     ask: false,
     delivery: false,
+    storeInfomation: false,
   });
 
   useEffect(() => {
@@ -31,6 +34,18 @@ export default function ProductDetailPage() {
 
   return (
     <div className="relative">
+      {isShowModal.storeInfomation && (
+        <StoreInfo
+          isShow={isShowModal.storeInfomation}
+          product={product}
+          closeModal={() => {
+            setIsShowModal({
+              ...isShowModal,
+              storeInfomation: false,
+            });
+          }}
+        />
+      )}
       {isShowModal.ask && (
         <AskModal
           product={product}
@@ -62,7 +77,7 @@ export default function ProductDetailPage() {
           }}
         />
       )}
-      <div className="max-w-7xl mx-auto ">
+      <Container maxWidth="xl">
         <header className="flex items-center py-5">
           <ProductRoute name="home" />
           <i
@@ -80,11 +95,17 @@ export default function ProductDetailPage() {
         </header>
 
         <div className="flex">
-          <div className="pr-10 basis-1/2">
+          <div className="pr-10 basis-1/2 relative w-full">
             <img
-              src="https://cdn.shopify.com/s/files/1/0136/8467/0523/products/products-10_1080x1080.jpg?v=1656481580"
+              src={product?.image}
+              className={`${product?.inventory === 0 && "grayscale"} w-full`}
               alt=""
             />
+            {product?.inventory === 0 && (
+              <span className="absolute top-2 left-2 bg-gray-100 text-lg px-4">
+                Out of stock
+              </span>
+            )}
           </div>
 
           <ProductDetail
@@ -98,9 +119,12 @@ export default function ProductDetailPage() {
             showDelivery={() => {
               setIsShowModal({ ...isShowModal, delivery: true });
             }}
+            showStoreInfo={() => {
+              setIsShowModal({ ...isShowModal, storeInfomation: true });
+            }}
           ></ProductDetail>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

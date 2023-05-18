@@ -73,3 +73,7 @@ select {
 select::-ms-expand {
   display: none;
 }
+
+* {
+  box-sizing: border-box;
+}
