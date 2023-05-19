@@ -22,40 +22,7 @@ const ImageSlider = () => {
     );
   };
 
-  return (
-    <div className="flex items-center justify-center">
-      <div className="w-full md:w-2/3">
-        <div className="relative">
-          {images.slice(currentIndex, currentIndex + 4).map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Image ${index + 1}`}
-              className="absolute inset-0 mx-2 md:mx-4 rounded-lg shadow-lg"
-              style={{
-                transform: `translateX(${index * 25}%)`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          ))}
-        </div>
-        <div className="flex justify-center mt-4">
-          <button
-            className="px-2 py-1 text-sm text-gray-600 hover:text-gray-900"
-            onClick={prevSlide}
-          >
-            Previous
-          </button>
-          <button
-            className="px-2 py-1 text-sm text-gray-600 hover:text-gray-900"
-            onClick={nextSlide}
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="flex items-center justify-center">Image slider</div>;
 };
 
 export default ImageSlider;

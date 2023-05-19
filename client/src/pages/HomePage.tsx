@@ -7,10 +7,10 @@ import ImageSlider from "../components/common/ImageSlider";
 const HomePage = () => {
   return (
     <>
-      {/* <Header></Header> */}
-      {/* <Carosel /> */}
+      <Header></Header>
+      <Carosel />
       <ImageSlider />
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </>
   );
 };
