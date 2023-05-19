@@ -11,7 +11,6 @@ const ProductItem = ({
   delProduct,
   editProduct,
 }: ProductItemProps) => {
-
   const handleEdit = () => {
     editProduct(product._id);
   };
@@ -59,7 +58,7 @@ const ProductItem = ({
               clipRule="evenodd"
             ></path>
           </svg>
-          Edit product
+          Edit item
         </button>
         <button
           type="button"
@@ -78,7 +77,7 @@ const ProductItem = ({
               clipRule="evenodd"
             />
           </svg>
-          Delete product
+          Delete item
         </button>
       </td>
     </tr>

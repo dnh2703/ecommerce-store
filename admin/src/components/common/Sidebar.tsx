@@ -1,7 +1,7 @@
 import useComponentVisible from "../../hooks/useComponentVisible";
 import { NavLink, useNavigate } from "react-router-dom";
 import appRoutes from "../../routes/appRoutes";
-import authApi from "../../api/authApi";
+import authApi from "../../api/modules/authApi";
 
 const Sidebar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
@@ -71,9 +71,7 @@ const Sidebar = () => {
               />
               <div className="text-left">
                 <div className="font-bold">Batman</div>
-                <div className="text-sm text-gray-400 ">
-                  admin@gmail.com
-                </div>
+                <div className="text-sm text-gray-400 ">admin@gmail.com</div>
               </div>
             </div>
             <svg

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ILoginForm } from "../interfaces/auth";
-import authApi from "../api/authApi";
+import authApi from "../api/modules/authApi";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const {
@@ -21,7 +22,14 @@ const Login = () => {
     await authApi
       .login(data)
       .then((res) => {
-        navigate("/dashboard", { replace: true });
+        console.log(res);
+        if (res.data.user.role !== "admin") {
+          setErrMessage("You don't have permission to access");
+        } else {
+          Cookies.set("accessToken", res.data.accessToken);
+          Cookies.set("refreshToken", res.data.refreshToken);
+          navigate("/dashboard", { replace: true });
+        }
       })
       .catch((err) => {
         setErrMessage(err.response.data.msg);
@@ -142,6 +150,7 @@ const Login = () => {
                 </div>
                 <button
                   type="submit"
+                  disabled={loading}
                   className={`${
                     loading && "cursor-not-allowed"
                   } w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}

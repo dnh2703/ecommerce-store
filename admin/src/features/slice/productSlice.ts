@@ -38,6 +38,9 @@ const productSlice = createSlice({
         );
       }
     },
+    toggleSortProductAction : (state,action) => {
+      
+    }
   },
 });
 

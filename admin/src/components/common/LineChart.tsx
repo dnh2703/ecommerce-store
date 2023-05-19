@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Colors,
+  Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
@@ -18,7 +19,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Colors
+  Colors,
+  Filler
 );
 
 ChartJS.defaults.color = "rgb(156 163 175)";

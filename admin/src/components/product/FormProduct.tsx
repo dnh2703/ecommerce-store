@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../../interfaces/product";
-import productApi from "../../api/productApi";
+import productApi from "../../api/modules/productApi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 

@@ -8,8 +8,7 @@ const generateRoute = (routes: RouteType[]): ReactNode => {
   return routes.map((route, index) => (
     <Route
       path={route.path}
-      // element={<ProtectedRoute>{route.element}</ProtectedRoute>}
-      element={route.element}
+      element={<ProtectedRoute>{route.element}</ProtectedRoute>}
       key={index}
     >
       {route.child && generateRoute(route.child)}

@@ -8,7 +8,7 @@ import { IProduct } from "../../interfaces/product";
 import TableHeader from "./TableHeader";
 import PaginationTable from "./PaginationTable";
 import Swal from "sweetalert2";
-import productApi from "../../api/productApi";
+import productApi from "../../api/modules/productApi";
 import { useNavigate } from "react-router-dom";
 import ProductItem from "./ProductItem";
 
@@ -90,8 +90,19 @@ const ProductList = () => {
     navigate(`edit/${id}`);
   };
 
+
   const renderProductList = () => {
-    if (dataProducts.length > 0) {
+
+    
+    if (loading) {
+      return (
+        <tr className="animate-pulse bg-white dark:bg-gray-800 dark:border-gray-700">
+          <th scope="row" colSpan={7} className="px-6 py-4 text-center">
+            Loading ...
+          </th>
+        </tr>
+      );
+    } else if (dataProducts.length > 0) {
       return dataProducts.slice(start, finish).map((product) => {
         return (
           <ProductItem
@@ -106,7 +117,7 @@ const ProductList = () => {
       return (
         <tr className="bg-white dark:bg-gray-800 dark:border-gray-700">
           <th scope="row" colSpan={7} className="px-6 py-4 text-center">
-            No products
+            No products found
           </th>
         </tr>
       );

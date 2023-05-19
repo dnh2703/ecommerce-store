@@ -1,3 +1,5 @@
+import OrderDetail from "../components/order/OrderDetail";
+import OrderList from "../components/order/OrderList";
 import EditProduct from "../components/product/EditProduct";
 import FormProduct from "../components/product/FormProduct";
 import Overview from "../components/product/Overview";
@@ -37,6 +39,10 @@ const appRoutes: RouteType[] = [
       displayText: "Orders",
       icon: <i className="ri-inbox-archive-fill"></i>,
     },
+    child: [
+      { path: "detail/:id", element: <OrderDetail /> },
+      { path: "", element: <OrderList /> },
+    ],
   },
   {
     path: "/customers",
