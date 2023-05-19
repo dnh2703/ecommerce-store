@@ -5,6 +5,7 @@ import { Grid, Box, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import TextRating from "../Rating";
 import { useState } from "react";
+import { QuickView } from "../QuickView";
 
 export default function ProductCarousel(props: any) {
   let navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function ProductCarousel(props: any) {
                   window.location.reload();
                   window.scrollTo(0, 0);
                 }}
-                className={`item sm:mx-5 lg:mx-14 w-[25%] cursor-pointer`}
+                className={`item sm:mx-5 lg:mx-14 w-[25%] cursor-pointer `}
               >
                 <div>
                   <img className="w-full" src={product.image} alt="" />

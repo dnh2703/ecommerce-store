@@ -200,7 +200,6 @@ export default function ProductDetailPage() {
         <ProductReview product={product} reviews={productReviews} />
         <ProductCarousel brandProducts={brandProducts} />
         <BestRatingProducts products={bestRatingProducts} />
-        <div></div>
       </Container>
     </div>
   );

@@ -18,6 +18,7 @@ interface IProduct {
 }
 
 export interface IProductLayout {
+  quickView?: () => void;
   product: IProduct;
   cols: number;
 }
