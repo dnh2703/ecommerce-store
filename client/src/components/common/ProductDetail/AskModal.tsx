@@ -11,24 +11,13 @@ interface Customer {
 }
 
 export default function AskModal(props: any) {
-  let [customer, setCustomer] = useState<Customer>({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setCustomer({ ...customer, name: e.target.value });
-  };
-
   return (
-    <div className="absolute z-[2] w-full h-[100vh] top-0 left-0 ">
+    <div className="fixed z-[2] w-full h-[100vh] top-0 left-0 ">
       <div
         onClick={props.closeModal}
         className="absolute w-full h-[100vh] top-0 left-0 bg-stone-950 opacity-60 "
       ></div>
-      <div className="h-4/5 absolute z-[3] translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-gray-100 w-1/3 p-8 animate-[modalHeight_0.5s_ease-in-out]  overflow-y-scroll">
+      <div className="h-4/5 absolute z-[3]  translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-gray-100 w-[500px] p-8 animate-[modalHeight_0.5s_ease-in-out]  overflow-y-scroll">
         <div className="border-b-[1px] flex justify-between border-gray-300 mb-8">
           <h2 className="pb-4 text-3xl border-b-2 border-black inline-block">
             Ask a question
@@ -43,15 +32,15 @@ export default function AskModal(props: any) {
           }}
           className="text-sm"
         >
-          <div className="flex gap-4 mb-5">
+          <div className="flex gap-4 w-full mb-5">
             <input
               placeholder="Yourname"
-              className="bg-gray-200 leading-[50px] basis-1/2 outline-none px-5"
+              className="bg-gray-200 leading-[50px] basis-1/2 px-5"
               type="text"
             />
             <input
               placeholder="Your email"
-              className="bg-gray-200 leading-[50px] basis-1/2 outline-none px-5"
+              className="bg-gray-200 leading-[50px] basis-1/2 px-5"
               type="email"
             />
           </div>
@@ -81,10 +70,7 @@ export default function AskModal(props: any) {
           </div>
           <div className="flex">
             <div className="basis-1/5 mr-5">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0136/8467/0523/products/products-10_1080x1080.jpg?v=1656481580"
-                alt=""
-              />
+              <img src={props.product?.image} alt="" />
             </div>
             <div className="basis-4/5 flex flex-col justify-center gap-2">
               <p className="capitalize">{props.product?.name}</p>

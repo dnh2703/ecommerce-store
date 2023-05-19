@@ -47,8 +47,7 @@ export const productStyles = {
     mr: "8px",
   },
   span: {
-    fontSize: "12px",
-    color: "gray",
+    fontSize: "14px",
   },
 
   a: {

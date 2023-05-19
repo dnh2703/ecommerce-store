@@ -73,3 +73,12 @@ select {
 select::-ms-expand {
   display: none;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+li {
+  list-style: disc;
+  margin-bottom: 10px;
+}
