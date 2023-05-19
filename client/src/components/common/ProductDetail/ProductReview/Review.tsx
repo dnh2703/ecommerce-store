@@ -10,7 +10,11 @@ export default function Review(props: IProductReview) {
   let [writingReview, setWritingReviews] = useState<boolean>(false);
 
   return (
-    <div>
+    <div
+      className={`${
+        props.show ? "max-lg:block" : "max-lg:hidden"
+      } overflow-hidden duration-500`}
+    >
       <p className="text-3xl">Customer Reviews</p>
       <div className="flex my-10 items-center w-full justify-between">
         <div className="flex items-center">
@@ -40,6 +44,7 @@ export default function Review(props: IProductReview) {
           product={props.product}
           closeWriteReview={() => setWritingReviews(false)}
           reviews={props.reviews}
+          writingReview={writingReview}
         />
       )}
       {props.reviews?.map((review: IReview) => (

@@ -8,7 +8,7 @@ export default function ProductDetail(props: any) {
   let [hours, setHours] = useState<number>(Math.floor(Math.random() * 23) + 1);
 
   return (
-    <div className="pl-10 basis-1/2">
+    <div className="lg:pl-10 sm:basis-full lg:basis-1/2">
       <div className=" mb-2">
         <Box
           sx={{ span: { fontSize: "14px" } }}
@@ -45,7 +45,7 @@ export default function ProductDetail(props: any) {
           <i className="animate-[flames_2s_linear_infinite] absolute top-[-10px] text-2xl text-red-500 fa-sharp fa-beat fa-solid fa-fire-flame-curved"></i>
         </div>
         <p className="font-semibold text-red-500 pl-7">
-          {100 - props.product?.inventory} sold in last {hours} hours
+          {84 - props.product?.inventory} sold in last {hours} hours
         </p>
       </div>
       <p className="my-3">
@@ -107,7 +107,7 @@ export default function ProductDetail(props: any) {
         </div>
       </div>
       <div className="my-10 border border-gray-300 py-9 px-6 relative flex justify-center">
-        <span className="absolute top-[-10px] bg-white left-1/2 translate-x-[-50%] px-2">
+        <span className="absolute top-[-10px] bg-white text-center w-3/5 px-2">
           GUARANTEE SAFE & SECURE CHECKOUT
         </span>
         <img

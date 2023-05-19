@@ -5,11 +5,16 @@ import { IReview } from "../../../../interfaces/review";
 export interface IProductReview {
   product?: IProduct;
   reviews?: IReview[];
+  show?: boolean;
 }
 
 export default function Description(props: IProductReview) {
   return (
-    <div className=" text-gray-500">
+    <div
+      className={` text-gray-500 duration-500 overflow-hidden ${
+        props.show ? "max-lg:h-[490px]" : "max-lg:h-0"
+      }`}
+    >
       <p className="mb-10">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

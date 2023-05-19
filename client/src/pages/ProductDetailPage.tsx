@@ -31,6 +31,7 @@ export default function ProductDetailPage() {
   let [allProducts, setAllProducts] = useState<IProduct[]>();
   let [brandProducts, setBrandProducts] = useState<IProduct[]>();
   let [bestRatingProducts, setBestRatingProducts] = useState<IProduct[]>();
+  let [isScroll, setIsScroll] = useState<boolean>(false);
   let [isShowModal, setIsShowModal] = useState<ShowModal>({
     termsAndConditions: false,
     ask: false,
@@ -82,6 +83,30 @@ export default function ProductDetailPage() {
 
   return (
     <div className="relative">
+      {(() => {
+        window.onscroll = function () {
+          scrollFunction();
+        };
+        function scrollFunction() {
+          if (
+            document.body.scrollTop > 600 ||
+            document.documentElement.scrollTop > 600
+          ) {
+            setIsScroll(true);
+          } else {
+            setIsScroll(false);
+          }
+        }
+        return <></>;
+      })()}
+      {isScroll && (
+        <div
+          onClick={() => window.scrollTo(0, 0)}
+          className="z-20 fixed rounded-full hover:bg-black hover:text-white duration-500 bg-white text-black border border-black w-[50px] h-[50px] bottom-20 right-8 flex items-center justify-center cursor-pointer"
+        >
+          <i className="fa-solid fa-arrow-up"></i>
+        </div>
+      )}
       {isShowModal.storeInfomation && (
         <StoreInfo
           isShow={isShowModal.storeInfomation}
@@ -142,8 +167,8 @@ export default function ProductDetailPage() {
           </Typography>
         </header>
 
-        <div className="flex">
-          <div className="pr-10 basis-1/2 relative w-full">
+        <div className="flex sm:flex-wrap">
+          <div className="sm:mb-10 lg:pr-10 sm:basis-full lg:basis-1/2 relative">
             <img
               src={product?.image}
               className={`${product?.inventory === 0 && "grayscale"} w-full`}

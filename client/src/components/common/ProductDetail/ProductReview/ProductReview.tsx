@@ -4,12 +4,25 @@ import Description from "./Description";
 import Review from "./Review";
 import Shipping from "./Shipping";
 
+interface IShowReview {
+  description: boolean;
+  review: boolean;
+  shipping: boolean;
+  return: boolean;
+}
+
 export default function ProductReview(props: any) {
   let [content, setContent] = useState<string>("description");
+  let [isShow, setIsShow] = useState<IShowReview>({
+    description: false,
+    review: false,
+    shipping: false,
+    return: false,
+  });
 
   return (
     <div className="my-8">
-      <div className="flex w-full text-2xl justify-center text-gray-500 border-b-[2px]">
+      <div className="lg:flex hidden w-full text-2xl justify-center text-gray-500 border-b-[2px]">
         <div onClick={() => setContent("description")} className="mx-8">
           <span className="group/review relative ">
             <h3
@@ -78,12 +91,81 @@ export default function ProductReview(props: any) {
           </span>
         </div>
       </div>
-      <div className="py-12 border-b-[2px]">
+      <div className="lg:block hidden py-12 border-b-[2px]">
         {content === "description" && <Description />}
         {content === "review" && (
           <Review product={props.product} reviews={props.reviews} />
         )}
         {content === "shipping" || content === "return" ? <Shipping /> : <></>}
+      </div>
+
+      <div className="lg:hidden">
+        <div
+          onClick={() => {
+            setIsShow({ ...isShow, description: !isShow.description });
+          }}
+          className="lg:hidden sm:flex items-center mb-4 justify-between cursor-pointer py-3 px-5 bg-gray-100"
+        >
+          <p>Description</p>
+          {isShow.description ? (
+            <i className="fa-solid fa-minus"></i>
+          ) : (
+            <i className="fa-solid fa-plus"></i>
+          )}
+        </div>
+        <Description show={isShow.description}></Description>
+
+        <div
+          onClick={() => {
+            setIsShow({ ...isShow, review: !isShow.review });
+          }}
+          className="lg:hidden sm:flex items-center mb-4 justify-between cursor-pointer py-3 px-5 bg-gray-100"
+        >
+          <p>Review</p>
+          {isShow.review ? (
+            <i className="fa-solid fa-minus"></i>
+          ) : (
+            <i className="fa-solid fa-plus"></i>
+          )}
+        </div>
+
+        <Review
+          show={isShow.review}
+          product={props.product}
+          reviews={props.reviews}
+        ></Review>
+
+        <div
+          onClick={() => {
+            setIsShow({ ...isShow, shipping: !isShow.shipping });
+          }}
+          className="lg:hidden sm:flex items-center mb-4 justify-between cursor-pointer py-3 px-5 bg-gray-100"
+        >
+          <p>Shipping</p>
+          {isShow.description ? (
+            <i className="fa-solid fa-minus"></i>
+          ) : (
+            <i className="fa-solid fa-plus"></i>
+          )}
+        </div>
+
+        <Shipping show={isShow.shipping}></Shipping>
+
+        <div
+          onClick={() => {
+            setIsShow({ ...isShow, return: !isShow.return });
+          }}
+          className="lg:hidden sm:flex items-center mb-4 justify-between cursor-pointer py-3 px-5 bg-gray-100"
+        >
+          <p>Return</p>
+          {isShow.description ? (
+            <i className="fa-solid fa-minus"></i>
+          ) : (
+            <i className="fa-solid fa-plus"></i>
+          )}
+        </div>
+
+        <Shipping show={isShow.return}></Shipping>
       </div>
     </div>
   );
