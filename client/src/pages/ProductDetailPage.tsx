@@ -13,6 +13,8 @@ import StoreInfo from "../components/common/ProductDetail/StoreInfo";
 import ProductReview from "../components/common/ProductDetail/ProductReview/ProductReview";
 import { IReview } from "../interfaces/review";
 import reviewApi from "../api/reviewApi";
+import ProductCarousel from "../components/common/ProductDetail/ProductCarousel";
+import BestRatingProducts from "../components/common/ProductDetail/BestRatingProduct";
 
 interface ShowModal {
   termsAndConditions: boolean;
@@ -26,6 +28,9 @@ export default function ProductDetailPage() {
   let [product, setProduct] = useState<IProduct>();
   let [reviews, setReviews] = useState<IReview[]>();
   let [productReviews, setProductReviews] = useState<IReview[]>();
+  let [allProducts, setAllProducts] = useState<IProduct[]>();
+  let [brandProducts, setBrandProducts] = useState<IProduct[]>();
+  let [bestRatingProducts, setBestRatingProducts] = useState<IProduct[]>();
   let [isShowModal, setIsShowModal] = useState<ShowModal>({
     termsAndConditions: false,
     ask: false,
@@ -35,8 +40,28 @@ export default function ProductDetailPage() {
 
   useEffect(() => {
     productApi.getProductDetail(id).then((res) => setProduct(res.data.product));
+    productApi
+      .getAllProducts()
+      .then((res) => setAllProducts(res.data?.products));
     reviewApi.getAllReview().then((res) => setReviews(res.data?.reviews));
   }, []);
+
+  useEffect(() => {
+    let newProducts: IProduct[];
+    let bestRatingP: IProduct[];
+    if (allProducts !== undefined) {
+      newProducts = [...allProducts];
+      newProducts = newProducts.filter(
+        (p: IProduct) => p.company === product?.company && p.id !== product.id
+      );
+      setBrandProducts(newProducts);
+      bestRatingP = [...allProducts];
+      bestRatingP = bestRatingP
+        .sort((a: IProduct, b: IProduct) => b.averageRating - a.averageRating)
+        .slice(0, 4);
+      setBestRatingProducts(bestRatingP);
+    }
+  }, [allProducts]);
 
   useEffect(() => {
     let filterReviews: IReview[] = [];
@@ -147,10 +172,10 @@ export default function ProductDetailPage() {
             }}
           />
         </div>
-
-        <div>
-          <ProductReview product={product} reviews={productReviews} />
-        </div>
+        <ProductReview product={product} reviews={productReviews} />
+        <ProductCarousel brandProducts={brandProducts} />
+        <BestRatingProducts products={bestRatingProducts} />
+        <div></div>
       </Container>
     </div>
   );

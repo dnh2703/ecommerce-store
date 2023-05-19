@@ -16,6 +16,17 @@ export default {
             opacity: "1",
           },
         },
+        arrow: {
+          "0%": {
+            transform: "translateX(2px)",
+          },
+          "50%": {
+            transform: "translateX(-2px)",
+          },
+          "100%": {
+            transform: "translateX(2px)",
+          },
+        },
         modalHeight: {
           "0%": {
             height: "0px",
