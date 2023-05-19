@@ -2,6 +2,8 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import productReducer from "../features/slice/productSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./rootSaga";
+import userReducer from "../features/slice/userSlice";
+import orderReducer from "../features/slice/orderSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -10,6 +12,8 @@ const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
 export const store = configureStore({
   reducer: {
     product: productReducer,
+    user: userReducer,
+    order: orderReducer,
   },
   middleware,
 });

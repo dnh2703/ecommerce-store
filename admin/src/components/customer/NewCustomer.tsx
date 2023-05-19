@@ -1,5 +1,6 @@
 import React from "react";
 import LineChart from "../common/LineChart";
+import { ScriptableContext } from "chart.js";
 
 const NewCustomer = () => {
   const data = {
@@ -8,13 +9,21 @@ const NewCustomer = () => {
       {
         label: "Customers",
         data: [33, 53, 85, 41, 44, 65],
-        fill: true,
-        backgroundColor: "transparent",
+        fill: "start",
+        backgroundColor: (context: ScriptableContext<"line">) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+          gradient.addColorStop(0.3, "rgba(31,41,55,.9)");
+          gradient.addColorStop(1, "rgba(17,24,39,.7)");
+          return gradient;
+        },
         borderColor: "rgba(75,192,192,1)",
         pointBorderColor: "transparent",
+        pointBackgroundColor: "white",
         tension: 0.5,
       },
     ],
+    options: {},
   };
 
   const options = {
@@ -37,7 +46,10 @@ const NewCustomer = () => {
           stepSize: 20,
         },
         grid: {
+          display: false,
           tickBorderDash: [10],
+          drawOnChartArea: true,
+          drawTicks: true,
         },
       },
     },

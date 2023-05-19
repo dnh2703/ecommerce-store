@@ -16,10 +16,12 @@ interface IOrder {
   orderItems: IOrderItem[];
   status: string;
   user: string;
+  userName: string;
+  email: string;
+  address: string;
   clientSecret: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
 }
 
 interface IOrderData {

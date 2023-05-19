@@ -1,6 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getUsersStart } from "../../features/slice/userSlice";
+import CustomerItem from "./CustomerItem";
 
 const CustomerList = () => {
+  const dispatch = useAppDispatch();
+  const { users, loading } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getUsersStart());
+  }, [dispatch]);
+
+  const renderListUsers = () => {
+    if (loading) {
+      return (
+        <tr className="animate-pulse bg-white dark:bg-gray-800 dark:border-gray-700 ">
+          <th scope="row" colSpan={5} className="px-6 py-4 text-center">
+            Loading ...
+          </th>
+        </tr>
+      );
+    } else if (users.length > 0) {
+      return users.map((user) => {
+        return (
+          <CustomerItem
+            email={user.email}
+            name={user.name}
+            role={user.role}
+            isVerified={user.isVerified}
+            verificationToken={user.verificationToken}
+            _id={user._id}
+            key={user._id}
+          />
+        );
+      });
+    } else {
+      return (
+        <tr className=" bg-white dark:bg-gray-800 dark:border-gray-700 ">
+          <th scope="row" colSpan={5} className="px-6 py-4 text-center">
+            No users found
+          </th>
+        </tr>
+      );
+    }
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div className="sm:flex items-center justify-between p-4 bg-white dark:bg-gray-800">
@@ -77,7 +121,7 @@ const CustomerList = () => {
                 Name
               </th>
               <th scope="col" className="px-6 py-3">
-                Position
+                Role
               </th>
               <th scope="col" className="px-6 py-3">
                 Verify Email
@@ -87,256 +131,7 @@ const CustomerList = () => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-1"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label htmlFor="checkbox-table-search-1" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                  <span className="font-medium text-gray-600 dark:text-gray-300">
-                    JL
-                  </span>
-                </div>
-
-                <div className="pl-3">
-                  <div className="text-base font-semibold">Neil Sims</div>
-                  <div className="font-normal text-gray-500">
-                    neil.sims@flowbite.com
-                  </div>
-                </div>
-              </th>
-              <td className="px-6 py-4">React Developer</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <span className="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
-                    False
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                {/* Modal toggle */}
-                <button
-                  type="button"
-                  data-modal-target="editUserModal"
-                  data-modal-show="editUserModal"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit user
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-2"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label htmlFor="checkbox-table-search-2" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                  <span className="font-medium text-gray-600 dark:text-gray-300">
-                    JL
-                  </span>
-                </div>
-
-                <div className="pl-3">
-                  <div className="text-base font-semibold">Bonnie Green</div>
-                  <div className="font-normal text-gray-500">
-                    bonnie@flowbite.com
-                  </div>
-                </div>
-              </th>
-              <td className="px-6 py-4">Designer</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <span className="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
-                    False
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                {/* Modal toggle */}
-                <button
-                  type="button"
-                  data-modal-show="editUserModal"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit user
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-2"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label htmlFor="checkbox-table-search-2" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                  <span className="font-medium text-gray-600 dark:text-gray-300">
-                    JL
-                  </span>
-                </div>
-
-                <div className="pl-3">
-                  <div className="text-base font-semibold">Jese Leos</div>
-                  <div className="font-normal text-gray-500">
-                    jese@flowbite.com
-                  </div>
-                </div>
-              </th>
-              <td className="px-6 py-4">Vue JS Developer</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <span className="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
-                    False
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                {/* Modal toggle */}
-                <button
-                  type="button"
-                  data-modal-show="editUserModal"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit user
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-2"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label htmlFor="checkbox-table-search-2" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                  <span className="font-medium text-gray-600 dark:text-gray-300">
-                    JL
-                  </span>
-                </div>
-
-                <div className="pl-3">
-                  <div className="text-base font-semibold">Thomas Lean</div>
-                  <div className="font-normal text-gray-500">
-                    thomes@flowbite.com
-                  </div>
-                </div>
-              </th>
-              <td className="px-6 py-4">UI/UX Engineer</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <span className="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
-                    False
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                {/* Modal toggle */}
-                <button
-                  type="button"
-                  data-modal-show="editUserModal"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit user
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-3"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label htmlFor="checkbox-table-search-3" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                  <span className="font-medium text-gray-600 dark:text-gray-300">
-                    JL
-                  </span>
-                </div>
-
-                <div className="pl-3">
-                  <div className="text-base font-semibold">
-                    Leslie Livingston
-                  </div>
-                  <div className="font-normal text-gray-500">
-                    leslie@flowbite.com
-                  </div>
-                </div>
-              </th>
-              <td className="px-6 py-4">SEO Specialist</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <span className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">
-                    True
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                {/* Modal toggle */}
-                <button
-                  type="button"
-                  data-modal-show="editUserModal"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit user
-                </button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody>{renderListUsers()}</tbody>
         </table>
       </div>
     </div>

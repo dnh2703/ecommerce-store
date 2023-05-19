@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../../interfaces/product";
-import productApi from "../../api/productApi";
+import productApi from "../../api/modules/productApi";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduct = () => {
@@ -29,7 +29,7 @@ const EditProduct = () => {
       .catch((err) => {
         console.log(err);
       })
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
   };
 
   const handleDiscardChange = () => {
@@ -39,17 +39,22 @@ const EditProduct = () => {
   };
 
   useEffect(() => {
-    productApi.getSingleProduct(id).then((res) => {
-      const { data } = res;
-      const { product } = data;
-      setValue("name", product.name);
-      setValue("company", product.company);
-      setValue("price", product.price);
-      setValue("inventory", product.inventory);
-      setValue("category", product.category);
-      setValue("image", product.image);
-      setValue("description", product.description);
-    });
+    productApi
+      .getSingleProduct(id)
+      .then((res) => {
+        const { data } = res;
+        const { product } = data;
+        setValue("name", product.name);
+        setValue("company", product.company);
+        setValue("price", product.price);
+        setValue("inventory", product.inventory);
+        setValue("category", product.category);
+        setValue("image", product.image);
+        setValue("description", product.description);
+        setValue("averageRating", product.averageRating);
+        setValue("numOfReviews", product.numOfReviews);
+      })
+      .catch((err) => console.log(err));
   }, [setValue, id]);
 
   return (
@@ -124,6 +129,36 @@ const EditProduct = () => {
               >
                 {errors.price && <span>{errors.price.message}</span>}
               </p>
+            </div>
+            <div className="w-full">
+              <label
+                htmlFor="averageRating"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Average Rating
+              </label>
+              <input
+                type="text"
+                {...register("averageRating")}
+                className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Product brand"
+                disabled={true}
+              />
+            </div>
+            <div className="w-full">
+              <label
+                htmlFor="numOfReviews"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Number of reviews
+              </label>
+              <input
+                type="number"
+                {...register("numOfReviews")}
+                className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="$2999"
+                disabled={true}
+              />
             </div>
             <div>
               <label
@@ -242,7 +277,10 @@ const EditProduct = () => {
           <div className="flex items-center space-x-4 mt-3">
             <button
               type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              disabled={loading}
+              className={`text-white ${
+                loading && "cursor-not-allowed"
+              } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
             >
               {loading ? (
                 <div>
