@@ -9,7 +9,7 @@ export default function BestRatingProducts(props: any) {
   return (
     <div className="mb-20">
       <p className="text-3xl text-center mb-9">Best Rating Products</p>
-      <div className="flex sm:flex-wrap lg:gap-10">
+      <div className="flex max-lg:flex-wrap lg:gap-10">
         {props.products?.map((product: IProduct) => (
           <div
             className="cursor-pointer max-lg:px-2 max-lg:mb-6 max-lg:basis-1/2"
