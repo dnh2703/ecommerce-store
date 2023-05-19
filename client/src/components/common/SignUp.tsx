@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { IRegisterForm } from "../../interfaces/auth";
-import { useState } from "react";
-import axios from "axios";
+import { useRef, useState } from "react";
+
 import authApi from "../../api/authApi";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -10,24 +10,18 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IRegisterForm>();
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const TogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  // const onSubmit = async (data: IRegisterForm) => {
-  //   try {
-  //     await axios.post("auth/register", data);
-  //     setIsSuccess(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   const onSubmit = (data: IRegisterForm) => {
     setLoading(true);
     console.log(data);
@@ -139,6 +133,54 @@ const SignUpForm = () => {
               Password must be have at least one number, one lowercase letter
               and one uppercase letter.
             </span>
+          )}
+        </div>
+        <div className="mb-4 relative">
+          <input
+            {...register("confirmPassword", {
+              required: true,
+              validate: (value) => value === watch("password"),
+            })}
+            className="appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={TogglePasswordVisibility}
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 cursor-pointer"
+          >
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              className="h-5 w-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+            </svg>
+          </button>
+          {errors.confirmPassword?.type === "required" && (
+            <span className="text-red-500 text-xs">
+              Please confirm your password
+            </span>
+          )}
+          {errors.confirmPassword?.type === "validate" && (
+            <span className="text-red-500 text-xs">Passwords do not match</span>
           )}
         </div>
         <div>
