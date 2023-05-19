@@ -1,4 +1,4 @@
-import Chart from "../components/common/Chart";
+import ChartCard from "../components/dashboard/ChartCard";
 
 const Dashboard = () => {
   return (
@@ -83,13 +83,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between h-[430px] mb-4 rounded bg-gray-50 dark:bg-gray-800 pb-8 pt-6 px-0 sm:px-8">
-        <p className="text-center">
-          <span className="text-white text-xl font-semibold">Total sales</span>
-        </p>
-        <div className="pt-4">
-          <Chart />
-        </div>
+      <div className="flex flex-col justify-between mb-4 rounded bg-gray-50 dark:bg-gray-800 p-4">
+        <ChartCard />
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">

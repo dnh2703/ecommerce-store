@@ -1,72 +1,23 @@
 import {
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   Grid,
   Slider,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
   styled,
 } from "@mui/material";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IProduct, IProductLayout } from "../../../interfaces/product";
 import { useState } from "react";
 import {
-  FeaturedProductItem,
   FilterSide,
   FilterSideItem,
-  InputPrice,
   borderCircleGray,
   checkboxCss,
   imgProductStyles,
   productStyles,
 } from "./style";
-
-export const ProductsColumn = (props: IProductLayout) => {
-  return (
-    <Grid key={props.product.id} item xs={props.cols} sx={productStyles}>
-      <Box sx={imgProductStyles}>
-        <img
-          style={{ width: "100%" }}
-          src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-          alt=""
-        />
-        <div className="hover">
-          <div>
-            <i className="fa-solid fa-bag-shopping"></i>
-          </div>
-          <div>
-            <i className="fa-regular fa-heart"></i>
-          </div>
-          <div>
-            <i className="fa-solid fa-arrow-right-arrow-left"></i>
-          </div>
-          <div>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
-        </div>
-      </Box>
-      <div>
-        <i className="fa-regular fa-star"></i>
-        <i className="fa-regular fa-star"></i>
-        <i className="fa-regular fa-star"></i>
-        <i className="fa-regular fa-star"></i>
-        <i className="fa-regular fa-star"></i>
-        <span>({props.product.numOfReviews})</span>
-      </div>
-      <Link to={`/products/${props.product.id}`}>
-        <Typography color={"black"} sx={{ textTransform: "capitalize", my: 2 }}>
-          {props.product.name}
-        </Typography>
-      </Link>
-      <Typography variant="body1" color="gray">
-        ${props.product.price / 100}
-      </Typography>
-    </Grid>
-  );
-};
 
 export const ProductRoute = (props: any) => {
   return (
@@ -86,92 +37,12 @@ export const ProductRoute = (props: any) => {
   );
 };
 
-export const ProductRow = (props: IProductLayout) => {
-  return (
-    <Grid
-      key={props.product.id}
-      style={{ marginTop: "30px" }}
-      sx={productStyles}
-      container
-      item
-    >
-      <Grid item xs={4} sx={imgProductStyles}>
-        <img
-          style={{ width: "100%" }}
-          src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-          alt=""
-        />
-        <div className="hover">
-          <div>
-            <i className="fa-solid fa-bag-shopping"></i>
-          </div>
-          <div>
-            <i className="fa-regular fa-heart"></i>
-          </div>
-          <div>
-            <i className="fa-solid fa-arrow-right-arrow-left"></i>
-          </div>
-          <div>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
-        </div>
-      </Grid>
-      <Grid item xs={7} sx={{ pl: 7 }}>
-        <div>
-          <i className="fa-regular fa-star"></i>
-          <i className="fa-regular fa-star"></i>
-          <i className="fa-regular fa-star"></i>
-          <i className="fa-regular fa-star"></i>
-          <i className="fa-regular fa-star"></i>
-          <span>({props.product.numOfReviews})</span>
-        </div>
-        <div>
-          <Link to={`/products/${props.product.id}`}>
-            <Typography
-              color={"black"}
-              fontSize={27}
-              sx={{ textTransform: "capitalize", my: 2 }}
-            >
-              {props.product.name}
-            </Typography>
-          </Link>
-        </div>
-        <div>
-          <Typography fontSize={20} variant="body1" color="gray">
-            ${props.product.price / 100}
-          </Typography>
-        </div>
-        <hr
-          style={{
-            border: "0.2px solid #e1e1e1",
-            margin: "30px 0",
-          }}
-        />
-        <div>
-          <Typography
-            style={{ overflow: "hidden" }}
-            variant="body1"
-            color="gray"
-            sx={{
-              display: "-webkit-box",
-              "-webkit-box-orient": "vertical",
-              "-webkit-line-clamp": "2",
-            }}
-          >
-            {props.product.description}
-          </Typography>
-        </div>
-      </Grid>
-    </Grid>
-  );
-};
-
 export const GridView = styled("div")({
   "&:hover": {
     Bar: { backgroundColor: "white" },
     backgroundColor: "#6e2f1b",
     borderColor: "#6e2f1b",
-    i: {
+    "svg,i": {
       color: "white",
     },
   },
@@ -233,8 +104,9 @@ export const CheckComponent = (props: any) => {
                     name === "In stock" ? props.inStock : props.outOfStock
                   }
                   id="default-checkbox"
-                  type="checkbox"
+                  type="radio"
                   value=""
+                  name="availibility"
                   className="w-4 h-4 text-blue-600 outline-none mr-3 bg-gray-100 border-gray-300 rounded focus:ring-blue-500
                  dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
@@ -293,6 +165,11 @@ export const SideComponent = (props: any) => {
           return (
             <FilterSideItem
               style={{ width: "100%" }}
+              className={`${
+                props.collection === name
+                  ? "text-black font-semibold"
+                  : "text-gray-500"
+              }`}
               onClick={() => {
                 props.onclik(name);
               }}
@@ -301,21 +178,7 @@ export const SideComponent = (props: any) => {
               <Box sx={borderCircleGray}>
                 {
                   props.products.filter((product: IProduct) => {
-                    if (
-                      name === "bedroom" ||
-                      name === "kitchen" ||
-                      name === "office"
-                    ) {
-                      return product.category === name;
-                    }
-
-                    if (
-                      name === "ikea" ||
-                      name === "marcos" ||
-                      name === "liddy"
-                    ) {
-                      return product.company === name;
-                    }
+                    return product.category === name;
                   }).length
                 }
               </Box>

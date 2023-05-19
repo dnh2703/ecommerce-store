@@ -1,34 +1,21 @@
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import authApi from "../../api/authApi";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   // state to store the loading status
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    authApi
-      .adminAuth()
-      .then((res) => {
-        setIsAuthenticated(true);
-        // set isLoading to false
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsAuthenticated(false);
-        // set isLoading to false
-        setIsLoading(false);
-      });
-  }, []);
+    const accessToken = Cookies.get("accessToken");
+    const refreshToken = Cookies.get("refreshToken");
 
-  return isLoading ? (
-    <>...Loading</>
-  ) : isAuthenticated ? (
-    children
-  ) : (
-    <Navigate to="/" />
-  );
+    if (!accessToken || !refreshToken) {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  return children;
 };
 
 export default ProtectedRoute;

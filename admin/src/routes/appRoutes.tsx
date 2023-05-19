@@ -1,4 +1,8 @@
-import AddProduct from "../components/common/AddProduct";
+import OrderDetail from "../components/order/OrderDetail";
+import OrderList from "../components/order/OrderList";
+import EditProduct from "../components/product/EditProduct";
+import FormProduct from "../components/product/FormProduct";
+import Overview from "../components/product/Overview";
 import Customer from "../pages/Customer";
 import Dashboard from "../pages/Dashboard";
 import Order from "../pages/Order";
@@ -22,6 +26,11 @@ const appRoutes: RouteType[] = [
       displayText: "Products",
       icon: <i className="ri-shopping-cart-2-fill"></i>,
     },
+    child: [
+      { path: "", element: <Overview /> },
+      { path: "declaration", element: <FormProduct /> },
+      { path: "edit/:id", element: <EditProduct /> },
+    ],
   },
   {
     path: "/orders",
@@ -30,6 +39,10 @@ const appRoutes: RouteType[] = [
       displayText: "Orders",
       icon: <i className="ri-inbox-archive-fill"></i>,
     },
+    child: [
+      { path: "detail/:id", element: <OrderDetail /> },
+      { path: "", element: <OrderList /> },
+    ],
   },
   {
     path: "/customers",

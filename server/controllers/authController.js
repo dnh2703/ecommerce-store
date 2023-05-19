@@ -8,6 +8,8 @@ const {
   sendVerificationEmail,
   sendResetPasswordEmail,
   createHash,
+  createJWT,
+  isTokenValid,
 } = require('../utils');
 const crypto = require('crypto');
 
@@ -33,13 +35,7 @@ const register = async (req, res) => {
     verificationToken,
   });
   const origin = process.env.ORIGIN | 'http://localhost:3000';
-  // const newOrigin = 'https://react-node-user-workflow-front-end.netlify.app';
 
-  // const tempOrigin = req.get('origin');
-  // const protocol = req.protocol;
-  // const host = req.get('host');
-  // const forwardedHost = req.get('x-forwarded-host');
-  // const forwardedProtocol = req.get('x-forwarded-proto');
 
   await sendVerificationEmail({
     name: user.name,
@@ -106,33 +102,28 @@ const login = async (req, res) => {
       throw new CustomError.UnauthenticatedError('Invalid Credentials');
     }
     refreshToken = existingToken.refreshToken;
-    attachCookiesToResponse({ res, user: tokenUser, refreshToken });
-    res.status(StatusCodes.OK).json({ user: tokenUser });
+    const accessToken = createJWT({ payload: { user } }, "10m");
+
+    res.status(StatusCodes.OK).json({ user: tokenUser, refreshToken, accessToken });
     return;
   }
 
-  refreshToken = crypto.randomBytes(40).toString('hex');
+
   const userAgent = req.headers['user-agent'];
   const ip = req.ip;
+  const accessToken = createJWT({ payload: { user } }, "10m");
+  refreshToken = createJWT({ payload: { user } }, "7d");
+
   const userToken = { refreshToken, ip, userAgent, user: user._id };
 
   await Token.create(userToken);
 
-  attachCookiesToResponse({ res, user: tokenUser, refreshToken });
-
-  res.status(StatusCodes.OK).json({ user: tokenUser });
+  res.status(StatusCodes.OK).json({ user: tokenUser, refreshToken, accessToken });
 };
 const logout = async (req, res) => {
   await Token.findOneAndDelete({ user: req.user.userId });
 
-  res.cookie('accessToken', 'logout', {
-    httpOnly: true,
-    expires: new Date(Date.now()),
-  });
-  res.cookie('refreshToken', 'logout', {
-    httpOnly: true,
-    expires: new Date(Date.now()),
-  });
+
   res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
 };
 
@@ -191,9 +182,27 @@ const resetPassword = async (req, res) => {
   res.send('reset password');
 };
 
-const jwtAuth = async (req, res) => {
-  res.status(StatusCodes.OK).json({ msg: 'jwtAuth' });
+const refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
+
+  //send error if there is no token or it's invalid
+  if (!refreshToken) throw new CustomError.UnauthenticatedError('You are not authenticated!');
+  const existingToken = await Token.findOne({ refreshToken: refreshToken });
+
+  if (!existingToken) {
+    throw new CustomError.UnauthorizedError('Refresh token is not valid!');
+  }
+
+  if (!existingToken.isValid) {
+    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+  }
+
+  const accessToken = createJWT({ payload: { user: existingToken.user } }, "10m");
+
+  res.status(StatusCodes.OK).json({ refreshToken: refreshToken, accessToken: accessToken });
 }
+
+
 
 module.exports = {
   register,
@@ -202,5 +211,5 @@ module.exports = {
   verifyEmail,
   forgotPassword,
   resetPassword,
-  jwtAuth
+  refreshToken
 };

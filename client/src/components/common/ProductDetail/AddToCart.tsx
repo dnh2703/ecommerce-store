@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
 
-
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
   let [isAgree, setIsAgree] = useState<boolean>(false);
@@ -40,6 +39,7 @@ export default function AddToCart(props: any) {
             className="outline-none inline-block leading-[50px] w-7 text-lg text-center"
             type="text"
             value={count}
+            onChange={(e) => setCount(Number(e.target.value))}
           />
           <button
             className="py-3 px-5 text-lg opacity-20 hover:opacity-100"
@@ -68,6 +68,7 @@ export default function AddToCart(props: any) {
           name="agree"
           id="agree"
           onClick={handleChecked}
+          onChange={() => {}}
         />
         <label
           htmlFor="agree"

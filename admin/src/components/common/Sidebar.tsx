@@ -1,13 +1,26 @@
 import useComponentVisible from "../../hooks/useComponentVisible";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import appRoutes from "../../routes/appRoutes";
-import { useState } from "react";
+import authApi from "../../api/modules/authApi";
 
 const Sidebar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
-    useComponentVisible(true);
+    useComponentVisible(false);
 
-  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const logout = () => {
+    authApi
+      .logout()
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => alert("123"));
+  };
 
   return (
     <>
@@ -52,15 +65,13 @@ const Sidebar = () => {
             <span className="sr-only">Open user menu</span>
             <div className="flex items-center">
               <img
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
+                src="https://i1.sndcdn.com/avatars-000304411295-zx2krs-t500x500.jpg"
                 className="w-8 h-8 rounded-full mr-3"
                 alt="Bonnie avatar"
               />
               <div className="text-left">
-                <div className="font-bold">Bonnie Green</div>
-                <div className="text-sm text-gray-400 ">
-                  bonnie@flowbite.com
-                </div>
+                <div className="font-bold">Batman</div>
+                <div className="text-sm text-gray-400 ">admin@gmail.com</div>
               </div>
             </div>
             <svg
@@ -144,26 +155,23 @@ const Sidebar = () => {
           </ul>
           <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
-              >
+              <div className="cursor-pointer flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
                 <div className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                   <i className="ri-file-text-fill"></i>
                 </div>
                 <span className="ml-3">Documentation</span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+              <div
+                onClick={logout}
+                className="cursor-pointer flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
               >
                 <div className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                   <i className="ri-logout-box-r-fill "></i>
                 </div>
                 <span className="ml-3">Sign out</span>
-              </a>
+              </div>
             </li>
           </ul>
         </div>

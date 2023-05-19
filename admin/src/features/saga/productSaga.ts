@@ -1,7 +1,26 @@
+import { AxiosResponse } from "axios";
+import { IProductData } from "../../interfaces/product";
+import { call, put, takeEvery } from "redux-saga/effects";
+import productApi from "../../api/modules/productApi";
+import {
+  getProductsFailure,
+  getProductsStart,
+  getProductsSuccess,
+} from "../slice/productSlice";
 
-
-function* productSaga() {
-
+function* getProducts() {
+  try {
+    const res: AxiosResponse<IProductData> = yield call(
+      productApi.getAllProducts
+    );
+    yield put(getProductsSuccess(res.data.products));
+  } catch (error) {
+    yield put(getProductsFailure());
+  }
 }
 
-export default productSaga
+function* productSaga() {
+  yield takeEvery(getProductsStart, getProducts);
+}
+
+export default productSaga;
