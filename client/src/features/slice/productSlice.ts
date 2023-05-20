@@ -38,7 +38,7 @@ export const productSlice = createSlice({
       state.error = true;
     },
     getWishListProduct: (state, actions) => {
-      state.wishListProducts = actions.payload;
+      state.wishListProducts.push(actions.payload);
     },
   },
 });
