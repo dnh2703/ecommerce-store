@@ -46,4 +46,8 @@ export interface ClearFilterProduct {
   price: number[];
 }
 
+export interface WishListProducts {
+  product: IProduct;
+  quantity: number;
+}
 export type { IProduct };

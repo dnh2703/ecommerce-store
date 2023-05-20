@@ -13,11 +13,11 @@ export default function BestRatingProducts(props: any) {
   return (
     <div className="mb-20">
       <p className="text-3xl text-center mb-9">Best Rating Products</p>
-      <div className="flex max-lg:flex-wrap lg:gap-10">
+      <div className="flex max-lg:flex-wrap lg:gap-10 max-lg:justify-evenly">
         {props.products?.map((product: IProduct) => (
           <div
             key={product.id}
-            className="cursor-pointer max-lg:px-2 max-lg:mb-6 max-lg:basis-1/2"
+            className="cursor-pointer max-lg:px-2 max-lg:mb-6"
           >
             <div
               onClick={() => {
@@ -28,26 +28,6 @@ export default function BestRatingProducts(props: any) {
             >
               <div className="group/icon relative overflow-hidden">
                 <img src={product.image} alt="" />
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  className="duration-500 group-hover/icon:translate-y-[-70px] translate-y-8 absolute w-full flex justify-center space-x-4"
-                >
-                  <div className="rounded-full duration-300 hover:text-white hover:bg-[#6e2f1b] w-[40px] h-[40px] bg-white flex items-center justify-center">
-                    <i className="fa-solid fa-bag-shopping"></i>
-                  </div>
-                  <div className="rounded-full duration-300 hover:text-white hover:bg-[#6e2f1b] w-[40px] h-[40px] bg-white flex items-center justify-center">
-                    <i className="fa-regular fa-heart"></i>
-                  </div>
-                  <div className="rounded-full duration-300 hover:text-white hover:bg-[#6e2f1b] w-[40px] h-[40px] bg-white flex items-center justify-center">
-                    <i className="fa-solid fa-arrow-right-arrow-left"></i>
-                  </div>
-                  <div
-                    onClick={() => setIsShowQuickView(true)}
-                    className="rounded-full duration-300 hover:text-white hover:bg-[#6e2f1b] w-[40px] h-[40px] bg-white flex items-center justify-center"
-                  >
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                  </div>
-                </div>
               </div>
               <Box
                 sx={{ span: { fontSize: 14 } }}
