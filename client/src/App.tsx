@@ -1,4 +1,5 @@
 import "./App.scss";
+
 import { Routes, Route } from "react-router-dom";
 import AccountPage from "./pages/AccountPage";
 import ProtectRoute from "./components/common/ProtectRoute";

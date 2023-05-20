@@ -3,9 +3,12 @@ import { IProductLayout } from "../../../interfaces/product";
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { imgProductStyles, productStyles } from "./style";
 import TextRating from "../Rating";
+import { useState } from "react";
+import { QuickView } from "../QuickView";
 
 export const ProductRow = (props: IProductLayout) => {
   let navigate = useNavigate();
+  let [isShowQuickView, setIsShowQuickView] = useState<boolean>(false);
   return (
     <Grid
       key={props.product.id}
@@ -14,6 +17,12 @@ export const ProductRow = (props: IProductLayout) => {
       item
       container
     >
+      <QuickView
+        product={props.product}
+        isShow={isShowQuickView}
+        closeModal={() => setIsShowQuickView(false)}
+      />
+
       <Grid item xs={4} sx={imgProductStyles}>
         <div
           onClick={() => navigate(`/products/${props.product.id}`)}
@@ -41,7 +50,11 @@ export const ProductRow = (props: IProductLayout) => {
           <div>
             <i className="fa-solid fa-arrow-right-arrow-left"></i>
           </div>
-          <div>
+          <div
+            onClick={() => {
+              setIsShowQuickView(true);
+            }}
+          >
             <i className="fa-solid fa-magnifying-glass"></i>
           </div>
         </div>

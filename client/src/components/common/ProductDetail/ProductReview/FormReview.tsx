@@ -76,7 +76,7 @@ export default function FormReview(props: any) {
           <Rating
             name="hover-feedback"
             value={rating}
-            precision={0.5}
+            precision={1}
             onChange={(event, value: any) => {
               setRating(value);
             }}

@@ -1,9 +1,13 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { getWishListProduct } from "../../../features/slice/productSlice";
 
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
   let [isAgree, setIsAgree] = useState<boolean>(false);
+  let { wishListProducts } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
   const handleMinus = () => {
     if (count === 1) {
@@ -26,8 +30,8 @@ export default function AddToCart(props: any) {
   };
 
   return (
-    <div className="flex flex-col my-5">
-      <div className="flex items-center gap-4 my-4">
+    <div className="flex flex-col my-5 ">
+      <div className="flex items-center gap-4 my-4 justify-between">
         <div className="border-2 border-slate-100 basis-[25%] flex justify-center">
           <button
             className="py-3 px-5 text-lg opacity-20 hover:opacity-100"
@@ -48,7 +52,18 @@ export default function AddToCart(props: any) {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        <div className="basis-[60%] group/button">
+        <div
+          onClick={() => {
+            window.localStorage.setItem(
+              "Wish_List",
+              JSON.stringify(wishListProducts)
+            );
+            dispatch(
+              getWishListProduct({ quantity: count, product: props.product })
+            );
+          }}
+          className="basis-[60%] group/button"
+        >
           <button className=" uppercase  leading-[50px] w-full bg-black relative text-white text-xs tracking-[3px]">
             <div className="w-0 z-0 h-full group-hover/button:w-full duration-500 bg-[#6e2f1b] absolute"></div>
             <span className="z-[1] relative"> add to cart</span>
