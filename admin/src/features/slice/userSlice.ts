@@ -3,13 +3,13 @@ import { IUser } from "../../interfaces/user";
 
 interface UserState {
   users: IUser[];
-  loading: boolean;
+  isLoading: boolean;
   error: boolean;
 }
 
 const initialState: UserState = {
   users: [],
-  loading: false,
+  isLoading: false,
   error: false,
 };
 
@@ -18,14 +18,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     getUsersStart: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     getUsersSuccess: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.users = action.payload;
     },
     getUsersFailure: (state) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = true;
     },
   },

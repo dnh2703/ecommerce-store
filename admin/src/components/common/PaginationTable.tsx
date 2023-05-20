@@ -43,7 +43,7 @@ const PaginationTable = ({
             setItemsPerPage(Number.parseInt(e.target.value));
           }}
         >
-          <option selected value="10">
+          <option defaultChecked value="10">
             10
           </option>
           <option value="25">25</option>
