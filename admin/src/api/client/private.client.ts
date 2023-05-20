@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 import {
   isTokenExpired,
@@ -30,12 +30,14 @@ privateClient.interceptors.request.use(
           "Content-Type": "application/json",
         };
       } catch (err) {
+        console.log(err);
         return Promise.reject(err);
       }
     }
     return config;
   },
   function (err) {
+    console.log(err);
     return Promise.reject(err);
   }
 );

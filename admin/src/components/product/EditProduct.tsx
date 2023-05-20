@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../../interfaces/product";
@@ -6,7 +5,7 @@ import productApi from "../../api/modules/productApi";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduct = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -33,9 +32,7 @@ const EditProduct = () => {
   };
 
   const handleDiscardChange = () => {
-    const formValues = watch();
     navigate(-1);
-    console.log(formValues);
   };
 
   useEffect(() => {
@@ -277,12 +274,12 @@ const EditProduct = () => {
           <div className="flex items-center space-x-4 mt-3">
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className={`text-white ${
-                loading && "cursor-not-allowed"
+                isLoading && "cursor-not-allowed"
               } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
             >
-              {loading ? (
+              {isLoading ? (
                 <div>
                   <svg
                     aria-hidden="true"

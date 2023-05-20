@@ -1,8 +1,6 @@
 import Cookies from "js-cookie";
-import publicClient from "../../api/client/public.client";
 import jwtDecode from "jwt-decode";
-
-export const DOMAIN = "http://localhost:5000";
+import authApi from "../../api/modules/authApi";
 
 function isTokenExpired(token: string): boolean {
   try {
@@ -17,7 +15,8 @@ function isTokenExpired(token: string): boolean {
 
 const refreshAccessToken = async (): Promise<string> => {
   try {
-    const response = await publicClient.post("/auth/token");
+    const refreshToken = Cookies.get("refreshToken");
+    const response = await authApi.refreshToken(refreshToken);
 
     // Extract the refreshed access token from the response
     const refreshedToken = response.data.accessToken;
@@ -25,6 +24,7 @@ const refreshAccessToken = async (): Promise<string> => {
     return refreshedToken;
   } catch (error) {
     // Handle the token refresh error
+    console.log(error);
     throw new Error("Token refresh failed");
   }
 };
@@ -35,6 +35,5 @@ const updateAccessToken = (newAccessToken: any) => {
   // Set the new access token as a cookie
   Cookies.set("accessToken", newAccessToken);
 };
-
 
 export { refreshAccessToken, updateAccessToken, isTokenExpired };

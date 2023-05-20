@@ -60,7 +60,7 @@ const createOrder = async (req, res) => {
     tax,
     shippingFee,
     clientSecret: paymentIntent.client_secret,
-    user: req.user.userId,
+    user: req.user._id,
     userName: req.user.name,
     email: req.user.email,
     address,
@@ -84,7 +84,7 @@ const getSingleOrder = async (req, res) => {
   res.status(StatusCodes.OK).json({ order });
 };
 const getCurrentUserOrders = async (req, res) => {
-  const orders = await Order.find({ user: req.user.userId });
+  const orders = await Order.find({ user: req.user._id });
   res.status(StatusCodes.OK).json({ orders, count: orders.length });
 };
 const updateOrder = async (req, res) => {

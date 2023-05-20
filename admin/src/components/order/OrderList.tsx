@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import OrderItem from "./OrderItem";
 import { getOrdersStart } from "../../features/slice/orderSlice";
 
 const OrderList = () => {
-  const { orders, loading } = useAppSelector((state) => state.order);
+  const { orders, isLoading } = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
-
-  console.log(orders);
 
   useEffect(() => {
     dispatch(getOrdersStart());
   }, [dispatch]);
 
   const renderListOrder = () => {
-    if (loading) {
+    if (isLoading) {
       return (
         <tr className="animate-pulse bg-white dark:bg-gray-800 dark:border-gray-700 ">
           <th scope="row" colSpan={5} className="px-6 py-4 text-center">
@@ -22,20 +20,9 @@ const OrderList = () => {
           </th>
         </tr>
       );
-    } else if (orders.length > 0) {
-      return orders.map((order) => {
-        return (
-          <OrderItem
-            key={order._id}
-            date={order.createdAt}
-            id={order._id}
-            status={order.status}
-            total={order.total}
-            email={order.email}
-          />
-        );
-      });
-    } else {
+    }
+
+    if (orders.length === 0) {
       return (
         <tr className=" bg-white dark:bg-gray-800 dark:border-gray-700 ">
           <th scope="row" colSpan={5} className="px-6 py-4 text-center">
@@ -44,6 +31,19 @@ const OrderList = () => {
         </tr>
       );
     }
+
+    return orders.map((order) => {
+      return (
+        <OrderItem
+          key={order._id}
+          date={order.createdAt}
+          id={order._id}
+          status={order.status}
+          total={order.total}
+          email={order.email}
+        />
+      );
+    });
   };
 
   return (

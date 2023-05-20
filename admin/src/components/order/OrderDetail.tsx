@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import orderApi from "../../api/modules/orderApi";
 import { IOrder } from "../../interfaces/order";
@@ -8,8 +8,6 @@ const OrderDetail = () => {
   const { id } = useParams();
 
   const [order, setOrder] = useState<IOrder>();
-
-  console.log(order);
 
   useEffect(() => {
     orderApi
@@ -36,9 +34,35 @@ const OrderDetail = () => {
           <p className="text-white font-semibold px-4">
             Order No : #{order?._id}
           </p>
-          <span className="mx-4 capitalize inline-flex items-center justify-center bg-yellow-100 mt-2 mb-4 text-yellow-800 text-xs font-medium w-16 h-5 rounded-full dark:bg-yellow-800 dark:text-yellow-200">
-            pending
-          </span>
+
+          {order?.status &&
+            {
+              pending: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200">
+                  pending
+                </span>
+              ),
+              failed: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-200">
+                  failed
+                </span>
+              ),
+              canceled: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                  canceled
+                </span>
+              ),
+              paid: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
+                  paid
+                </span>
+              ),
+              delivered: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-200">
+                  delivered
+                </span>
+              ),
+            }[order.status]}
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -73,7 +97,7 @@ const OrderDetail = () => {
                     {order?.email}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    ${order?.total}
+                    {order?.address}
                   </td>
                 </tr>
               </tbody>
@@ -181,9 +205,7 @@ const OrderDetail = () => {
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.amount}</td>
                     <td className="px-6 py-4">${item.price}</td>
-                    <td className="px-6 py-4 text-right">
-                      ${item.price * item.amount}
-                    </td>
+                    <td className="px-6 py-4">${item.price * item.amount}</td>
                   </tr>
                 );
               }

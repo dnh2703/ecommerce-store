@@ -6,7 +6,7 @@ import {
 } from "../../features/slice/productSlice";
 import { IProduct } from "../../interfaces/product";
 import TableHeader from "./TableHeader";
-import PaginationTable from "./PaginationTable";
+import PaginationTable from "../common/PaginationTable";
 import Swal from "sweetalert2";
 import productApi from "../../api/modules/productApi";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import ProductItem from "./ProductItem";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
-  const { products, loading } = useAppSelector((state) => state.product);
+  const { products, isLoading } = useAppSelector((state) => state.product);
   const [q, setQ] = useState<string>("");
   const navigate = useNavigate();
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -26,7 +26,7 @@ const ProductList = () => {
 
   const searchByName = useCallback(
     (data: IProduct[]) => {
-      return data.filter((item, index) => {
+      return data.filter((item) => {
         return item.name.toString().toLowerCase().indexOf(q.toLowerCase()) > -1;
       });
     },
@@ -90,11 +90,8 @@ const ProductList = () => {
     navigate(`edit/${id}`);
   };
 
-
   const renderProductList = () => {
-
-    
-    if (loading) {
+    if (isLoading) {
       return (
         <tr className="animate-pulse bg-white dark:bg-gray-800 dark:border-gray-700">
           <th scope="row" colSpan={7} className="px-6 py-4 text-center">

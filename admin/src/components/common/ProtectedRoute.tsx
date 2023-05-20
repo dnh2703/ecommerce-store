@@ -1,21 +1,12 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   // state to store the loading status
-  const navigate = useNavigate();
+  const accessToken = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
 
-  useEffect(() => {
-    const accessToken = Cookies.get("accessToken");
-    const refreshToken = Cookies.get("refreshToken");
-
-    if (!accessToken || !refreshToken) {
-      navigate("/");
-    }
-  }, [navigate]);
-
-  return children;
+  return !accessToken || !refreshToken ? <Navigate to="/" /> : children;
 };
 
 export default ProtectedRoute;

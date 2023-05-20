@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const FormProduct = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -17,6 +17,7 @@ const FormProduct = () => {
   const onSubmit: SubmitHandler<IProduct> = (data) => {
     setLoading(true);
 
+    console.log(data);
     productApi
       .createProduct(data)
       .then((res) => {
@@ -230,8 +231,9 @@ const FormProduct = () => {
           <button
             type="submit"
             className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+            disabled={isLoading}
           >
-            {loading ? (
+            {isLoading ? (
               <div>
                 <svg
                   aria-hidden="true"

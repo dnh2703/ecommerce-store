@@ -3,13 +3,13 @@ import { IOrder } from "../../interfaces/order";
 
 interface OrderState {
   orders: IOrder[];
-  loading: boolean;
+  isLoading: boolean;
   error: boolean;
 }
 
 const initialState: OrderState = {
   orders: [],
-  loading: false,
+  isLoading: false,
   error: false,
 };
 
@@ -18,14 +18,14 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     getOrdersStart: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     getOrdersSuccess: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.orders = action.payload;
     },
     getOrdersFailure: (state) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = true;
     },
   },

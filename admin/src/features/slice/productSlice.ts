@@ -3,13 +3,13 @@ import { IProduct } from "../../interfaces/product";
 
 interface ProductState {
   products: IProduct[];
-  loading: boolean;
+  isLoading: boolean;
   error: boolean;
 }
 
 const initialState: ProductState = {
   products: [],
-  loading: false,
+  isLoading: false,
   error: false,
 };
 
@@ -18,14 +18,14 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     getProductsStart: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     getProductsSuccess: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.products = action.payload;
     },
     getProductsFailure: (state) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = true;
     },
     deleteProductAction: (state, action) => {
@@ -38,9 +38,7 @@ const productSlice = createSlice({
         );
       }
     },
-    toggleSortProductAction : (state,action) => {
-      
-    }
+    toggleSortProductAction: (state, action) => {},
   },
 });
 
