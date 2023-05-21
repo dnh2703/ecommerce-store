@@ -11,6 +11,7 @@ import { withCookies } from "react-cookie";
 import ProductPage from "./pages/ProductCatalogPage";
 import "normalize.css";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import VerifyEmail from "./components/common/VerifyEmail";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           />
           <Route path="login" element={<SignIn />} />
           <Route path="register" element={<SignUp />} />
-          <Route path="verify-email" />
+          <Route path="verify-email" element={<VerifyEmail />} />
           <Route path="reset-password" />
         </Route>
       </Routes>
