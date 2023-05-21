@@ -11,6 +11,7 @@ import { withCookies } from "react-cookie";
 import ProductPage from "./pages/ProductCatalogPage";
 import "normalize.css";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route index element={<HomePage />}></Route>
         <Route path="/products" element={<ProductPage />}></Route>
         <Route path="/products/:id" element={<ProductDetailPage />}></Route>
+        <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/account" element={<AccountPage />}>
           <Route
             index

@@ -21,6 +21,7 @@ export interface IProductLayout {
   quickView?: () => void;
   product: IProduct;
   cols: number;
+  reset?: any;
 }
 
 export interface ISideFilter {}
@@ -46,7 +47,7 @@ export interface ClearFilterProduct {
   price: number[];
 }
 
-export interface WishListProducts {
+export interface CartListProducts {
   product: IProduct;
   quantity: number;
 }
