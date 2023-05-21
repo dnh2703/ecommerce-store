@@ -1,28 +1,30 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getWishListProduct } from "../../../features/slice/productSlice";
-import { WishListProducts } from "../../../interfaces/product";
+import {
+  addToCart,
+  getCartProduct,
+} from "../../../features/slice/productSlice";
+import { CartListProducts } from "../../../interfaces/product";
 import { arrayBuffer } from "stream/consumers";
 
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
   let [isAgree, setIsAgree] = useState<boolean>(false);
-  let [wishListProducts, setWishListProduct] = useState<any>([]);
+  let { cartProducts } = useAppSelector((state) => state.product);
+  let dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (wishListProducts.length > 0)
-      localStorage.setItem("wishList", JSON.stringify(wishListProducts));
-  }, [wishListProducts]);
-
-  console.log(wishListProducts);
+    if (cartProducts.length > 0)
+      localStorage.setItem("wishList", JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
   useEffect(() => {
     let res = localStorage.getItem("wishList");
     if (res !== null) {
       const items = JSON.parse(res);
       if (items) {
-        setWishListProduct(items);
+        dispatch(getCartProduct(items));
       }
     }
   }, []);
@@ -45,29 +47,6 @@ export default function AddToCart(props: any) {
 
   const handleChecked = () => {
     setIsAgree(!isAgree);
-  };
-
-  const handleAddToCart = () => {
-    if (wishListProducts.length !== 0) {
-      let arr = [...wishListProducts];
-      let wProduct: WishListProducts[] = arr.filter(
-        (products: WishListProducts) => products.product.id === props.product.id
-      );
-      if (wProduct.length > 0) {
-        wProduct[0].quantity = wProduct[0].quantity + count;
-        localStorage.setItem("wishList", JSON.stringify(wishListProducts));
-      } else {
-        setWishListProduct([
-          ...wishListProducts,
-          { quantity: count, product: props.product },
-        ]);
-      }
-    } else {
-      setWishListProduct([
-        ...wishListProducts,
-        { quantity: count, product: props.product },
-      ]);
-    }
   };
 
   return (
@@ -93,7 +72,19 @@ export default function AddToCart(props: any) {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        <div onClick={handleAddToCart} className="basis-[60%] group/button">
+        <div
+          onClick={() => {
+            dispatch(
+              addToCart({
+                product: props.product,
+                quantity: count,
+                count: count,
+              })
+            );
+            setCount(1);
+          }}
+          className="basis-[60%] group/button"
+        >
           <button className=" uppercase  leading-[50px] w-full bg-black relative text-white text-xs tracking-[3px]">
             <div className="w-0 z-0 h-full group-hover/button:w-full duration-500 bg-[#6e2f1b] absolute"></div>
             <span className="z-[1] relative"> add to cart</span>
