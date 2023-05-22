@@ -3,14 +3,18 @@ import { IProduct } from "../../interfaces/product";
 
 interface ProductState {
   products: IProduct[];
+  productsFilter: IProduct[];
   isLoading: boolean;
   error: boolean;
+  filterCategories: string[];
 }
 
 const initialState: ProductState = {
   products: [],
+  productsFilter: [],
   isLoading: false,
   error: false,
+  filterCategories: [],
 };
 
 const productSlice = createSlice({
@@ -23,6 +27,7 @@ const productSlice = createSlice({
     getProductsSuccess: (state, action) => {
       state.isLoading = false;
       state.products = action.payload;
+      state.productsFilter = action.payload;
     },
     getProductsFailure: (state) => {
       state.isLoading = false;
@@ -38,7 +43,20 @@ const productSlice = createSlice({
         );
       }
     },
-    toggleSortProductAction: (state, action) => {},
+    filterCategoriesAction: (state, action) => {
+      state.filterCategories = action.payload;
+
+      state.productsFilter = state.products.filter((product) =>
+        state.filterCategories.includes(product.category)
+      );
+
+      if (action.payload.length === 0) {
+        state.productsFilter = [...state.products];
+      }
+    },
+    toggleSortByNumberAction: (state,action) => {
+
+    }
   },
 });
 
@@ -47,6 +65,7 @@ export const {
   getProductsStart,
   getProductsSuccess,
   deleteProductAction,
+  filterCategoriesAction,
 } = productSlice.actions;
 
 const productReducer = productSlice.reducer;

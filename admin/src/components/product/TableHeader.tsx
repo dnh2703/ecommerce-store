@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { filterCategoriesAction } from "../../features/slice/productSlice";
 
 type TableHeaderProps = {
   setQ: React.Dispatch<React.SetStateAction<string>>;
@@ -9,28 +11,22 @@ type TableHeaderProps = {
 const TableHeader = ({ setQ, setCurrentPage }: TableHeaderProps) => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { filterCategories } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsDropdownOpen(false);
+  const handleCategory = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      dispatch(filterCategoriesAction([...filterCategories, value]));
+    } else {
+      const removeValue = filterCategories.filter((item) => item !== value);
+      dispatch(filterCategoriesAction([...removeValue]));
     }
   };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="max-w-screen-xl mx-auto w-full ">
@@ -131,7 +127,6 @@ const TableHeader = ({ setQ, setCurrentPage }: TableHeaderProps) => {
               </button>
               {/* Dropdown menu */}
               <div
-                ref={dropdownRef}
                 id="filterDropdown"
                 className={`z-10 right-0 top-10 ${
                   isDropdownOpen ? "absolute" : "hidden"
@@ -147,54 +142,50 @@ const TableHeader = ({ setQ, setCurrentPage }: TableHeaderProps) => {
                 >
                   <li className="flex items-center">
                     <input
-                      id="apple"
+                      id="bedroom"
+                      name="category"
+                      value="bedroom"
                       type="checkbox"
                       className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                      onChange={handleCategory}
                     />
                     <label
-                      htmlFor="apple"
+                      htmlFor="bedroom"
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
                     >
-                      Apple (56)
+                      Bedroom
                     </label>
                   </li>
                   <li className="flex items-center">
                     <input
-                      id="fitbit"
+                      id="office"
                       type="checkbox"
+                      name="category"
+                      value="office"
                       className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                      onChange={handleCategory}
                     />
                     <label
-                      htmlFor="fitbit"
+                      htmlFor="office"
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
                     >
-                      Fitbit (56)
+                      Office
                     </label>
                   </li>
                   <li className="flex items-center">
                     <input
-                      id="dell"
+                      id="kitchen"
                       type="checkbox"
+                      name="category"
+                      value="kitchen"
                       className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                      onChange={handleCategory}
                     />
                     <label
-                      htmlFor="dell"
+                      htmlFor="kitchen"
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
                     >
-                      Dell (56)
-                    </label>
-                  </li>
-                  <li className="flex items-center">
-                    <input
-                      id="asus"
-                      type="checkbox"
-                      className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    />
-                    <label
-                      htmlFor="asus"
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                    >
-                      Asus (97)
+                      Kitchen
                     </label>
                   </li>
                 </ul>

@@ -15,8 +15,12 @@ interface IProduct {
   user?: string;
 }
 
-interface IProductData {
+interface IProductsData {
   products: IProduct[];
   count: number;
 }
-export type { IProduct, IProductData };
+interface IProductData {
+  product: IProduct;
+ 
+}
+export type { IProduct, IProductData,IProductsData };
