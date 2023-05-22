@@ -1,24 +1,30 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import orderApi from "../../api/modules/orderApi";
-import { IOrder } from "../../interfaces/order";
 import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "../common/LoadingPage";
+import ErrorPage from "../common/ErrorPage";
 
 const OrderDetail = () => {
   const { id } = useParams();
 
-  const [order, setOrder] = useState<IOrder>();
+  const orderQuery = useQuery({
+    queryKey: ["order", id],
+    queryFn: () =>
+      orderApi.getSingleOrder(id).then((res) => {
+        return res.data;
+      }),
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    orderApi
-      .getSingleOrder(id)
-      .then((res) => {
-        setOrder(res.data.order);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [id]);
+  if (orderQuery.isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (orderQuery.isError) {
+    return <ErrorPage />;
+  }
 
   return (
     <>
@@ -32,10 +38,10 @@ const OrderDetail = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
         <div className="flex flex-col lg:col-span-2  justify-center pt-4 pb-1 rounded bg-gray-50 dark:bg-gray-800">
           <p className="text-white font-semibold px-4">
-            Order No : #{order?._id}
+            Order No : #{orderQuery.data?.order?._id}
           </p>
 
-          {order?.status &&
+          {orderQuery.data?.order?.status &&
             {
               pending: (
                 <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200">
@@ -62,7 +68,7 @@ const OrderDetail = () => {
                   delivered
                 </span>
               ),
-            }[order.status]}
+            }[orderQuery.data?.order.status]}
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -88,16 +94,16 @@ const OrderDetail = () => {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {moment(order?.createdAt).format("LLL")}
+                    {moment(orderQuery.data?.order?.createdAt).format("LLL")}
                   </th>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {order?.userName}
+                    {orderQuery.data?.order?.userName}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {order?.email}
+                    {orderQuery.data?.order?.email}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {order?.address}
+                    {orderQuery.data?.order?.address}
                   </td>
                 </tr>
               </tbody>
@@ -114,7 +120,7 @@ const OrderDetail = () => {
                     Sub total
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${order?.subtotal}
+                    : ${orderQuery.data?.order?.subtotal}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -122,7 +128,7 @@ const OrderDetail = () => {
                     Shipping
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${order?.shippingFee}
+                    : ${orderQuery.data?.order?.shippingFee}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -130,7 +136,7 @@ const OrderDetail = () => {
                     Tax
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${order?.tax}
+                    : ${orderQuery.data?.order?.tax}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -138,7 +144,7 @@ const OrderDetail = () => {
                     Total
                   </td>
                   <td className="px-6 py-1 text-white font-semibold whitespace-nowrap">
-                    : ${order?.total}
+                    : ${orderQuery.data?.order?.total}
                   </td>
                 </tr>
               </tbody>
@@ -172,7 +178,7 @@ const OrderDetail = () => {
             </tr>
           </thead>
           <tbody>
-            {order?.orderItems.map((item, index, arr) => {
+            {orderQuery.data?.order?.orderItems.map((item, index, arr) => {
               if (index === arr.length - 1) {
                 return (
                   <tr key={item._id} className="bg-white dark:bg-gray-800">
