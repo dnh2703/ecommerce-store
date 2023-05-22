@@ -51,6 +51,22 @@ export const productSlice = createSlice({
         state.cartProducts.push(tempProducts);
       }
     },
+    deleteCartProduct: (state, actions) => {
+      const itemIndex = state.cartProducts.findIndex(
+        (item) => item.product.id === actions.payload.product.id
+      );
+      state.cartProducts.splice(itemIndex, 1);
+    },
+    minusOneItem: (state, actions) => {
+      const itemIndex = state.cartProducts.findIndex(
+        (item) => item.product.id === actions.payload.product.id
+      );
+      if (state.cartProducts[itemIndex].quantity > 1) {
+        state.cartProducts[itemIndex].quantity -= 1;
+      } else {
+        state.cartProducts.splice(itemIndex, 1);
+      }
+    },
   },
 });
 
@@ -60,6 +76,8 @@ export const {
   getProductsSuccess,
   getCartProduct,
   addToCart,
+  deleteCartProduct,
+  minusOneItem,
 } = productSlice.actions;
 
 export default productSlice.reducer;
