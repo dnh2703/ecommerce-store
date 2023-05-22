@@ -21,7 +21,10 @@ import {
 
 export const ProductRoute = (props: any) => {
   return (
-    <Link style={{ textDecoration: "none" }} to={`/${props.name}`}>
+    <Link
+      style={{ textDecoration: "none" }}
+      to={`/${props.main}/${props.name}`}
+    >
       <Typography
         sx={{
           opacity: "0.6",
@@ -29,6 +32,10 @@ export const ProductRoute = (props: any) => {
           marginRight: "10px",
           fontSize: "12px",
           textTransform: "capitalize",
+          "&:hover": {
+            opacity: "1",
+            textDecoration: "underline",
+          },
         }}
       >
         {props.name}
