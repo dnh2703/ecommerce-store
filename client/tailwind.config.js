@@ -8,6 +8,8 @@ export default {
         buy: "buy 0.2s ease-in-out",
         truck: "truck 3s ease-in-out",
         way: "way 3s ease-in-out",
+        "fade-in": "fadeIn 0.3s ease-in forwards",
+        "fade-out": "fadeOut 0.3s ease-out forwards",
       },
       keyframes: {
         truck: {
@@ -97,6 +99,14 @@ export default {
           "100%": {
             transform: "translateX(0)",
           },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        fadeOut: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
         },
       },
     },

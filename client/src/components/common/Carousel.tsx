@@ -4,12 +4,18 @@ const Carosel = () => {
   const slides = [
     {
       url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-1.jpg?v=1656490821",
+      title: "Spring Sale",
+      text: "Up to 20% off + free delivery",
     },
     {
       url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-2.jpg?v=1656490833",
+      title: "Clearance Sale",
+      text: "Up to 20% off + free delivery",
     },
     {
       url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/slider-3_1296x.jpg?v=1656490844",
+      title: "Bright new things",
+      text: "Say hello to our branch new arrivals",
     },
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,6 +35,11 @@ const Carosel = () => {
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
         className="w-full h-full bg-center bg-cover duration-500"
       >
+        <div className="absolute top-[40%] left-20 text-left text-white transition-900">
+          <h1 className="text-5xl mb-3">{slides[currentIndex].title}</h1>
+          <p className="text-lg my-3">{slides[currentIndex].text}</p>
+          <button className="px-6 py-2 bg-white text-black">Shop now</button>
+        </div>
         <div className="absolute top-[50%] -translate-x-0 translate-y-[50%] left-5 rounded-full text-2xl p-2 bg-black/20 text-white cursor-pointer">
           <svg
             fill="none"
