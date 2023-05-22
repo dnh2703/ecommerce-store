@@ -14,12 +14,16 @@ import LoadingPage from "../components/common/LoadingPage";
 import TermsAndConditions from "../components/common/ProductDetail/TermsAndConditions";
 import { countries } from "../data/countries";
 import { province } from "../data/provinceDistrict";
+import Heading from "../components/common/Cart/Heading";
+import { useNavigate } from "react-router-dom";
+import CartProducts from "../components/common/Cart/CartProducts";
 
 export default function Cart(props: any) {
   let { cartProducts } = useAppSelector((state) => state.product);
   let dispatch = useDispatch();
   let [isAgree, setIsAgree] = useState<boolean>(false);
   let [isShowTerm, setIsShowTerm] = useState<boolean>(false);
+  let navigate = useNavigate();
 
   useEffect(() => {
     let res = localStorage.getItem("wishList");
@@ -36,15 +40,13 @@ export default function Cart(props: any) {
       localStorage.setItem("wishList", JSON.stringify(cartProducts));
   }, [cartProducts]);
 
+  console.log(cartProducts);
+
   function format2(n: any, currency: any) {
     return currency + n?.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
   }
 
   const handleChecked = () => setIsAgree(!isAgree);
-
-  const setCountry = (e: ChangeEvent<HTMLSelectElement>) => {
-    let country = e.target.value;
-  };
 
   return (
     <Container maxWidth="lg" className="px-5 relative">
@@ -56,96 +58,16 @@ export default function Cart(props: any) {
         />
       )}
       <div className="py-20 px-10">
-        <p className="text-center text-[40px] pb-16">Shopping Cart</p>
-        <div className="text-center">
-          <div className="flex justify-center items-center ">
-            <div className="rounded-lg h-1 w-1/2 bg-gray-200 relative">
-              <div className="rounded-lg h-1 w-full animate-way bg-[#6e2f1b]"></div>
-              <div className="animate-truck border-[#6e2f1b] right-[-3%] text-[#6e2f1b] absolute top-[-370%]  p-2 rounded-full border bg-white">
-                <i className="fa-solid fa-truck-fast"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p className="mt-8 mb-12 text-center text-gray-500 text-sm">
-          Congratulations , you've got free shipping!
-        </p>
+        <Heading />
         <div>
-          <div className="flex mb-3 pb-4 border-b border-gray-300">
-            <div className="basis-1/2">Product</div>
-            <div className="basis-1/4 text-center">Quantity</div>
-            <div className="basis-1/4 text-right">Total</div>
-          </div>
-          <div className=" mb-3 pb-6 border-b border-gray-300">
-            {cartProducts?.map((wProduct: CartListProducts) => {
-              return (
-                <div className="flex py-4 ">
-                  <div className="basis-1/2 flex">
-                    <div className="basis-1/4 mr-5">
-                      <img
-                        className="w-full"
-                        src={wProduct.product.image}
-                        alt=""
-                      />
-                    </div>
-                    <div className="basis-[85%] flex flex-col justify-center">
-                      <p className="mb-3 text-sm ">{wProduct.product.name}</p>
-                      <p className="text-gray-500 text-sm ">
-                        ${wProduct.product.price / 100}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="basis-1/4 flex-col items-center flex justify-center">
-                    <div className="flex mx-14 justify-center mt-2 border items-center border-gray-300">
-                      <button
-                        onClick={() => {
-                          dispatch(minusOneItem(wProduct));
-                        }}
-                        className="px-4 py-2"
-                      >
-                        <i className="opacity-60 text-sm fa-solid fa-minus"></i>
-                      </button>
-                      <div className="px-2 text-sm">{wProduct.quantity}</div>
-                      <button
-                        onClick={() => {
-                          dispatch(
-                            addToCart({
-                              product: wProduct.product,
-                              quantity: wProduct.quantity,
-                              count: 1,
-                            })
-                          );
-                        }}
-                        className="px-4 py-2"
-                      >
-                        <i className=" opacity-60 text-sm fa-solid fa-plus"></i>
-                      </button>
-                    </div>
-                    <div
-                      onClick={() => {
-                        dispatch(
-                          deleteCartProduct({ product: wProduct.product })
-                        );
-                      }}
-                      className="text-xs cursor-pointer text-gray-400 underline mt-2"
-                    >
-                      Remove
-                    </div>
-                  </div>
-                  <div className="basis-1/4 flex items-center justify-end">
-                    <div className="text-sm">
-                      {format2(
-                        (wProduct.product.price / 100) * wProduct.quantity,
-                        "$"
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex my-8 text-sm">
-            <div className="basis-1/2 px-4">
+          <CartProducts
+            dispatch={dispatch}
+            cartProducts={cartProducts}
+            format2={format2}
+          />
+
+          <div className="flex my-8 text-sm max-md:flex-wrap">
+            <div className="basis-1/2 max-md:basis-full px-4 max-md:mb-10">
               <div className=" mb-8">
                 <p className="mb-5">Special instructions for seller</p>
                 <textarea
@@ -170,7 +92,7 @@ export default function Cart(props: any) {
               </div>
             </div>
 
-            <div className="flex basis-1/2 flex-col px-4">
+            <div className="flex basis-1/2 max-md:basis-full flex-col px-4">
               <div className="w-full text-right mb-4">
                 <p className="text-base ">
                   Subtotal:{" "}
@@ -226,6 +148,11 @@ export default function Cart(props: any) {
               <div className="flex justify-end w-full">
                 <button
                   disabled={!isAgree}
+                  onClick={() => {
+                    if (isAgree) {
+                      navigate("/check-out/information");
+                    }
+                  }}
                   className={`my-5 uppercase  leading-[50px] w-1/2  group/buy duration-500 ${
                     isAgree
                       ? "text-black border-black hover:bg-[#6e2f1b]"
@@ -242,19 +169,6 @@ export default function Cart(props: any) {
                   </span>
                 </button>
               </div>
-            </div>
-          </div>
-          <div>
-            <p>Get shipping estimates</p>
-            <div>
-              <select name="country" id="" onChange={setCountry}>
-                {countries.map((country: any) => (
-                  <option value={country.name}>{country.name}</option>
-                ))}
-              </select>
-              <select name="province" id="">
-                {}
-              </select>
             </div>
           </div>
         </div>

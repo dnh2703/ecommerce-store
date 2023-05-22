@@ -56,6 +56,9 @@ export const productSlice = createSlice({
         (item) => item.product.id === actions.payload.product.id
       );
       state.cartProducts.splice(itemIndex, 1);
+      if (state.cartProducts.length === 0) {
+        localStorage.setItem("wishList", JSON.stringify([]));
+      }
     },
     minusOneItem: (state, actions) => {
       const itemIndex = state.cartProducts.findIndex(
@@ -65,6 +68,9 @@ export const productSlice = createSlice({
         state.cartProducts[itemIndex].quantity -= 1;
       } else {
         state.cartProducts.splice(itemIndex, 1);
+      }
+      if (state.cartProducts.length === 0) {
+        localStorage.setItem("wishList", JSON.stringify([]));
       }
     },
   },

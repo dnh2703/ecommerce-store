@@ -13,6 +13,7 @@ import "normalize.css";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import VerifyEmail from "./components/common/VerifyEmail";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/products" element={<ProductPage />}></Route>
         <Route path="/products/:id" element={<ProductDetailPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
         <Route path="/account" element={<AccountPage />}>
           <Route
             index
