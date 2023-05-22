@@ -5,8 +5,6 @@ const Product = () => {
   return (
     <div className="md:p-4">
       <Breadcrumb />
-
- 
       <Outlet />
     </div>
   );
