@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../../interfaces/product";
 import productApi from "../../api/modules/productApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "../common/LoadingPage";
+import ErrorPage from "../common/ErrorPage";
 
 const EditProduct = () => {
   const [isLoading, setLoading] = useState(false);
@@ -13,7 +16,6 @@ const EditProduct = () => {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<IProduct>();
 
@@ -35,12 +37,11 @@ const EditProduct = () => {
     navigate(-1);
   };
 
-  useEffect(() => {
-    productApi
-      .getSingleProduct(id)
-      .then((res) => {
-        const { data } = res;
-        const { product } = data;
+  const productQuery = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => {
+      return productApi.getSingleProduct(id).then((res) => {
+        const { product } = res.data;
         setValue("name", product.name);
         setValue("company", product.company);
         setValue("price", product.price);
@@ -50,9 +51,20 @@ const EditProduct = () => {
         setValue("description", product.description);
         setValue("averageRating", product.averageRating);
         setValue("numOfReviews", product.numOfReviews);
-      })
-      .catch((err) => console.log(err));
-  }, [setValue, id]);
+        return res.data;
+      });
+    },
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
+
+  if (productQuery.isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (productQuery.error) {
+    return <ErrorPage />;
+  }
 
   return (
     <section className="bg-white dark:bg-gray-900">

@@ -24,9 +24,13 @@ interface IOrder {
   updatedAt: string;
 }
 
+interface IOrderResponse {
+  order: IOrder;
+}
+
 interface IOrderData {
   orders: IOrder[];
   count: number;
 }
 
-export type { IOrder, IOrderData, IOrderItem };
+export type { IOrder, IOrderData, IOrderItem,IOrderResponse };
