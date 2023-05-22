@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
-import { IProduct, WishListProducts } from "../../interfaces/product";
+import { IProduct, CartListProducts } from "../../interfaces/product";
 import productApi from "../../api/productApi";
 import { IReview } from "../../interfaces/review";
 
 // Define a type for the slice state
 interface ProductState {
-  wishListProducts: WishListProducts[];
+  cartProducts: CartListProducts[];
   products: IProduct[];
   isLoading: boolean;
   error: boolean;
@@ -15,7 +15,7 @@ interface ProductState {
 
 // Define the initial state using that type
 const initialState: ProductState = {
-  wishListProducts: [],
+  cartProducts: [],
   products: [],
   isLoading: false,
   error: false,
@@ -37,8 +37,19 @@ export const productSlice = createSlice({
       state.isLoading = false;
       state.error = true;
     },
-    getWishListProduct: (state, actions) => {
-      state.wishListProducts = actions.payload;
+    getCartProduct: (state, actions) => {
+      state.cartProducts = actions.payload;
+    },
+    addToCart: (state, actions) => {
+      const itemIndex = state.cartProducts.findIndex(
+        (item) => item.product.id === actions.payload.product.id
+      );
+      if (itemIndex >= 0) {
+        state.cartProducts[itemIndex].quantity += actions.payload.count;
+      } else {
+        const tempProducts = { ...actions.payload };
+        state.cartProducts.push(tempProducts);
+      }
     },
   },
 });
@@ -47,7 +58,8 @@ export const {
   getProductsStart,
   getProductsFailure,
   getProductsSuccess,
-  getWishListProduct,
+  getCartProduct,
+  addToCart,
 } = productSlice.actions;
 
 export default productSlice.reducer;

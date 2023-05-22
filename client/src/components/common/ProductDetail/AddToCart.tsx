@@ -1,13 +1,33 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getWishListProduct } from "../../../features/slice/productSlice";
+import {
+  addToCart,
+  getCartProduct,
+} from "../../../features/slice/productSlice";
+import { CartListProducts } from "../../../interfaces/product";
+import { arrayBuffer } from "stream/consumers";
 
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
   let [isAgree, setIsAgree] = useState<boolean>(false);
-  let { wishListProducts } = useAppSelector((state) => state.product);
-  const dispatch = useAppDispatch();
+  let { cartProducts } = useAppSelector((state) => state.product);
+  let dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (cartProducts.length > 0)
+      localStorage.setItem("wishList", JSON.stringify(cartProducts));
+  }, [cartProducts]);
+
+  useEffect(() => {
+    let res = localStorage.getItem("wishList");
+    if (res !== null) {
+      const items = JSON.parse(res);
+      if (items) {
+        dispatch(getCartProduct(items));
+      }
+    }
+  }, []);
 
   const handleMinus = () => {
     if (count === 1) {
@@ -54,13 +74,14 @@ export default function AddToCart(props: any) {
         </div>
         <div
           onClick={() => {
-            window.localStorage.setItem(
-              "Wish_List",
-              JSON.stringify(wishListProducts)
-            );
             dispatch(
-              getWishListProduct({ quantity: count, product: props.product })
+              addToCart({
+                product: props.product,
+                quantity: count,
+                count: count,
+              })
             );
+            setCount(1);
           }}
           className="basis-[60%] group/button"
         >
@@ -83,7 +104,6 @@ export default function AddToCart(props: any) {
           name="agree"
           id="agree"
           onClick={handleChecked}
-          onChange={() => {}}
         />
         <label
           htmlFor="agree"
