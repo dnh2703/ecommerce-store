@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { IProduct } from "../../interfaces/product";
 import privateClient from "../client/private.client";
 import publicClient from "../client/public.client";
