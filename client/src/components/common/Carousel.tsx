@@ -24,7 +24,7 @@ const Carosel = () => {
     setCurrentIndex(newIndex);
   };
   return (
-    <div className="relative max-w-full h-[780px] w-full m-auto py-16">
+    <div className="relative max-w-full h-[780px] w-full m-auto pt-16">
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
         className="w-full h-full bg-center bg-cover duration-500"
