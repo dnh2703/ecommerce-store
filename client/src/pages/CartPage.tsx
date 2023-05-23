@@ -19,11 +19,11 @@ import { useNavigate } from "react-router-dom";
 import CartProducts from "../components/common/Cart/CartProducts";
 
 export default function Cart(props: any) {
-  let { cartProducts } = useAppSelector((state) => state.product);
   let dispatch = useDispatch();
   let [isAgree, setIsAgree] = useState<boolean>(false);
   let [isShowTerm, setIsShowTerm] = useState<boolean>(false);
   let navigate = useNavigate();
+  let { cartProducts } = useAppSelector((state) => state.product);
 
   useEffect(() => {
     let res = localStorage.getItem("wishList");
@@ -39,8 +39,6 @@ export default function Cart(props: any) {
     if (cartProducts.length > 0)
       localStorage.setItem("wishList", JSON.stringify(cartProducts));
   }, [cartProducts]);
-
-  console.log(cartProducts);
 
   function format2(n: any, currency: any) {
     return currency + n?.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -66,8 +64,8 @@ export default function Cart(props: any) {
             format2={format2}
           />
 
-          <div className="flex my-8 text-sm max-md:flex-wrap">
-            <div className="basis-1/2 max-md:basis-full px-4 max-md:mb-10">
+          <div className="flex my-8 text-sm max-md:flex-wrap gap-4">
+            <div className="basis-1/2 max-md:basis-full max-md:mb-10">
               <div className=" mb-8">
                 <p className="mb-5">Special instructions for seller</p>
                 <textarea
@@ -92,7 +90,7 @@ export default function Cart(props: any) {
               </div>
             </div>
 
-            <div className="flex basis-1/2 max-md:basis-full flex-col px-4">
+            <div className="flex basis-1/2 max-md:basis-full flex-col">
               <div className="w-full text-right mb-4">
                 <p className="text-base ">
                   Subtotal:{" "}

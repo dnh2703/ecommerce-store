@@ -6,8 +6,8 @@ export default {
       animation: {
         modalOpacity: "modalOpacity 0.5s ease-in-out",
         buy: "buy 0.2s ease-in-out",
-        truck: "truck 3s ease-in-out",
-        way: "way 3s ease-in-out",
+        truck: "truck 2s ease-in-out",
+        way: "way 2s ease-in-out",
         "fade-in": "fadeIn 0.3s ease-in forwards",
         "fade-out": "fadeOut 0.3s ease-out forwards",
       },

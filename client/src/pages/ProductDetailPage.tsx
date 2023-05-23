@@ -135,12 +135,12 @@ export default function ProductDetailPage() {
           )}
           <Container maxWidth="xl">
             <header className="flex items-center py-5">
-              <ProductRoute name="home" />
+              <ProductRoute src={"/home"} name="home" />
               <i
                 style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
                 className="fa-solid fa-angle-right"
               ></i>
-              <ProductRoute name="products" />
+              <ProductRoute src={"/products"} name="products" />
               <i
                 style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
                 className="fa-solid fa-angle-right"
