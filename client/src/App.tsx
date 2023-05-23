@@ -1,6 +1,6 @@
 import "./App.scss";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AccountPage from "./pages/AccountPage";
 import ProtectRoute from "./components/common/ProtectRoute";
 import Dashboard from "./components/common/Dashboard";
@@ -23,7 +23,6 @@ function App() {
         <Route path="/products" element={<ProductPage />}></Route>
         <Route path="/products/:id" element={<ProductDetailPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
-        <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
         <Route path="/account" element={<AccountPage />}>
           <Route
             index
@@ -38,6 +37,11 @@ function App() {
           <Route path="verify-email" element={<VerifyEmail />} />
           <Route path="reset-password" />
         </Route>
+        <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
+        <Route
+          path="/check-out"
+          element={<Navigate replace to="/check-out/information"></Navigate>}
+        ></Route>
       </Routes>
     </>
   );

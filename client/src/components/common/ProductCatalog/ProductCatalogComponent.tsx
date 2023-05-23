@@ -21,10 +21,7 @@ import {
 
 export const ProductRoute = (props: any) => {
   return (
-    <Link
-      style={{ textDecoration: "none" }}
-      to={`/${props.main}/${props.name}`}
-    >
+    <Link style={{ textDecoration: "none" }} to={`${props.src}`}>
       <Typography
         sx={{
           opacity: "0.6",
