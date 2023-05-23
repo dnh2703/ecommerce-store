@@ -25,7 +25,6 @@ const Login = () => {
     await authApi
       .login(data)
       .then((res) => {
-        console.log(res);
         if (res.data.user.role !== "admin") {
           setErrMessage("You don't have permission to access");
         } else {
@@ -36,8 +35,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        setErrMessage(err.response.data.msg);
+        setErrMessage("Something went wrong");
       })
       .finally(() => setLoading(false));
   };

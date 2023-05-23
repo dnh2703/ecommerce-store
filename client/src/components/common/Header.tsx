@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
 const Header = () => {
+  let links = [
+    { name: "Home", link: "/" },
+    { name: "Products", link: "/products" },
+    { name: "About", link: "/About" },
+  ];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -12,21 +17,23 @@ const Header = () => {
       <div className="flex items-center order-2 md:order-1">
         <h1 className="text-xl font-bold">FUNORI</h1>
       </div>
-      <div
-        className={`fixed top-20 left-0 w-1/2 h-screen flex flex-col justify-start items-center bg-white  space-x-4 ${
+
+      <ul
+        className={`list-none md:flex  md:items-center pb-12 md:pb-0 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 ${
           isMenuOpen ? "block" : "hidden"
-        } md:block md:flex-row md:order-2 md:h-auto md:justify-between md:static  `}
+        } md:order-2 `}
       >
-        <button className="text-gray-600 border-2 border-gray-50 border-b-gray-300 pb-2 md:border-none hover:border-2 hover:border-gray-50 hover:border-b-gray-500">
-          HOME
-        </button>
-        <button className="text-gray-600 border-2 border-gray-50 border-b-gray-300 pb-2 md:border-none">
-          PRODUCT
-        </button>
-        <button className="text-gray-600 border-2 border-gray-50 border-b-gray-300 pb-2 md:border-none">
-          CONTACT
-        </button>
-      </div>
+        {links.map((link, linkIndex) => (
+          <li key={link.name} className="md:ml-8 text-xl my-7 md:my-0">
+            <a
+              href={link.link}
+              className="text-gray-800 hover:texr-gray-500 duration-500"
+            >
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
       <div className="flex items-center space-x-4 order-3 md:order-3">
         <button>
           <svg
