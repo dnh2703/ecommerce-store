@@ -29,7 +29,7 @@ const TableHeader = ({ setQ, setCurrentPage }: TableHeaderProps) => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto w-full ">
+    <div className=" mx-auto w-full ">
       {/* Start coding here */}
       <div className="relative bg-white shadow-md dark:bg-gray-800">
         <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">

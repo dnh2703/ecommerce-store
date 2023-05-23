@@ -120,7 +120,7 @@ const OrderDetail = () => {
                     Sub total
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${orderQuery.data?.order?.subtotal}
+                    : ${orderQuery.data?.order?.subtotal.toLocaleString()}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -128,7 +128,7 @@ const OrderDetail = () => {
                     Shipping
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${orderQuery.data?.order?.shippingFee}
+                    : ${orderQuery.data?.order?.shippingFee.toLocaleString()}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -136,7 +136,7 @@ const OrderDetail = () => {
                     Tax
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${orderQuery.data?.order?.tax}
+                    : ${orderQuery.data?.order?.tax.toLocaleString()}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -144,7 +144,7 @@ const OrderDetail = () => {
                     Total
                   </td>
                   <td className="px-6 py-1 text-white font-semibold whitespace-nowrap">
-                    : ${orderQuery.data?.order?.total}
+                    : ${orderQuery.data?.order?.total.toLocaleString()}
                   </td>
                 </tr>
               </tbody>
@@ -191,8 +191,8 @@ const OrderDetail = () => {
                     </th>
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.amount}</td>
-                    <td className="px-6 py-4">${item.price}</td>
-                    <td className="px-6 py-4">${item.price * item.amount}</td>
+                    <td className="px-6 py-4">${item.price.toLocaleString()}</td>
+                    <td className="px-6 py-4">${(item.price * item.amount).toLocaleString()}</td>
                   </tr>
                 );
               } else {
@@ -210,8 +210,8 @@ const OrderDetail = () => {
                     </td>
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.amount}</td>
-                    <td className="px-6 py-4">${item.price}</td>
-                    <td className="px-6 py-4">${item.price * item.amount}</td>
+                    <td className="px-6 py-4">${item.price.toLocaleString()}</td>
+                    <td className="px-6 py-4">${(item.price * item.amount).toLocaleString()}</td>
                   </tr>
                 );
               }
