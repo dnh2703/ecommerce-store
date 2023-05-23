@@ -35,7 +35,7 @@ const ProductItem = ({
       <td className="px-6 py-4">{product.inventory}</td>
 
       <td className="px-6 py-4">{product.company}</td>
-      <td className="px-6 py-4">${product.price}</td>
+      <td className="px-6 py-4">${product.price.toLocaleString()}</td>
       <td
         className="px-6 py-4 text-right whitespace-nowrap
 "
