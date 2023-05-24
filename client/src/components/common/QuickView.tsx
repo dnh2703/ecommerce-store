@@ -39,7 +39,7 @@ export function QuickView(props: any) {
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`relative flex h-1/2 top-1/2 w-3/5
+        className={`relative flex h-1/2 top-1/2 w-3/5 max-lg:w-[90%]
         left-1/2 translate-x-[-50%] translate-y-[-50%] z-20 bg-white duration-500`}
       >
         <div

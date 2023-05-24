@@ -217,7 +217,7 @@ export default function ProductPage() {
   return (
     <>
       {!isLoading ? (
-        <div className="relative pt-10">
+        <div className="relative pt-10 mt-[86.8px]">
           <Container maxWidth="xl">
             <div
               className={` ${
