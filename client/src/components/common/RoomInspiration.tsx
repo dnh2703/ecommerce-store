@@ -11,22 +11,23 @@ const RoomInspiration = () => {
     setIsHovered(true);
   };
   return (
-    <div className="flex flex-col items-center md:flex-row pt-10">
-      <div className="md:w-2/5 bg-gray-800 text-white h-[50%vh] pl-10">
-        <h3 className="text-5xl pb-5">Room </h3>
-        <h3 className="text-5xl pb-5">Inspiration</h3>
-
-        <p className="pb-10">
-          Discover fresh ideas from our in-house stylists andother Funiro
-          customers to transform your own room.
-        </p>
-        <button
-          className={`w-40 h-10 bg-black text-white duration-300`}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {isHovered ? "Discovery" : "->"}
-        </button>
+    <div className="flex flex-col md:flex-row pt-10">
+      <div className="md:w-2/5 bg-gray-800 text-white pl-10  ">
+        <div className="h-full flex flex-col justify-center my-5">
+          <h3 className="text-5xl pb-5">Room </h3>
+          <h3 className="text-5xl pb-5">Inspiration</h3>
+          <p className="pb-10">
+            Discover fresh ideas from our in-house stylists and other Funiro
+            customers to transform your own room.
+          </p>
+          <button
+            className={`w-40 h-10 bg-black text-white duration-300`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {isHovered ? "Discovery" : "->"}
+          </button>
+        </div>
       </div>
       <div className=" md:w-3/5">
         <img

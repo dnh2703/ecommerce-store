@@ -37,7 +37,6 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
     }
   }, [debouncedQuery]);
 
-
   const renderItemsSearch = () => {
     if (result.length === 0 && isDone && debouncedQuery) {
       return (
@@ -120,7 +119,7 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
   // render an input element and a button element
   return (
     <>
-      <div className="h-screen w-screen fixed top-0 left-0 relative">
+      <div className="h-screen w-screen fixed top-0 left-0 z-50">
         <div
           className={`bg-white-100 transition-transform duration-300 max-h-[90%] relative overflow-x-hidden ${
             isOpen
