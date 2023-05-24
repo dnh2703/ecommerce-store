@@ -65,7 +65,7 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
             </Link>
           </p>
 
-          <p className="text-base col-span-3 text-gray-400 font-light">
+          <p className="text-base col-span-3 text-gray-400 font-light text-left">
             No results found for
             <span className="font-semibold text-black">
               {" "}
@@ -104,7 +104,11 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
         </p>
         {result.map((item) => {
           return (
-            <Link to={`products/${item.id}`} key={item.id} className="">
+            <Link
+              to={`products/${item.id}`}
+              key={item.id}
+              className="text-left"
+            >
               <img src={item.image} alt={item.name} />
               <p className="font-light pt-2 pb-1">{item.name}</p>
               <p className="font-light text-gray-400">
@@ -121,7 +125,13 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
     <>
       <div className="h-screen w-screen fixed top-0 left-0 z-50">
         <div
-          className={`bg-white-100 transition-transform duration-300 max-h-[90%] relative overflow-x-hidden ${
+          className={`fixed h-screen w-screen bg-black opacity-10 ${
+            !isOpen && "hidden"
+          }`}
+          onClick={() => setIsOpen(false)}
+        ></div>
+        <div
+          className={`bg-white transition-transform duration-300 max-h-[90%] relative overflow-x-hidden ${
             isOpen
               ? "translate-y-0 opacity-100 visible"
               : "-translate-y-full opacity-0 invisible"
@@ -156,12 +166,6 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
             </div>
           </div>
         </div>
-        <div
-          className={`fixed h-screen w-screen bg-black opacity-10 ${
-            !isOpen && "hidden"
-          }`}
-          onClick={() => setIsOpen(false)}
-        ></div>
       </div>
     </>
   );

@@ -1,11 +1,11 @@
-import axiosConfig from "./axiosConfig";
+import publicClient from "./client/public.client";
 
 const productApi = {
   getProductDetail: (id: any) => {
-    return axiosConfig.get(`/products/${id}`);
+    return publicClient.get(`/products/${id}`);
   },
   getAllProducts: (name = "") => {
-    return axiosConfig.get(`/products?name=${name}`);
+    return publicClient.get(`/products?name=${name}`);
   },
 };
 

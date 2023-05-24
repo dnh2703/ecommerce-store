@@ -1,15 +1,16 @@
 import { PostReview } from "../interfaces/review";
-import axiosConfig from "./axiosConfig";
+import privateClient from "./client/private.client";
+import publicClient from "./client/public.client";
 
 const reviewApi = {
   getSingleReview: (id: string) => {
-    return axiosConfig.get(`/reviews/${id}`);
+    return publicClient.get(`/reviews/${id}`);
   },
   getAllReview: () => {
-    return axiosConfig.get(`/reviews`);
+    return publicClient.get(`/reviews`);
   },
   postAReview: (body: PostReview) => {
-    return axiosConfig.post(`/reviews`, body);
+    return privateClient.post(`/reviews`, body);
   },
 };
 
