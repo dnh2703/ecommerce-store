@@ -17,7 +17,7 @@ const OrderItem = ({ status, id, date, email, total }: OrderItemProps) => {
       </td>
       <td className="px-6 py-4 text-white font-bold">{email}</td>
       <td className="px-6 py-4">{moment(date).format("MMM Do YY")}</td>
-      <td className="px-6 py-4">{"$" + total}</td>
+      <td className="px-6 py-4">{"$" + total.toLocaleString()}</td>
       <td className="px-6 py-4">
         {
           {

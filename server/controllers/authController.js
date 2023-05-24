@@ -3,7 +3,6 @@ const Token = require('../models/Token');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const {
-  attachCookiesToResponse,
   createTokenUser,
   sendVerificationEmail,
   sendResetPasswordEmail,
