@@ -89,16 +89,17 @@ const Footer = () => {
             </div>
             <div className={`${contactUs ? "hidden" : "block"}`}>
               <p className="mb-4">
-                <strong>Add</strong> : 4 Copley Place, 7th Floor, Boston
+                <span className="font-semibold">Add</span> : 4 Copley Place, 7th
+                Floor, Boston
               </p>
               <p className="mb-4">
-                <strong>Tell</strong> : 866.453.4748
+                <span className="font-semibold">Tell</span> : 866.453.4748
               </p>
               <p className="mb-4">
-                <strong>HR Fax </strong>: 810.222.5439
+                <span className="font-semibold">HR Fax </span>: 810.222.5439
               </p>
               <p className="mb-4">
-                <strong>Email</strong> : sales@demati.com
+                <span className="font-semibold">Email</span> : sales@demati.com
               </p>
             </div>
           </div>

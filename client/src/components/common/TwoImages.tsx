@@ -8,7 +8,7 @@ const TwoImage = () => {
     },
   ];
   return (
-    <div className="flex flex-col md:flex-row pt-10 gap-10 px-10">
+    <div className="flex flex-col md:flex-row pt-10 gap-10 px-10 py-20">
       <div className="text-center">
         <img src={images[0].url} alt="" className="pb-5" />
         <h3 className="text-3xl pb-5">In Stock + Ready to Go: Dining</h3>

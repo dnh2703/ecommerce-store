@@ -7,6 +7,7 @@ import BottomNavigation from "../components/common/BottomNavigation";
 import TwoImage from "../components/common/TwoImages";
 import RoomInspiration from "../components/common/RoomInspiration";
 import Testimonials from "../components/common/Testimonials";
+import TopRating from "../components/common/TopRating";
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
       <Carosel />
       <ImageSlider />
       <TwoImage />
+      <TopRating />
       <RoomInspiration />
       <Testimonials />
       <Footer></Footer>
