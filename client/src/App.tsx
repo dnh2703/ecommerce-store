@@ -10,10 +10,14 @@ import { withCookies } from "react-cookie";
 import ProductPage from "./pages/ProductCatalogPage";
 import "normalize.css";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import CustomerProfile from "./components/common/CustomerProfile";
+
+import About from "./components/common/About";
 
 function App() {
   return (
     <>
+      {/* <CustomerProfile></CustomerProfile> */}
       <Routes>
         <Route index element={<HomePage />}></Route>
         <Route path="/products" element={<ProductPage />}></Route>
@@ -27,10 +31,13 @@ function App() {
               </ProtectRoute>
             }
           />
+
           <Route path="login" element={<SignIn />} />
           <Route path="register" element={<SignUp />} />
+          <Route path="about-us" element={<About />} />
           <Route path="verify-email" />
           <Route path="reset-password" />
+          <Route path="customer-profile" element={<CustomerProfile />} />
         </Route>
       </Routes>
     </>
