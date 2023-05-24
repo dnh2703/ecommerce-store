@@ -3,14 +3,18 @@ import { IProduct } from "../../interfaces/product";
 
 interface ProductState {
   products: IProduct[];
-  loading: boolean;
+  productsFilter: IProduct[];
+  isLoading: boolean;
   error: boolean;
+  filterCategories: string[];
 }
 
 const initialState: ProductState = {
   products: [],
-  loading: false,
+  productsFilter: [],
+  isLoading: false,
   error: false,
+  filterCategories: [],
 };
 
 const productSlice = createSlice({
@@ -18,14 +22,15 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     getProductsStart: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     getProductsSuccess: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.products = action.payload;
+      state.productsFilter = action.payload;
     },
     getProductsFailure: (state) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = true;
     },
     deleteProductAction: (state, action) => {
@@ -38,8 +43,19 @@ const productSlice = createSlice({
         );
       }
     },
-    toggleSortProductAction : (state,action) => {
-      
+    filterCategoriesAction: (state, action) => {
+      state.filterCategories = action.payload;
+
+      state.productsFilter = state.products.filter((product) =>
+        state.filterCategories.includes(product.category)
+      );
+
+      if (action.payload.length === 0) {
+        state.productsFilter = [...state.products];
+      }
+    },
+    toggleSortByNumberAction: (state,action) => {
+
     }
   },
 });
@@ -49,6 +65,7 @@ export const {
   getProductsStart,
   getProductsSuccess,
   deleteProductAction,
+  filterCategoriesAction,
 } = productSlice.actions;
 
 const productReducer = productSlice.reducer;

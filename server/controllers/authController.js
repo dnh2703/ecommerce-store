@@ -3,7 +3,6 @@ const Token = require('../models/Token');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const {
-  attachCookiesToResponse,
   createTokenUser,
   sendVerificationEmail,
   sendResetPasswordEmail,
@@ -188,6 +187,7 @@ const refreshToken = async (req, res) => {
   //send error if there is no token or it's invalid
   if (!refreshToken) throw new CustomError.UnauthenticatedError('You are not authenticated!');
   const existingToken = await Token.findOne({ refreshToken: refreshToken });
+  const payload = isTokenValid(refreshToken)
 
   if (!existingToken) {
     throw new CustomError.UnauthorizedError('Refresh token is not valid!');
@@ -197,7 +197,7 @@ const refreshToken = async (req, res) => {
     throw new CustomError.UnauthenticatedError('Invalid Credentials');
   }
 
-  const accessToken = createJWT({ payload: { user: existingToken.user } }, "10m");
+  const accessToken = createJWT({ payload: { user: payload.user } }, "10m");
 
   res.status(StatusCodes.OK).json({ refreshToken: refreshToken, accessToken: accessToken });
 }

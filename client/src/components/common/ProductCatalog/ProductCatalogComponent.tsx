@@ -21,18 +21,27 @@ import {
 
 export const ProductRoute = (props: any) => {
   return (
-    <Link style={{ textDecoration: "none" }} to={`/${props.name}`}>
-      <Typography
-        sx={{
-          opacity: "0.6",
-          color: "#000",
-          marginRight: "10px",
-          fontSize: "12px",
-          textTransform: "capitalize",
-        }}
-      >
-        {props.name}
-      </Typography>
+    <Link
+      style={{ textDecoration: "none", display: "flex", alignItems: "center" }}
+      to={`${props.src}`}
+    >
+      <div>
+        <Typography
+          sx={{
+            opacity: "0.6",
+            color: "#000",
+            marginRight: "10px",
+            fontSize: "12px",
+            textTransform: "capitalize",
+            "&:hover": {
+              opacity: "1",
+              textDecoration: "underline",
+            },
+          }}
+        >
+          {props.name}
+        </Typography>
+      </div>
     </Link>
   );
 };

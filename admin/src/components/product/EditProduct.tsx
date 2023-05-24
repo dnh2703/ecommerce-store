@@ -1,12 +1,14 @@
-// @ts-nocheck
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../../interfaces/product";
 import productApi from "../../api/modules/productApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "../common/LoadingPage";
+import ErrorPage from "../common/ErrorPage";
 
 const EditProduct = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -14,7 +16,6 @@ const EditProduct = () => {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<IProduct>();
 
@@ -33,17 +34,14 @@ const EditProduct = () => {
   };
 
   const handleDiscardChange = () => {
-    const formValues = watch();
     navigate(-1);
-    console.log(formValues);
   };
 
-  useEffect(() => {
-    productApi
-      .getSingleProduct(id)
-      .then((res) => {
-        const { data } = res;
-        const { product } = data;
+  const productQuery = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => {
+      return productApi.getSingleProduct(id).then((res) => {
+        const { product } = res.data;
         setValue("name", product.name);
         setValue("company", product.company);
         setValue("price", product.price);
@@ -53,9 +51,20 @@ const EditProduct = () => {
         setValue("description", product.description);
         setValue("averageRating", product.averageRating);
         setValue("numOfReviews", product.numOfReviews);
-      })
-      .catch((err) => console.log(err));
-  }, [setValue, id]);
+        return res.data;
+      });
+    },
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
+
+  if (productQuery.isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (productQuery.error) {
+    return <ErrorPage />;
+  }
 
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -277,12 +286,12 @@ const EditProduct = () => {
           <div className="flex items-center space-x-4 mt-3">
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className={`text-white ${
-                loading && "cursor-not-allowed"
+                isLoading && "cursor-not-allowed"
               } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
             >
-              {loading ? (
+              {isLoading ? (
                 <div>
                   <svg
                     aria-hidden="true"

@@ -1,14 +1,37 @@
 import { Grid, Box, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { IProductLayout } from "../../../interfaces/product";
+import { IProductLayout, CartListProducts } from "../../../interfaces/product";
 import { productStyles, imgProductStyles } from "./style";
 import TextRating from "../Rating";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QuickView } from "../QuickView";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import {
+  addToCart,
+  getCartProduct,
+} from "../../../features/slice/productSlice";
 
 export const ProductsColumn = (props: IProductLayout) => {
   let navigate = useNavigate();
   let [isShowQuickView, setIsShowQuickView] = useState<boolean>(false);
+  let { cartProducts } = useAppSelector((state) => state.product);
+  let dispatch = useAppDispatch();
+  let [reset, set] = useState(false);
+
+  useEffect(() => {
+    if (cartProducts.length > 0)
+      localStorage.setItem("wishList", JSON.stringify(cartProducts));
+  }, [cartProducts]);
+
+  useEffect(() => {
+    let res = localStorage.getItem("wishList");
+    if (res !== null) {
+      const items = JSON.parse(res);
+      if (items) {
+        dispatch(getCartProduct(items));
+      }
+    }
+  }, []);
 
   return (
     <Grid key={props.product.id} item xs={props.cols} sx={productStyles}>
@@ -36,7 +59,17 @@ export const ProductsColumn = (props: IProductLayout) => {
           )}
         </div>
         <div className="hover">
-          <div>
+          <div
+            onClick={() =>
+              dispatch(
+                addToCart({
+                  product: props.product,
+                  quantity: 1,
+                  count: 1,
+                })
+              )
+            }
+          >
             <i className="fa-solid fa-bag-shopping"></i>
           </div>
           <div>

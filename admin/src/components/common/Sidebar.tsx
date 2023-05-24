@@ -2,24 +2,29 @@ import useComponentVisible from "../../hooks/useComponentVisible";
 import { NavLink, useNavigate } from "react-router-dom";
 import appRoutes from "../../routes/appRoutes";
 import authApi from "../../api/modules/authApi";
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
 
   const navigate = useNavigate();
+
   const logout = () => {
     authApi
       .logout()
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
+          Cookies.remove("accessToken");
+          Cookies.remove("refreshToken");
+
           navigate("/");
         }
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => alert("123"));
+      });
   };
 
   return (

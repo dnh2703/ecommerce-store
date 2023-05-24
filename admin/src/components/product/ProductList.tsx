@@ -6,7 +6,7 @@ import {
 } from "../../features/slice/productSlice";
 import { IProduct } from "../../interfaces/product";
 import TableHeader from "./TableHeader";
-import PaginationTable from "./PaginationTable";
+import PaginationTable from "../common/PaginationTable";
 import Swal from "sweetalert2";
 import productApi from "../../api/modules/productApi";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,9 @@ import ProductItem from "./ProductItem";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
-  const { products, loading } = useAppSelector((state) => state.product);
+  const { productsFilter, isLoading } = useAppSelector(
+    (state) => state.product
+  );
   const [q, setQ] = useState<string>("");
   const navigate = useNavigate();
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -26,7 +28,7 @@ const ProductList = () => {
 
   const searchByName = useCallback(
     (data: IProduct[]) => {
-      return data.filter((item, index) => {
+      return data.filter((item) => {
         return item.name.toString().toLowerCase().indexOf(q.toLowerCase()) > -1;
       });
     },
@@ -36,9 +38,9 @@ const ProductList = () => {
   const start = itemsPerPage * (currentPage - 1);
   const finish = itemsPerPage * currentPage;
 
-  const dataProducts = searchByName(products);
-  const totalPages = Math.ceil(dataProducts.length / itemsPerPage);
-  const totalItems = dataProducts.length;
+  const itemProducts = searchByName(productsFilter);
+  const totalPages = Math.ceil(itemProducts.length / itemsPerPage);
+  const totalItems = itemProducts.length;
 
   const nextPage = () => {
     currentPage < totalPages && setCurrentPage(currentPage + 1);
@@ -90,11 +92,8 @@ const ProductList = () => {
     navigate(`edit/${id}`);
   };
 
-
   const renderProductList = () => {
-
-    
-    if (loading) {
+    if (isLoading) {
       return (
         <tr className="animate-pulse bg-white dark:bg-gray-800 dark:border-gray-700">
           <th scope="row" colSpan={7} className="px-6 py-4 text-center">
@@ -102,18 +101,8 @@ const ProductList = () => {
           </th>
         </tr>
       );
-    } else if (dataProducts.length > 0) {
-      return dataProducts.slice(start, finish).map((product) => {
-        return (
-          <ProductItem
-            key={product._id}
-            product={product}
-            delProduct={delProduct}
-            editProduct={editProduct}
-          />
-        );
-      });
-    } else {
+    }
+    if (itemProducts.length === 0) {
       return (
         <tr className="bg-white dark:bg-gray-800 dark:border-gray-700">
           <th scope="row" colSpan={7} className="px-6 py-4 text-center">
@@ -122,6 +111,17 @@ const ProductList = () => {
         </tr>
       );
     }
+
+    return itemProducts.slice(start, finish).map((product) => {
+      return (
+        <ProductItem
+          key={product._id}
+          product={product}
+          delProduct={delProduct}
+          editProduct={editProduct}
+        />
+      );
+    });
   };
 
   return (
@@ -136,36 +136,10 @@ const ProductList = () => {
                   Product name
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  <div className="flex items-center">
-                    Category
-                    <button type="button" title="button">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-3 h-3 ml-1"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 320 512"
-                      >
-                        <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                      </svg>
-                    </button>
-                  </div>
+                  <div className="flex items-center">Category</div>
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  <div className="flex items-center">
-                    Stock
-                    <button type="button" title="button">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-3 h-3 ml-1"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 320 512"
-                      >
-                        <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                      </svg>
-                    </button>
-                  </div>
+                  <div className="flex items-center">Stock</div>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Company

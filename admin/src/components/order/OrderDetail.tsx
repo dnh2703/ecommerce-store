@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import orderApi from "../../api/modules/orderApi";
-import { IOrder } from "../../interfaces/order";
 import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "../common/LoadingPage";
+import ErrorPage from "../common/ErrorPage";
 
 const OrderDetail = () => {
   const { id } = useParams();
 
-  const [order, setOrder] = useState<IOrder>();
+  const orderQuery = useQuery({
+    queryKey: ["order", id],
+    queryFn: () =>
+      orderApi.getSingleOrder(id).then((res) => {
+        return res.data;
+      }),
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
 
-  console.log(order);
+  if (orderQuery.isLoading) {
+    return <LoadingPage />;
+  }
 
-  useEffect(() => {
-    orderApi
-      .getSingleOrder(id)
-      .then((res) => {
-        setOrder(res.data.order);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [id]);
+  if (orderQuery.isError) {
+    return <ErrorPage />;
+  }
 
   return (
     <>
@@ -34,11 +38,37 @@ const OrderDetail = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
         <div className="flex flex-col lg:col-span-2  justify-center pt-4 pb-1 rounded bg-gray-50 dark:bg-gray-800">
           <p className="text-white font-semibold px-4">
-            Order No : #{order?._id}
+            Order No : #{orderQuery.data?.order?._id}
           </p>
-          <span className="mx-4 capitalize inline-flex items-center justify-center bg-yellow-100 mt-2 mb-4 text-yellow-800 text-xs font-medium w-16 h-5 rounded-full dark:bg-yellow-800 dark:text-yellow-200">
-            pending
-          </span>
+
+          {orderQuery.data?.order?.status &&
+            {
+              pending: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200">
+                  pending
+                </span>
+              ),
+              failed: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-200">
+                  failed
+                </span>
+              ),
+              canceled: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                  canceled
+                </span>
+              ),
+              paid: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
+                  paid
+                </span>
+              ),
+              delivered: (
+                <span className="mx-4 capitalize inline-flex items-center justify-center mt-2 mb-4  text-xs font-medium w-16 h-5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-200">
+                  delivered
+                </span>
+              ),
+            }[orderQuery.data?.order.status]}
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -64,16 +94,16 @@ const OrderDetail = () => {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {moment(order?.createdAt).format("LLL")}
+                    {moment(orderQuery.data?.order?.createdAt).format("LLL")}
                   </th>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {order?.userName}
+                    {orderQuery.data?.order?.userName}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {order?.email}
+                    {orderQuery.data?.order?.email}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    ${order?.total}
+                    {orderQuery.data?.order?.address}
                   </td>
                 </tr>
               </tbody>
@@ -90,7 +120,7 @@ const OrderDetail = () => {
                     Sub total
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${order?.subtotal}
+                    : ${orderQuery.data?.order?.subtotal.toLocaleString()}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -98,7 +128,7 @@ const OrderDetail = () => {
                     Shipping
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${order?.shippingFee}
+                    : ${orderQuery.data?.order?.shippingFee.toLocaleString()}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -106,7 +136,7 @@ const OrderDetail = () => {
                     Tax
                   </td>
                   <td className="text-sm px-6 py-1 text-white whitespace-nowrap">
-                    : ${order?.tax}
+                    : ${orderQuery.data?.order?.tax.toLocaleString()}
                   </td>
                 </tr>
                 <tr className=" border-gray-200 dark:border-gray-700">
@@ -114,7 +144,7 @@ const OrderDetail = () => {
                     Total
                   </td>
                   <td className="px-6 py-1 text-white font-semibold whitespace-nowrap">
-                    : ${order?.total}
+                    : ${orderQuery.data?.order?.total.toLocaleString()}
                   </td>
                 </tr>
               </tbody>
@@ -148,7 +178,7 @@ const OrderDetail = () => {
             </tr>
           </thead>
           <tbody>
-            {order?.orderItems.map((item, index, arr) => {
+            {orderQuery.data?.order?.orderItems.map((item, index, arr) => {
               if (index === arr.length - 1) {
                 return (
                   <tr key={item._id} className="bg-white dark:bg-gray-800">
@@ -161,8 +191,8 @@ const OrderDetail = () => {
                     </th>
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.amount}</td>
-                    <td className="px-6 py-4">${item.price}</td>
-                    <td className="px-6 py-4">${item.price * item.amount}</td>
+                    <td className="px-6 py-4">${item.price.toLocaleString()}</td>
+                    <td className="px-6 py-4">${(item.price * item.amount).toLocaleString()}</td>
                   </tr>
                 );
               } else {
@@ -180,10 +210,8 @@ const OrderDetail = () => {
                     </td>
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.amount}</td>
-                    <td className="px-6 py-4">${item.price}</td>
-                    <td className="px-6 py-4 text-right">
-                      ${item.price * item.amount}
-                    </td>
+                    <td className="px-6 py-4">${item.price.toLocaleString()}</td>
+                    <td className="px-6 py-4">${(item.price * item.amount).toLocaleString()}</td>
                   </tr>
                 );
               }
