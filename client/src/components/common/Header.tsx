@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   let links = [
     { name: "Home", link: "/" },
     { name: "Products", link: "/products" },
-    { name: "About", link: "/About" },
+    { name: "About", link: "/about" },
+    { name: "Contact", link: "/contact" },
   ];
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -16,7 +19,6 @@ const Header = () => {
 
   return (
     <>
-      {/* <SearchBar isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} /> */}
       <header className="shadow-md fixed top-0 left-0 right-0 flex items-center justify-between bg-white p-4 z-10 md:flex-row">
         <div className="flex items-center order-2 md:order-1">
           <h1 className="text-xl font-bold">FUNORI</h1>
@@ -41,8 +43,14 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center space-x-4 order-3 md:order-3">
-          <button onClick={() => setIsSearchOpen(true)}>
+        <div
+          className="flex items-center space-x-4 order-3 md:order-3"
+          // onClick={(e: any) => {
+          //   console.log(e);
+          //   // setIsSearchOpen(!isSearchOpen);
+          // }}
+        >
+          <button>
             <svg
               fill="none"
               stroke="currentColor"
@@ -50,7 +58,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
-              className="w-6 h-6 text-gray-900 "
+              className="w-6 h-6 text-gray-900 search-btn"
             >
               <path
                 stroke-linecap="round"
@@ -58,8 +66,13 @@ const Header = () => {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               ></path>
             </svg>
+            {/* <SearchBar isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} /> */}
           </button>
-          <button>
+          <button
+            onClick={() => {
+              navigate("/account/login");
+            }}
+          >
             <svg
               fill="none"
               stroke="currentColor"
@@ -84,7 +97,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
-              className="w-6 h-6 text-gray-900 "
+              className="w-6 h-6 text-gray-900"
             >
               <path
                 stroke-linecap="round"

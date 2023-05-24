@@ -5,13 +5,20 @@ import authApi from "../../api/authApi";
 import { useNavigate, Link } from "react-router-dom";
 import { AxiosError } from "axios";
 import { ILoginForm } from "../../interfaces/auth";
-
+import Cookies from "js-cookie";
 const SignIn = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
 
   const [checkPassword, setCheckPassword] = useState<boolean>(false);
+
+  const accessToken = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
+
+  if (accessToken || refreshToken) {
+    navigate("/");
+  }
 
   const {
     register,
@@ -21,24 +28,23 @@ const SignIn = () => {
   } = useForm<ILoginForm>();
 
   const onSubmit = (data: ILoginForm) => {
-    console.log(data);
-
     setLoading(true);
     async function PostApi() {
-      authApi
+      await authApi
         .login(data)
         .then((res) => {
-          if (res.status == 200) {
-            alert("successful login");
+          if (res.status === 200) {
+            Cookies.set("accessToken", res.data.accessToken);
+            Cookies.set("refreshToken", res.data.refreshToken);
+            const useJson = JSON.stringify(res.data.user);
 
-            navigate("/account");
+            localStorage.setItem("user", useJson);
+
+            navigate("/account/customer-profile");
           }
         })
-        .catch((reason: AxiosError) => {
-          if (reason.response!.status === 401) {
-            alert("Incorrect account or password");
-          }
-          console.log(reason.message);
+        .catch((error: AxiosError) => {
+          alert(error);
         });
     }
     PostApi();
@@ -98,7 +104,7 @@ const SignIn = () => {
                       required: true,
                       minLength: 5,
                       maxLength: 30,
-                      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                      // pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
                     })}
                   />
                   <button

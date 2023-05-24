@@ -24,7 +24,7 @@ const ProductList = () => {
 
   useEffect(() => {
     dispatch(getProductsStart());
-  }, [dispatch]);
+  }, []);
 
   const searchByName = useCallback(
     (data: IProduct[]) => {

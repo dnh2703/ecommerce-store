@@ -12,7 +12,6 @@ import TopRating from "../components/common/TopRating";
 const HomePage = () => {
   return (
     <>
-      <Header></Header>
       <BottomNavigation />
       <Carosel />
       <ImageSlider />
@@ -20,7 +19,6 @@ const HomePage = () => {
       <TopRating />
       <RoomInspiration />
       <Testimonials />
-      <Footer></Footer>
     </>
   );
 };

@@ -11,37 +11,46 @@ import { withCookies } from "react-cookie";
 import ProductPage from "./pages/ProductCatalogPage";
 import "normalize.css";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import CustomerProfile from "./components/common/CustomerProfile";
+
+import About from "./components/common/About";
 import CartPage from "./pages/CartPage";
 import VerifyEmail from "./components/common/VerifyEmail";
 import CheckoutPage from "./pages/CheckoutPage";
+import MainLayout from "./components/layout/MainLayout";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route index element={<HomePage />}></Route>
-        <Route path="/products" element={<ProductPage />}></Route>
-        <Route path="/products/:id" element={<ProductDetailPage />}></Route>
-        <Route path="/cart" element={<CartPage />}></Route>
-        <Route path="/account" element={<AccountPage />}>
+        <Route element={<MainLayout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route path="/products" element={<ProductPage />}></Route>
+          <Route path="/products/:id" element={<ProductDetailPage />}></Route>
+          <Route path="/cart" element={<CartPage />}></Route>
+          <Route path="/account" element={<AccountPage />}>
+            <Route
+              index
+              element={
+                <ProtectRoute>
+                  <Dashboard />
+                </ProtectRoute>
+              }
+            />
+
+            <Route path="login" element={<SignIn />} />
+            <Route path="register" element={<SignUp />} />
+            <Route path="about-us" element={<About />} />
+            <Route path="verify-email" />
+            <Route path="reset-password" />
+            <Route path="customer-profile" element={<CustomerProfile />} />
+          </Route>
+          <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
           <Route
-            index
-            element={
-              <ProtectRoute>
-                <Dashboard />
-              </ProtectRoute>
-            }
-          />
-          <Route path="login" element={<SignIn />} />
-          <Route path="register" element={<SignUp />} />
-          <Route path="verify-email" element={<VerifyEmail />} />
-          <Route path="reset-password" />
+            path="/check-out"
+            element={<Navigate replace to="/check-out/information"></Navigate>}
+          ></Route>
         </Route>
-        <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
-        <Route
-          path="/check-out"
-          element={<Navigate replace to="/check-out/information"></Navigate>}
-        ></Route>
       </Routes>
     </>
   );
