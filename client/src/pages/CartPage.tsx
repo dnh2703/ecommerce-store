@@ -47,7 +47,7 @@ export default function Cart(props: any) {
   const handleChecked = () => setIsAgree(!isAgree);
 
   return (
-    <Container maxWidth="lg" className="px-5 relative">
+    <Container maxWidth="lg" className="cart px-5 relative">
       {isShowTerm && (
         <TermsAndConditions
           closeModal={() => {
@@ -73,6 +73,7 @@ export default function Cart(props: any) {
                   name=""
                   id=""
                   cols={30}
+                  placeholder="How can i help you?"
                   rows={7}
                 ></textarea>
               </div>
@@ -86,6 +87,7 @@ export default function Cart(props: any) {
                 <input
                   className="border border-gray-300 outline-none py-4 px-5 w-full"
                   type="text"
+                  placeholder="Coupon code"
                 />
               </div>
             </div>
@@ -149,6 +151,7 @@ export default function Cart(props: any) {
                   onClick={() => {
                     if (isAgree) {
                       navigate("/check-out/information");
+                      window.scrollTo(0, 0);
                     }
                   }}
                   className={`my-5 uppercase  leading-[50px] w-1/2  group/buy duration-500 ${

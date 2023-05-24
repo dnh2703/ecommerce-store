@@ -2,16 +2,29 @@ import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductRoute } from "../ProductCatalog/ProductCatalogComponent";
 import { TextField, Typography } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, useEffect, useState } from "react";
 import Pickup from "./Pickup";
 import { useForm } from "react-hook-form";
 import InformationForm from "./InformationForm";
-import { getUserInfo } from "../../../features/slice/userInfoSlice";
+import {
+  UserInformation,
+  getUserInfo,
+  userInfoShipping,
+} from "../../../features/slice/userInfoSlice";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import CheckoutProducts from "./CheckoutProducts";
 import { CartListProducts } from "../../../interfaces/product";
+import { AnyAction } from "@reduxjs/toolkit";
 
-export default function Information(props: any) {
+interface IInformationProps {
+  isPickup: boolean;
+  userInfo: UserInformation;
+  dispatch: Dispatch<AnyAction>;
+  setShip: () => void;
+  setPickup: () => void;
+}
+
+export default function Information(props: IInformationProps) {
   let navigate = useNavigate();
   const {
     register,
@@ -19,13 +32,19 @@ export default function Information(props: any) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    if (props.isPickup) {
+      navigate("/check-out/payment");
+    } else {
+      navigate("/check-out/shipping");
+    }
+  };
 
   return (
     <form
       action=""
       onSubmit={handleSubmit(onSubmit)}
-      className="px-14 pb-14 pt-14 max-lg: basis-[60%] max-lg:basis-full"
+      className="px-14 pb-14 pt-14 max-lg:pt-0 max-sm:px-0 basis-[60%] max-lg:basis-full"
     >
       <div className="">
         <div>
@@ -55,25 +74,44 @@ export default function Information(props: any) {
               style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
               className="fa-solid fa-angle-right"
             ></i>
-            <ProductRoute
-              src="/check-out/shipping"
-              name="shipping"
-            ></ProductRoute>
-            <i
-              style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
-              className="fa-solid fa-angle-right"
-            ></i>
-            <Typography
-              className="capitalize"
-              sx={{
-                fontSize: 12,
-                marginRight: "10px",
-                opacity: "0.4",
-                cursor: "default",
-              }}
-            >
-              Payment
-            </Typography>
+            <>
+              {props.isPickup ? (
+                <></>
+              ) : (
+                <>
+                  <ProductRoute
+                    src="/check-out/shipping"
+                    name="shipping"
+                  ></ProductRoute>
+                  <i
+                    style={{
+                      opacity: "0.6",
+                      marginRight: "10px",
+                      fontSize: 12,
+                    }}
+                    className="fa-solid fa-angle-right"
+                  ></i>
+                </>
+              )}
+            </>
+            {props.isPickup ? (
+              <ProductRoute
+                src="/check-out/payment"
+                name="payment"
+              ></ProductRoute>
+            ) : (
+              <Typography
+                className="capitalize"
+                sx={{
+                  fontSize: 12,
+                  marginRight: "10px",
+                  opacity: "0.4",
+                  cursor: "default",
+                }}
+              >
+                Payment
+              </Typography>
+            )}
           </nav>
           <div className="flex justify-between items-center mb-4">
             <p className="text-lg font-medium">Contact</p>
@@ -93,9 +131,14 @@ export default function Information(props: any) {
                 errors.email?.type === "required"
               }
               sx={{ width: "100%", fontSize: "14px" }}
-              id="outlined-basic"
+              value={props.userInfo.email}
               label="Enter your email"
               variant="outlined"
+              onChange={(e) =>
+                props.dispatch(
+                  getUserInfo({ ...props.userInfo, email: e.target.value })
+                )
+              }
             />
             {errors.email?.type === "required" && (
               <span className="text-xs text-red-500">Email is required</span>
@@ -181,8 +224,11 @@ export default function Information(props: any) {
 
           <div className="my-8 flex justify-between">
             <button
-              onClick={() => navigate("/cart")}
-              className="text-sm text-blue-500 flex items-center"
+              onClick={() => {
+                navigate("/cart");
+                window.scrollTo(0, 0);
+              }}
+              className="text-sm text-[#1773b0] flex items-center"
             >
               <div>
                 <i className="fa-solid fa-angle-left mr-3"></i>
@@ -193,7 +239,9 @@ export default function Information(props: any) {
               type="submit"
               className="bg-[#1773b0] flex justify-end items-center text-white p-5 rounded-lg"
             >
-              <span>Continute to shipping</span>
+              <span>
+                Continute to {props.isPickup ? "payment" : "shipping"}
+              </span>
             </button>
           </div>
         </div>
@@ -201,5 +249,3 @@ export default function Information(props: any) {
     </form>
   );
 }
-
-export {};

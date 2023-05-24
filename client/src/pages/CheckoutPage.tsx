@@ -1,19 +1,38 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
 import Information from "../components/common/CheckOut/Information";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import CheckoutProducts from "../components/common/CheckOut/CheckoutProducts";
 import { getCartProduct } from "../features/slice/productSlice";
 import { useAppSelector } from "../store/hooks";
 import { useDispatch } from "react-redux";
 import { CartListProducts } from "../interfaces/product";
+import { getUserInfo } from "../features/slice/userInfoSlice";
+import { ProductRoute } from "../components/common/ProductCatalog/ProductCatalogComponent";
+import Shipping from "../components/common/CheckOut/Shipping";
+import Payment from "../components/common/CheckOut/Payment";
 
 export default function CheckoutPage() {
   let { process } = useParams();
   let [isPickup, setIsPickup] = useState<boolean>(false);
   let { cartProducts } = useAppSelector((state) => state.product);
   let dispatch = useDispatch();
+  let [showOrder, setShowOrder] = useState<boolean>(false);
+
+  let { userInfo } = useAppSelector((state) => state.userInfo);
+
+  useEffect(() => {
+    let res = localStorage.getItem("userInfo");
+    if (res !== null) {
+      const items = JSON.parse(res);
+      dispatch(getUserInfo(items));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+  }, [userInfo]);
 
   useEffect(() => {
     let res = localStorage.getItem("wishList");
@@ -36,19 +55,61 @@ export default function CheckoutPage() {
 
   return (
     <>
-      {process === "information" || process === "shipping" ? (
+      {process === "information" ||
+      process === "shipping" ||
+      process === "payment" ? (
         <div>
           <div className="lg:hidden">
             <Container maxWidth="lg">
-              <p className="lg:hidden my-6 mx-14">
+              <p className="lg:hidden my-6 mx-14 max-sm:mx-0">
                 <Link className="text-2xl font-medium" to={"/home"}>
                   4bros - Ecommerce
                 </Link>
               </p>
             </Container>
-            <div className="bg-gray-100 py-5 ">
+            <div className={`bg-gray-100 duration-500 py-5  overflow-hidden`}>
               <Container maxWidth="lg">
-                <div className="hidden max-lg:block mx-14">
+                <div
+                  onClick={() => setShowOrder(!showOrder)}
+                  className="flex  justify-between mx-14 max-sm:mx-0 text-[#1773b0] cursor-pointer "
+                >
+                  <div className="flex items-center gap-2 text-sm">
+                    <div>
+                      <i className="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <p>{!showOrder ? "Show " : "Hide "} order summary</p>
+                    <div>
+                      <i
+                        style={{ transition: "0.5s" }}
+                        className={`fa-solid fa-angle-down ${
+                          showOrder || "fa-rotate-180"
+                        }`}
+                      ></i>
+                    </div>
+                  </div>
+                  <div>
+                    <p>
+                      $
+                      {cartProducts
+                        .reduce(
+                          (init: number, cartProduct: CartListProducts) => {
+                            return (
+                              init +
+                              (cartProduct.product.price / 100) *
+                                cartProduct.quantity
+                            );
+                          },
+                          0
+                        )
+                        .toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className={`  ${
+                    showOrder ? "block" : "hidden"
+                  } duration-500 mx-14 max-sm:mx-0 mt-8`}
+                >
                   <div className="mb-5 flex flex-col gap-5  ">
                     {cartProducts?.map((cartProduct: CartListProducts) => {
                       return (
@@ -123,14 +184,24 @@ export default function CheckoutPage() {
               </Container>
             </div>
           </div>
+
           <Container maxWidth="lg">
             <div className="flex justify-center">
-              <Information
-                setPickup={() => setIsPickup(true)}
-                setShip={() => setIsPickup(false)}
-                isPickup={isPickup}
-                products={cartProducts}
-              />
+              {process === "information" && (
+                <Information
+                  dispatch={dispatch}
+                  userInfo={userInfo}
+                  setPickup={() => setIsPickup(true)}
+                  setShip={() => setIsPickup(false)}
+                  isPickup={isPickup}
+                />
+              )}
+
+              {process === "shipping" && <Shipping userInfo={userInfo} />}
+
+              {process === "payment" && (
+                <Payment isPickup={isPickup} userInfo={userInfo} />
+              )}
 
               <CheckoutProducts products={cartProducts} />
             </div>
