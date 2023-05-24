@@ -279,7 +279,7 @@ export default function ProductPage() {
                   alignItems: "center",
                 }}
               >
-                <ProductRoute src={"/home"} name="home" />
+                <ProductRoute src={"/"} name="home" />
                 <i
                   style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
                   className="fa-solid fa-angle-right"
