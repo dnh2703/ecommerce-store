@@ -15,7 +15,10 @@ import {
 import { countries } from "../../../data/countries";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getUserInfo } from "../../../features/slice/userInfoSlice";
+import {
+  getUserInfo,
+  userInfoShipping,
+} from "../../../features/slice/userInfoSlice";
 
 export interface IInformationFormProps {
   register: UseFormRegister<FieldValues>;
@@ -25,8 +28,10 @@ export interface IInformationFormProps {
 export default function InformationForm(props: IInformationFormProps) {
   let { userInfo } = useAppSelector((state) => state.userInfo);
   let dispatch = useAppDispatch();
+  let [storeUserInfo, setStoreInfo] = useState<any>(userInfo);
+  console.log(storeUserInfo);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let res = localStorage.getItem("userInfo");
     if (res !== null) {
       const items = JSON.parse(res);
@@ -34,10 +39,9 @@ export default function InformationForm(props: IInformationFormProps) {
         dispatch(getUserInfo(items));
       }
     }
-    console.log(userInfo);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
   }, [userInfo]);
 
@@ -126,7 +130,7 @@ export default function InformationForm(props: IInformationFormProps) {
           />
         </div>
         <div className="flex gap-4">
-          <div>
+          <div className="basis-1/2">
             <TextField
               error={props.errors.city?.type === "required"}
               {...props.register("city", { required: true })}

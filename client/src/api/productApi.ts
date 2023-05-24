@@ -4,7 +4,7 @@ const productApi = {
   getProductDetail: (id: any) => {
     return axiosConfig.get(`/products/${id}`);
   },
-  getAllProducts: (name?:string) => {
+  getAllProducts: (name = "") => {
     return axiosConfig.get(`/products?name=${name}`);
   },
 };
