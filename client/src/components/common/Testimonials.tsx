@@ -42,10 +42,10 @@ const Testimonials = () => {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={20}
-        slidesPerView={2}
+        slidesPerView={1}
         breakpoints={{
           768: {
-            slidesPerView: 3,
+            slidesPerView: 2,
           },
           1024: {
             slidesPerView: 3,
@@ -55,7 +55,7 @@ const Testimonials = () => {
       >
         {images.map((img, i) => {
           return (
-            <SwiperSlide key={i} className="text-center ">
+            <SwiperSlide key={i} className="text-center">
               <div className="flex items-center justify-center pb-5">
                 <svg
                   aria-hidden="true"
@@ -99,7 +99,7 @@ const Testimonials = () => {
                 </svg>
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5 text-gray-300 dark:text-gray-500"
+                  className="w-5 h-5 text-yellow-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ const Testimonials = () => {
                 src={img.url}
                 alt=""
               />
-              <h3 className=" pb-5 text-black ">{img.name}</h3>
+              <h3 className=" pb-20 text-black">{img.name}</h3>
             </SwiperSlide>
           );
         })}
