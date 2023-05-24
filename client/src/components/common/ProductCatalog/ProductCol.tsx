@@ -44,11 +44,13 @@ export const ProductsColumn = (props: IProductLayout) => {
       <Box sx={imgProductStyles}>
         <div
           onClick={() => navigate(`/products/${props.product.id}`)}
-          className="cursor-pointer relative"
+          className="cursor-pointer relative overflow-hidden group/productImg"
         >
           <img
             style={{ width: "100%", objectFit: "contain" }}
-            className={`${props.product.inventory === 0 && "grayscale"}`}
+            className={`${
+              props.product.inventory === 0 && "grayscale"
+            } group-hover/productImg:scale-110 duration-300`}
             src={props.product.image}
             alt=""
           />

@@ -13,6 +13,13 @@ const SignIn = () => {
 
   const [checkPassword, setCheckPassword] = useState<boolean>(false);
 
+  const accessToken = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
+
+  if (accessToken || refreshToken) {
+    navigate("/");
+  }
+
   const {
     register,
     handleSubmit,
@@ -26,12 +33,7 @@ const SignIn = () => {
       await authApi
         .login(data)
         .then((res) => {
-          if (res.status == 200) {
-            const checkAccessToken = Cookies.get("accessToken");
-            const checkLRefreshToken = Cookies.get("accessToken");
-            console.log(checkAccessToken);
-
-            alert("successful login");
+          if (res.status === 200) {
             Cookies.set("accessToken", res.data.accessToken);
             Cookies.set("refreshToken", res.data.refreshToken);
             const useJson = JSON.stringify(res.data.user);
