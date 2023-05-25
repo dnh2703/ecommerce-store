@@ -13,12 +13,12 @@ import "normalize.css";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CustomerProfile from "./components/common/CustomerProfile";
 
-import About from "./components/common/About";
 import CartPage from "./pages/CartPage";
 import VerifyEmail from "./components/common/VerifyEmail";
 import CheckoutPage from "./pages/CheckoutPage";
 import MainLayout from "./components/layout/MainLayout";
 import ContactPage from "./pages/ContactPage";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
           <Route index element={<HomePage />}></Route>
           <Route path="/products" element={<ProductPage />}></Route>
           <Route path="/contact" element={<ContactPage />}></Route>
+          <Route path="/about" element={<About />}></Route>
 
           <Route path="/products/:id" element={<ProductDetailPage />}></Route>
           <Route path="/cart" element={<CartPage />}></Route>
@@ -43,7 +44,7 @@ function App() {
 
             <Route path="login" element={<SignIn />} />
             <Route path="register" element={<SignUp />} />
-            <Route path="about-us" element={<About />} />
+
             <Route path="verify-email" />
             <Route path="reset-password" />
             <Route path="customer-profile" element={<CustomerProfile />} />
