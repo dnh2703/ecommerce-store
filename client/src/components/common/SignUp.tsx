@@ -194,7 +194,7 @@ const SignUpForm = () => {
         </div>
         <div>
           <button
-            className="bg-gray-900 hover:bg-orange-900 text-white  py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full mb-5"
+            className="bg-gray-900 hover:bg-orange-900 text-white  py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full mb-5 transition-all"
             type="submit"
             disabled={loading || isSuccess}
           >
@@ -223,7 +223,7 @@ const SignUpForm = () => {
         </div>
         <div>
           <button
-            className=" hover:bg-orange-900 hover:text-white text-orange-900 py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full border"
+            className=" hover:bg-orange-900 hover:text-white text-orange-900 py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full border transition-all"
             type="button"
             onClick={() => {
               navigate("/account/login");
