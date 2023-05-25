@@ -2,23 +2,25 @@ import { type } from "os";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import authApi from "../../api/authApi";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import { ILoginForm } from "../../interfaces/auth";
 import Cookies from "js-cookie";
 const SignIn = () => {
   const navigate = useNavigate();
-
-  const [loading, setLoading] = useState(false);
-
-  const [checkPassword, setCheckPassword] = useState<boolean>(false);
-
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<ILoginForm>();
+
+  const [loading, setLoading] = useState(false);
+
+  const accessToken = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
+
+  const [checkPassword, setCheckPassword] = useState<boolean>(false);
 
   const onSubmit = (data: ILoginForm) => {
     setLoading(true);
@@ -27,10 +29,6 @@ const SignIn = () => {
         .login(data)
         .then((res) => {
           if (res.status == 200) {
-            const checkAccessToken = Cookies.get("accessToken");
-            const checkLRefreshToken = Cookies.get("accessToken");
-            console.log(checkAccessToken);
-
             alert("successful login");
             Cookies.set("accessToken", res.data.accessToken);
             Cookies.set("refreshToken", res.data.refreshToken);
@@ -52,7 +50,9 @@ const SignIn = () => {
     setCheckPassword(!checkPassword);
   };
 
-  return (
+  return accessToken || refreshToken ? (
+    <Navigate to="/" />
+  ) : (
     <div className="box-border px-10 flex w-full container justify-between mx-auto ">
       <div className="">
         <h1 className="text-6xl text-center">Account</h1>
@@ -102,7 +102,7 @@ const SignIn = () => {
                       required: true,
                       minLength: 5,
                       maxLength: 30,
-                      // pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
                     })}
                   />
                   <button
