@@ -12,7 +12,7 @@ interface PaginationTableProps {
   totalItems: number;
 }
 
-const PaginationTable = ({
+const PaginationTable = React.memo(function PaginationTable({
   start,
   finish,
   currentPage,
@@ -22,7 +22,7 @@ const PaginationTable = ({
   setCurrentPage,
   totalPages,
   totalItems,
-}: PaginationTableProps) => {
+}: PaginationTableProps) {
   return (
     <nav
       className="flex flex-col mt-2 items-start justify-between space-y-3 md:flex-row md:items-center md:space-y-0"
@@ -109,6 +109,6 @@ const PaginationTable = ({
       </div>
     </nav>
   );
-};
+});
 
 export default PaginationTable;
