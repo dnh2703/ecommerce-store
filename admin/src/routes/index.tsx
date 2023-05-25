@@ -1,13 +1,14 @@
 import { Route } from "react-router-dom";
 import { RouteType } from "./config";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import appRoutes from "./appRoutes";
+import LoadingPage from "../components/common/LoadingPage";
 
 const generateRoute = (routes: RouteType[]): ReactNode => {
   return routes.map((route, index) => (
     <Route
       path={route.path}
-      element={route.element}
+      element={<Suspense fallback={<LoadingPage />}>{route.element}</Suspense>}
       key={index}
     >
       {route.child && generateRoute(route.child)}

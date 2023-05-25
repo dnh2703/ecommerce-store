@@ -35,7 +35,12 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        setErrMessage("Something went wrong");
+        console.log(err);
+        if (err.response.status === 401) {
+          setErrMessage(err.response.data.msg);
+        } else {
+          setErrMessage("Something went wrong! Please try again later");
+        }
       })
       .finally(() => setLoading(false));
   };
