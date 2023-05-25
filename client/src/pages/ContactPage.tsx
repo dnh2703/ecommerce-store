@@ -60,7 +60,7 @@ const Contact = () => {
           <div className="mb-4">
             <input
               {...register("name", { required: true, pattern: /^[^\s]+$/ })}
-              className=" appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" appearance-none border rounded-none w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-200 text-black placeholder-gray-600"
               id="name"
               type="text"
               placeholder="Enter your name"
@@ -75,7 +75,7 @@ const Contact = () => {
           <div className="mb-4">
             <input
               {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-              className=" appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" appearance-none border rounded-none w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-200 text-black placeholder-gray-600"
               id="email"
               type="email"
               placeholder="Enter your email"
@@ -96,7 +96,7 @@ const Contact = () => {
               id="message"
               cols={50}
               rows={5}
-              className="border py-2 px-3"
+              className="border py-2 px-3 bg-gray-200 text-black placeholder-gray-600"
               placeholder="Enter your message"
               {...register("message", { required: true })}
             ></textarea>
@@ -109,7 +109,7 @@ const Contact = () => {
 
           <button
             type="submit"
-            className="hover:bg-orange-900 hover:text-white text-orange-900 py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full border"
+            className="hover:bg-orange-900 hover:text-white text-orange-900 py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full border transition-all"
           >
             Submit
           </button>

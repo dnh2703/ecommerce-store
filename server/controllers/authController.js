@@ -78,12 +78,12 @@ const login = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+    throw new CustomError.UnauthenticatedError('Email is not correct');
   }
   const isPasswordCorrect = await user.comparePassword(password);
 
   if (!isPasswordCorrect) {
-    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+    throw new CustomError.UnauthenticatedError('Password is not correct');
   }
   if (!user.isVerified) {
     throw new CustomError.UnauthenticatedError('Please verify your email');
@@ -120,7 +120,7 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: tokenUser, refreshToken, accessToken });
 };
 const logout = async (req, res) => {
-  await Token.findOneAndDelete({ user: req.user.userId });
+  const token = await Token.findOneAndDelete({ user: req.user._id });
 
 
   res.status(StatusCodes.OK).json({ msg: 'user logged out!' });

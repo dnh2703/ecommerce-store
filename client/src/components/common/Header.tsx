@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   let links = [
@@ -25,22 +25,31 @@ const Header = () => {
         </div>
 
         <ul
-          className={` top-20 md:flex  md:items-center pb-12 md:pb-0 absolute md:static bg-white md:z-auto z-[-1] left-0 w-1/2 h-auto md:w-auto md:pl-0 pl-9 ${
+          className={` top-20 md:flex md:flex-row flex flex-col max-md:h-[100vh] gap-10 md:gap-5 md:items-center pb-12 md:pb-0 absolute md:static bg-white md:z-auto z-[-1] left-0 w-1/2 h-auto md:w-auto md:pl-0 pl-9 ${
             isMenuOpen ? "block" : "hidden"
           } md:order-2 `}
         >
           {links.map((link, linkIndex) => (
-            <li
-              key={link.name}
-              className="md:ml-8 text-xl my-7 md:my-0 list-none"
-            >
-              <a
-                href={link.link}
-                className="text-gray-800 hover:texr-gray-500 duration-500"
+            // <li
+            //   key={link.name}
+            //   className="md:ml-8 text-xl my-7 md:my-0 list-none"
+            // >
+            //   <a
+            //     href={link.link}
+            //     className="text-gray-800 hover:texr-gray-500 duration-500"
+            //   >
+            //     {link.name}
+            //   </a>
+            // </li>
+            <div>
+              <NavLink
+                key={link.name}
+                to={link.link}
+                className=" md:ml-8 text-xl my-5 py-2 md:my-0 uppercase font-light"
               >
                 {link.name}
-              </a>
-            </li>
+              </NavLink>
+            </div>
           ))}
         </ul>
         <div
@@ -106,7 +115,7 @@ const Header = () => {
               ></path>
             </svg>
           </button>
-          <button>
+          <button onClick={() => navigate("/cart")}>
             <svg
               fill="none"
               stroke="currentColor"
