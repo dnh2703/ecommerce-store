@@ -2,7 +2,7 @@ import React from "react";
 
 const LoadingPage = () => {
   return (
-    <div className="loading">
+    <div className="loading fixed top-0 left-0 bg-white h-screen w-screen z-50">
       <svg
         id="preloader"
         width="240px"

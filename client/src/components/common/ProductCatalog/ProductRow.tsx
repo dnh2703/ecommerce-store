@@ -49,11 +49,13 @@ export const ProductRow = (props: IProductLayout) => {
       <Grid item xs={4} sx={imgProductStyles}>
         <div
           onClick={() => navigate(`/products/${props.product.id}`)}
-          className="cursor-pointer"
+          className="cursor-pointer group/productImg"
         >
           <img
             style={{ width: "100%", objectFit: "contain" }}
-            className={`${props.product.inventory === 0 && "grayscale"}`}
+            className={`${
+              props.product.inventory === 0 && "grayscale"
+            } group-hover/productImg:scale-110 duration-300`}
             src={props.product.image}
             alt=""
           />

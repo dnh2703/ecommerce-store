@@ -12,7 +12,11 @@ export interface IPaymentProps {
 export default function Payment(props: IPaymentProps) {
   let navigate = useNavigate();
 
-  const handleOrder = () => {};
+  const handleOrder = () => {
+    if (props.isPickup) {
+      navigate("/");
+    }
+  };
 
   return (
     <div className="px-14 pb-14 pt-14 max-lg:pt-0 max-sm:px-0 basis-[60%] max-lg:basis-full">
@@ -36,18 +40,22 @@ export default function Payment(props: IPaymentProps) {
           className="fa-solid fa-angle-right"
         ></i>
         <>
-          <ProductRoute
-            name="shipping"
-            src={"/check-out/shipping"}
-          ></ProductRoute>
-          <i
-            style={{
-              opacity: "0.6",
-              marginRight: "10px",
-              fontSize: 12,
-            }}
-            className="fa-solid fa-angle-right"
-          ></i>
+          {props.isPickup || (
+            <>
+              <ProductRoute
+                name="shipping"
+                src={"/check-out/shipping"}
+              ></ProductRoute>
+              <i
+                style={{
+                  opacity: "0.6",
+                  marginRight: "10px",
+                  fontSize: 12,
+                }}
+                className="fa-solid fa-angle-right"
+              ></i>
+            </>
+          )}
         </>
         <Typography
           className="capitalize"
@@ -134,12 +142,21 @@ export default function Payment(props: IPaymentProps) {
           </div>
           <p>Return to {props.isPickup ? "information" : "shipping"}</p>
         </button>
-        <button
-          onClick={handleOrder}
-          className="bg-[#1773b0] flex justify-end items-center text-white p-5 rounded-lg"
-        >
-          <span>Order now</span>
-        </button>
+        {props.isPickup ? (
+          <button
+            title="We are always open"
+            className="bg-gray-100 cursor-default flex justify-end items-center text-gray-500 p-5 rounded-lg"
+          >
+            <span>No need to order</span>
+          </button>
+        ) : (
+          <button
+            onClick={handleOrder}
+            className="bg-[#1773b0] flex justify-end items-center text-white p-5 rounded-lg"
+          >
+            <span>Order now</span>
+          </button>
+        )}
       </div>
     </div>
   );

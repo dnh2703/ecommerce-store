@@ -217,7 +217,7 @@ export default function ProductPage() {
   return (
     <>
       {!isLoading ? (
-        <div className="relative pt-10">
+        <div className="relative pt-10 mt-[86.8px]">
           <Container maxWidth="xl">
             <div
               className={` ${
@@ -279,7 +279,7 @@ export default function ProductPage() {
                   alignItems: "center",
                 }}
               >
-                <ProductRoute src={"/home"} name="home" />
+                <ProductRoute src={"/"} name="home" />
                 <i
                   style={{ opacity: "0.6", marginRight: "10px", fontSize: 12 }}
                   className="fa-solid fa-angle-right"

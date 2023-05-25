@@ -79,10 +79,17 @@ export default function Information(props: IInformationProps) {
                 <></>
               ) : (
                 <>
-                  <ProductRoute
-                    src="/check-out/shipping"
-                    name="shipping"
-                  ></ProductRoute>
+                  <Typography
+                    className="capitalize"
+                    sx={{
+                      fontSize: 12,
+                      marginRight: "10px",
+                      opacity: "0.6",
+                      cursor: "default",
+                    }}
+                  >
+                    Shipping
+                  </Typography>
                   <i
                     style={{
                       opacity: "0.6",
@@ -94,24 +101,18 @@ export default function Information(props: IInformationProps) {
                 </>
               )}
             </>
-            {props.isPickup ? (
-              <ProductRoute
-                src="/check-out/payment"
-                name="payment"
-              ></ProductRoute>
-            ) : (
-              <Typography
-                className="capitalize"
-                sx={{
-                  fontSize: 12,
-                  marginRight: "10px",
-                  opacity: "0.4",
-                  cursor: "default",
-                }}
-              >
-                Payment
-              </Typography>
-            )}
+
+            <Typography
+              className="capitalize"
+              sx={{
+                fontSize: 12,
+                marginRight: "10px",
+                opacity: "0.6",
+                cursor: "default",
+              }}
+            >
+              Payment
+            </Typography>
           </nav>
           <div className="flex justify-between items-center mb-4">
             <p className="text-lg font-medium">Contact</p>
