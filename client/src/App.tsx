@@ -18,6 +18,7 @@ import VerifyEmail from "./components/common/VerifyEmail";
 import CheckoutPage from "./pages/CheckoutPage";
 import MainLayout from "./components/layout/MainLayout";
 import ContactPage from "./pages/ContactPage";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route index element={<HomePage />}></Route>
           <Route path="/products" element={<ProductPage />}></Route>
           <Route path="/contact" element={<ContactPage />}></Route>
+          <Route path="/about" element={<About />}></Route>
 
           <Route path="/products/:id" element={<ProductDetailPage />}></Route>
           <Route path="/cart" element={<CartPage />}></Route>

@@ -36,7 +36,7 @@ export default function About() {
           nihil nisi dolores obcaecati odit eaque repellendus voluptas, minima
           velit. Quibusdam eos, laboriosam doloremque ut.
         </p>
-        <p className="leading-7 text-xl">
+        <p className="leading-7 text-xl mb-28">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam
           doloremque optio accusantium, hic mollitia, quas ex molestiae,
           explicabo ratione est maiores dignissimos blanditiis quo aut sint id

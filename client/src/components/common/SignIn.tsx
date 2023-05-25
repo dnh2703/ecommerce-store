@@ -1,4 +1,3 @@
-import { type } from "os";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import authApi from "../../api/authApi";
@@ -6,7 +5,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { AxiosError } from "axios";
 import { ILoginForm } from "../../interfaces/auth";
 import Cookies from "js-cookie";
-import About from "./About";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -58,7 +56,6 @@ const SignIn = () => {
 
   return (
     <>
-      <About />
       <div className="box-border px-10 flex w-full container justify-between mx-auto ">
         <div className="">
           <h1 className="text-6xl text-center">Account</h1>
