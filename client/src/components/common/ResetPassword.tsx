@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const ResetPassword = () => {
@@ -6,7 +6,7 @@ const ResetPassword = () => {
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
-  
+
 
   
 
