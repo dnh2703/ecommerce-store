@@ -81,7 +81,7 @@ export default function ProductDetailPage() {
   return (
     <>
       {!isLoading ? (
-        <div className="relative px-8">
+        <div className="relative px-8 mt-[100px]">
           {isScroll && (
             <div
               onClick={() => window.scrollTo(0, 0)}

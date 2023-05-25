@@ -50,7 +50,7 @@ export default function Cart(props: any) {
     <>
       {cartProducts.length === 0 ? (
         <Container maxWidth="lg">
-          <div className="py-36 flex gap-6 flex-col items-center">
+          <div className="py-36 flex gap-6 flex-col items-center mt-[86.6px]">
             <p className="text-xl">YOUR CART IS CURRENTLY EMPTY.</p>
             <div className="flex flex-col items-center">
               <p className="text-sm text-gray-500">

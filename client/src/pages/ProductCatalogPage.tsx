@@ -21,7 +21,6 @@ import LoadingPage from "../components/common/LoadingPage";
 export default function ProductPage() {
   let dispatch = useDispatch();
   let { products, isLoading } = useAppSelector((state) => state.product);
-  console.log(isLoading);
 
   // let [products, setProducts] = useState<IProduct[]>([]);
   let [cols, setCols] = useState<number>(4);

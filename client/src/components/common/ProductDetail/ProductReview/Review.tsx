@@ -5,9 +5,14 @@ import { IReview } from "../../../../interfaces/review";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import FormReview from "./FormReview";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function Review(props: IProductReview) {
   let [writingReview, setWritingReviews] = useState<boolean>(false);
+  let accessToken = Cookies.get("accessToken");
+  let refreshToken = Cookies.get("refreshToken");
+  let navigate = useNavigate();
 
   return (
     <div
@@ -30,12 +35,19 @@ export default function Review(props: IProductReview) {
         </div>
 
         <button
-          onClick={() => setWritingReviews(!writingReview)}
+          onClick={() => {
+            accessToken || refreshToken
+              ? setWritingReviews(!writingReview)
+              : navigate("/account/login");
+            window.scrollTo(0, 0);
+          }}
           className=" group/button leading-[40px] relative text-black border border-black text-sm "
         >
           <div className="w-0 z-0 h-full group-hover/button:w-full duration-500 bg-[#6e2f1b] absolute"></div>
           <span className="z-[1] uppercase tracking-[3px] relative px-12 group-hover/button:text-white group-hover/button:border-[#6e2f1b] duration-500">
-            write a review
+            {refreshToken || accessToken
+              ? "write a review"
+              : "sign in to review"}
           </span>
         </button>
       </div>
