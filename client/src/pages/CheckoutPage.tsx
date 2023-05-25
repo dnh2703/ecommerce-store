@@ -12,6 +12,7 @@ import { getUserInfo } from "../features/slice/userInfoSlice";
 import { ProductRoute } from "../components/common/ProductCatalog/ProductCatalogComponent";
 import Shipping from "../components/common/CheckOut/Shipping";
 import Payment from "../components/common/CheckOut/Payment";
+import NotFoundPage from "./NotFoundPage";
 
 export default function CheckoutPage() {
   let { process } = useParams();
@@ -208,7 +209,7 @@ export default function CheckoutPage() {
           </Container>
         </div>
       ) : (
-        <></>
+        <NotFoundPage></NotFoundPage>
       )}
     </>
   );

@@ -75,7 +75,7 @@ export default function Cart(props: any) {
           </div>
         </Container>
       ) : (
-        <Container maxWidth="lg" className="cart px-5 relative">
+        <Container maxWidth="lg" className="cart px-5 relative pt-[80px]">
           <>
             {isShowTerm && (
               <TermsAndConditions

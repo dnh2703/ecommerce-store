@@ -19,6 +19,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import MainLayout from "./components/layout/MainLayout";
 import ContactPage from "./pages/ContactPage";
 import About from "./pages/About";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
             element={<Navigate replace to="/check-out/information"></Navigate>}
           ></Route>
         </Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </>
   );
