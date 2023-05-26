@@ -13,6 +13,20 @@ export default function Review(props: IProductReview) {
   let accessToken = Cookies.get("accessToken");
   let refreshToken = Cookies.get("refreshToken");
   let navigate = useNavigate();
+  const [user, setUser] = useState(() => {
+    const user = localStorage.getItem("user");
+    const userJson = user ? JSON.parse(user) : null;
+    return userJson;
+  });
+  let [email, setEmail] = useState<string>("");
+  let [name, setName] = useState<string>("");
+  let [userId, setUserId] = useState<string>("");
+  useEffect(() => {
+    const { name, email, userId } = user;
+    setEmail(email);
+    setName(name);
+    setUserId(userId);
+  }, [user]);
 
   return (
     <div
@@ -33,26 +47,30 @@ export default function Review(props: IProductReview) {
               : "review"}
           </span>
         </div>
-
-        <button
-          onClick={() => {
-            accessToken || refreshToken
-              ? setWritingReviews(!writingReview)
-              : navigate("/account/login");
-            window.scrollTo(0, 0);
-          }}
-          className=" group/button leading-[40px] relative text-black border border-black text-sm "
-        >
-          <div className="w-0 z-0 h-full group-hover/button:w-full duration-500 bg-[#6e2f1b] absolute"></div>
-          <span className="z-[1] uppercase tracking-[3px] relative px-12 group-hover/button:text-white group-hover/button:border-[#6e2f1b] duration-500">
-            {refreshToken || accessToken
-              ? "write a review"
-              : "sign in to review"}
-          </span>
-        </button>
+        {props.product?.review?.filter(
+          (review: IReview) => review.user === userId
+        ).length === 0 && (
+          <button
+            onClick={() => {
+              accessToken || refreshToken
+                ? setWritingReviews(!writingReview)
+                : navigate("/account/login");
+            }}
+            className=" group/button leading-[40px] relative text-black border border-black text-sm "
+          >
+            <div className="w-0 z-0 h-full group-hover/button:w-full duration-500 bg-[#6e2f1b] absolute"></div>
+            <span className="z-[1] uppercase tracking-[3px] relative px-12 group-hover/button:text-white group-hover/button:border-[#6e2f1b] duration-500">
+              {refreshToken || accessToken
+                ? "write a review"
+                : "sign in to review"}
+            </span>
+          </button>
+        )}
       </div>
       {writingReview && (
         <FormReview
+          name={name}
+          email={email}
           product={props.product}
           closeWriteReview={() => setWritingReviews(false)}
           reviews={props.reviews}
@@ -68,7 +86,9 @@ export default function Review(props: IProductReview) {
             <Box sx={{ span: { fontSize: 15 }, mr: 1 }}>
               <Rating values={review.rating}></Rating>
             </Box>
-            <p className="text-gray-400">on {review.createdAt}</p>
+            <p className="text-gray-400">
+              userId: {review.user} {review.user === userId && "(you)"}
+            </p>
           </div>
           <p className=" text-2xl my-4">{review.title}</p>
           <p className=" text-gray-500 my-4">{review.comment}</p>
