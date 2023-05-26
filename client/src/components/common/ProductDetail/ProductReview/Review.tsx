@@ -10,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Review(props: IProductReview) {
   let [writingReview, setWritingReviews] = useState<boolean>(false);
+  let navigate = useNavigate();
   let accessToken = Cookies.get("accessToken");
   let refreshToken = Cookies.get("refreshToken");
-  let navigate = useNavigate();
   const [user, setUser] = useState(() => {
     const user = localStorage.getItem("user");
     const userJson = user ? JSON.parse(user) : null;
@@ -22,10 +22,12 @@ export default function Review(props: IProductReview) {
   let [name, setName] = useState<string>("");
   let [userId, setUserId] = useState<string>("");
   useEffect(() => {
-    const { name, email, userId } = user;
-    setEmail(email);
-    setName(name);
-    setUserId(userId);
+    if (user !== null) {
+      const { name, email, userId } = user;
+      setEmail(email);
+      setName(name);
+      setUserId(userId);
+    }
   }, [user]);
 
   return (
@@ -47,7 +49,7 @@ export default function Review(props: IProductReview) {
               : "review"}
           </span>
         </div>
-        {props.product?.review?.filter(
+        {props.product?.reviews?.filter(
           (review: IReview) => review.user === userId
         ).length === 0 && (
           <button

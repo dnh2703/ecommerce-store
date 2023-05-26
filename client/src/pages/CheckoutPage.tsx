@@ -20,7 +20,6 @@ export default function CheckoutPage() {
   let { cartProducts } = useAppSelector((state) => state.product);
   let dispatch = useDispatch();
   let [showOrder, setShowOrder] = useState<boolean>(false);
-
   let { userInfo } = useAppSelector((state) => state.userInfo);
 
   useEffect(() => {
@@ -59,7 +58,7 @@ export default function CheckoutPage() {
       {process === "information" ||
       process === "shipping" ||
       process === "payment" ? (
-        <div>
+        <div className="relative">
           <div className="lg:hidden">
             <Container maxWidth="lg">
               <p className="lg:hidden my-6 mx-14 max-sm:mx-0">
@@ -201,7 +200,12 @@ export default function CheckoutPage() {
               {process === "shipping" && <Shipping userInfo={userInfo} />}
 
               {process === "payment" && (
-                <Payment isPickup={isPickup} userInfo={userInfo} />
+                <Payment
+                  dispatch={dispatch}
+                  cartProducts={cartProducts}
+                  isPickup={isPickup}
+                  userInfo={userInfo}
+                />
               )}
 
               <CheckoutProducts products={cartProducts} />

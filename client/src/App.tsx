@@ -51,12 +51,12 @@ function App() {
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="customer-profile" element={<CustomerProfile />} />
           </Route>
-          <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
-          <Route
-            path="/check-out"
-            element={<Navigate replace to="/check-out/information"></Navigate>}
-          ></Route>
         </Route>
+        <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
+        <Route
+          path="/check-out"
+          element={<Navigate replace to="/check-out/information"></Navigate>}
+        ></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </>

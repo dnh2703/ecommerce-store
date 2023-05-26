@@ -3,6 +3,7 @@ import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { GetReview, PostReview } from "../../../../interfaces/review";
 import reviewApi from "../../../../api/reviewApi";
+import Swal from "sweetalert2";
 
 export default function FormReview(props: any) {
   let [rating, setRating] = useState<number>(0);
@@ -25,9 +26,11 @@ export default function FormReview(props: any) {
       .postAReview(review)
       .then((res) => {
         props.closeWriteReview();
-        alert("Thanks for your review");
+        Swal.fire("Success!", "Thank you for reviewing!", "success").then(
+          (res) => window.location.reload()
+        );
       })
-      .catch((e) => alert("Sorry, your review can upload. Try again later."))
+      .catch((e) => Swal.fire("Sorry :(", "Something went wrong!", "error"))
       .finally(() => setIsLoading(false));
   };
 

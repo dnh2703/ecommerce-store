@@ -28,6 +28,7 @@
     "react-scripts": "5.0.1",
     "redux-saga": "^1.2.3",
     "sass": "^1.62.1",
+    "sweetalert2": "^11.7.5",
     "swiper": "^9.3.2",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"

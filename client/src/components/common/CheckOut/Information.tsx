@@ -116,10 +116,6 @@ export default function Information(props: IInformationProps) {
           </nav>
           <div className="flex justify-between items-center mb-4">
             <p className="text-lg font-medium">Contact</p>
-            <p className="text-sm">
-              Already have an account?{" "}
-              <a className="underline text-blue-800 cursor-pointer"> Log in</a>
-            </p>
           </div>
           <div className="mb-4">
             <TextField
