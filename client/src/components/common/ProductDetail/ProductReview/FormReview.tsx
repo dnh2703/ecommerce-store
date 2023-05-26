@@ -49,22 +49,14 @@ export default function FormReview(props: any) {
 
       <div className="flex gap-8 mb-6">
         <div className="basis-1/2">
-          <p className="mb-2">Name</p>
-          <input
-            className="w-full p-5 outline-none border border-gray-300"
-            type="text"
-            placeholder="Enter Your Name"
-            required
-          />
+          <p className="mb-2">
+            Name: <span className="font-bold">{props.name}</span>
+          </p>
         </div>
         <div className="basis-1/2">
-          <p className="mb-2">Email</p>
-          <input
-            className="w-full p-5 outline-none border border-gray-300"
-            type="email"
-            placeholder="john.smith@example.com"
-            required
-          />
+          <p className="mb-2">
+            Email: <span className="font-bold">{props.email}</span>
+          </p>
         </div>
       </div>
 

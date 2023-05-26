@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import TextRating from "./Rating";
 import CloseButton from "./CloseButton";
+import { addToCart } from "../../features/slice/productSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 export function QuickView(props: any) {
   let [count, setCount] = useState<number>(1);
+  let dispatch = useAppDispatch();
 
   const handleMinus = () => {
     if (count === 1) {
@@ -92,39 +95,51 @@ export function QuickView(props: any) {
                 In stock
               </p>
             )}
-            <div className="flex">
-              <div className="border-2 mr-5 border-slate-100 basis-[25%] flex justify-center">
-                <button
-                  className="py-3 px-5 text-lg opacity-20 hover:opacity-100"
-                  onClick={handleMinus}
-                >
-                  <i className="fa-solid fa-minus"></i>
-                </button>
-                <input
-                  className="outline-none inline-block leading-[50px] w-7 text-lg text-center"
-                  type="text"
-                  value={count}
-                  onChange={(e) => setCount(Number(e.target.value))}
-                />
-                <button
-                  className="py-3 px-5 text-lg opacity-20 hover:opacity-100"
-                  onClick={handlePlus}
-                >
-                  <i className="fa-solid fa-plus"></i>
-                </button>
-              </div>
-              <div className="basis-[75%] group/button">
-                <button
-                  className={`flex items-center justify-center uppercase py-5 w-full group/buy bg-black duration-500 text-black border-black hover:bg-[#6e2f1b] text-xs tracking-[3px] border `}
-                >
-                  <span
-                    className={`block text-white group-hover/buy:animate-[buy_1s_ease-in-out]`}
+            {props.product.inventory === 0 || (
+              <div className="flex">
+                <div className="border-2 mr-5 border-slate-100 basis-[25%] flex justify-center">
+                  <button
+                    className="py-3 px-5 text-lg opacity-20 hover:opacity-100"
+                    onClick={handleMinus}
                   >
-                    add to cart
-                  </span>
-                </button>
+                    <i className="fa-solid fa-minus"></i>
+                  </button>
+                  <input
+                    className="outline-none inline-block leading-[50px] w-7 text-lg text-center"
+                    type="text"
+                    value={count}
+                    onChange={(e) => setCount(Number(e.target.value))}
+                  />
+                  <button
+                    className="py-3 px-5 text-lg opacity-20 hover:opacity-100"
+                    onClick={handlePlus}
+                  >
+                    <i className="fa-solid fa-plus"></i>
+                  </button>
+                </div>
+                <div className="basis-[75%] group/button">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        addToCart({
+                          product: props.product,
+                          quantity: count,
+                          count: count,
+                        })
+                      );
+                      setCount(1);
+                    }}
+                    className={`flex items-center justify-center uppercase py-5 w-full group/buy bg-black duration-500 text-black border-black hover:bg-[#6e2f1b] text-xs tracking-[3px] border `}
+                  >
+                    <span
+                      className={`block text-white group-hover/buy:animate-[buy_1s_ease-in-out]`}
+                    >
+                      add to cart
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

@@ -48,7 +48,7 @@ export const FilterPannel = (props: any) => {
         collection={props.collection}
       />
       <CheckComponent
-        products={props.filteredProducts}
+        products={props.products}
         names={props.availability}
         filter={"AVAILABILITY"}
         inStock={props.inStock}
@@ -130,13 +130,7 @@ export const FilterPannel = (props: any) => {
               key={cuisine.id}
               cuisine={cuisine}
               changeChecked={props.changeChecked}
-              filteredProducts={
-                props.collection === "all"
-                  ? props.isChangePrice
-                    ? props.products
-                    : props.filteredProducts
-                  : props.filteredProducts
-              }
+              filteredProducts={props.products}
             />
           ))}
         </div>
