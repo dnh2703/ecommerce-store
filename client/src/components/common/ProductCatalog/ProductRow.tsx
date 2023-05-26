@@ -48,7 +48,10 @@ export const ProductRow = (props: IProductLayout) => {
 
       <Grid item xs={4} sx={imgProductStyles}>
         <div
-          onClick={() => navigate(`/products/${props.product.id}`)}
+          onClick={() => {
+            navigate(`/products/${props.product.id}`);
+            window.scrollTo(0, 0);
+          }}
           className="cursor-pointer group/productImg"
         >
           <img

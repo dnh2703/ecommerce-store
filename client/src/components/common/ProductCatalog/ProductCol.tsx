@@ -43,7 +43,10 @@ export const ProductsColumn = (props: IProductLayout) => {
 
       <Box sx={imgProductStyles}>
         <div
-          onClick={() => navigate(`/products/${props.product.id}`)}
+          onClick={() => {
+            navigate(`/products/${props.product.id}`);
+            window.scrollTo(0, 0);
+          }}
           className="cursor-pointer relative overflow-hidden group/productImg"
         >
           <img

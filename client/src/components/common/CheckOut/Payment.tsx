@@ -7,18 +7,23 @@ import { Order, OrderItem } from "../../../interfaces/order";
 import { CartListProducts, IProduct } from "../../../interfaces/product";
 import orderApi from "../../../api/orderApi";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../../store/hooks";
+import { getCartProduct } from "../../../features/slice/productSlice";
 
 export interface IPaymentProps {
   userInfo: UserInformation;
   isPickup: boolean;
   cartProducts: CartListProducts[];
+  dispatch: any;
 }
 
 export default function Payment(props: IPaymentProps) {
   let navigate = useNavigate();
   let [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   let [isLoading, setIsLoading] = useState<boolean>(false);
-
+  let dispatch = useDispatch();
   useEffect(() => {
     setOrderItems(() => {
       return props.cartProducts.map((cartProduct: CartListProducts) => {
@@ -29,6 +34,11 @@ export default function Payment(props: IPaymentProps) {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (props.cartProducts.length > 0)
+      localStorage.setItem("wishList", JSON.stringify(props.cartProducts));
+  }, [props.cartProducts]);
 
   const handleOrder = () => {
     let orderInfo: Order = {
@@ -41,12 +51,13 @@ export default function Payment(props: IPaymentProps) {
     orderApi
       .createOrder(orderInfo)
       .then((res) => {
-        alert("Thank you for buying our products!");
-        window.localStorage.removeItem("wishList");
+        dispatch(getCartProduct([]));
+        localStorage.removeItem("wishList");
+        Swal.fire("Success!", "Thank you for buying our products!", "success");
+        navigate("/");
       })
       .catch((e) => {
-        alert("Sorry, something went wrong!");
-        console.log(e);
+        Swal.fire("Sorry :(", "Something went wrong!", "error");
       })
       .finally(() => setIsLoading(false));
   };

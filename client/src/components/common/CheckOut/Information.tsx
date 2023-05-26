@@ -22,7 +22,6 @@ interface IInformationProps {
   dispatch: Dispatch<AnyAction>;
   setShip: () => void;
   setPickup: () => void;
-  email: string;
 }
 
 export default function Information(props: IInformationProps) {

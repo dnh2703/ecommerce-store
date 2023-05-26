@@ -21,10 +21,10 @@ import Cookies from "js-cookie";
 
 export default function Cart(props: any) {
   let dispatch = useDispatch();
+  let { cartProducts } = useAppSelector((state) => state.product);
   let [isAgree, setIsAgree] = useState<boolean>(false);
   let [isShowTerm, setIsShowTerm] = useState<boolean>(false);
   let navigate = useNavigate();
-  let { cartProducts } = useAppSelector((state) => state.product);
 
   useEffect(() => {
     let res = localStorage.getItem("wishList");
