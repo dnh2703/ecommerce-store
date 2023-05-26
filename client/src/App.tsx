@@ -22,8 +22,6 @@ import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./components/common/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
-import ProductsSkeleton from "./components/common/skeleton/Products";
-import SkeletonProductDetail from "./components/common/skeleton/ProductDetail";
 
 function App() {
   return (
