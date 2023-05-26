@@ -17,6 +17,7 @@ import { province } from "../data/provinceDistrict";
 import Heading from "../components/common/Cart/Heading";
 import { useNavigate } from "react-router-dom";
 import CartProducts from "../components/common/Cart/CartProducts";
+import Cookies from "js-cookie";
 
 export default function Cart(props: any) {
   let dispatch = useDispatch();
@@ -43,6 +44,8 @@ export default function Cart(props: any) {
   function format2(n: any, currency: any) {
     return currency + n?.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
   }
+  let accessToken = Cookies.get("accessToken");
+  let refreshToken = Cookies.get("refreshToken");
 
   const handleChecked = () => setIsAgree(!isAgree);
 
@@ -182,9 +185,11 @@ export default function Cart(props: any) {
                       disabled={!isAgree}
                       onClick={() => {
                         if (isAgree) {
-                          navigate("/check-out/information");
-                          window.scrollTo(0, 0);
+                          refreshToken || accessToken
+                            ? navigate("/check-out/information")
+                            : navigate("/account/login");
                         }
+                        window.scrollTo(0, 0);
                       }}
                       className={`my-5 uppercase  leading-[50px] w-1/2  group/buy duration-500 ${
                         isAgree
@@ -198,7 +203,9 @@ export default function Cart(props: any) {
                           "hover:text-white group-hover/buy:animate-[buy_1s_ease-in-out]"
                         }`}
                       >
-                        check out
+                        {refreshToken || accessToken
+                          ? "check out"
+                          : "login to checkout"}
                       </span>
                     </button>
                   </div>
