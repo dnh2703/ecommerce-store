@@ -10,6 +10,7 @@ import {
   addToCart,
   getCartProduct,
 } from "../../../features/slice/productSlice";
+import { toast } from "react-toastify";
 
 export const ProductsColumn = (props: IProductLayout) => {
   let navigate = useNavigate();
@@ -32,6 +33,19 @@ export const ProductsColumn = (props: IProductLayout) => {
       }
     }
   }, []);
+
+  const addSuccessfully = () => {
+    toast.success("Add successfully!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   return (
     <Grid key={props.product.id} item xs={props.cols} sx={productStyles}>
@@ -65,15 +79,16 @@ export const ProductsColumn = (props: IProductLayout) => {
         </div>
         <div className="hover">
           <div
-            onClick={() =>
+            onClick={() => {
               dispatch(
                 addToCart({
                   product: props.product,
                   quantity: 1,
                   count: 1,
                 })
-              )
-            }
+              );
+              addSuccessfully();
+            }}
           >
             <i className="fa-solid fa-bag-shopping"></i>
           </div>

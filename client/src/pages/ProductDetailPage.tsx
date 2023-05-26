@@ -21,6 +21,8 @@ import { getProductsStart } from "../features/slice/productSlice";
 import { getReviewsStart } from "../features/slice/reviewSlice";
 import LoadingPage from "../components/common/LoadingPage";
 
+import { ToastContainer, toast } from "react-toastify";
+
 interface ShowModal {
   termsAndConditions: boolean;
   ask: boolean;

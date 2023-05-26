@@ -3,6 +3,7 @@ import useDebounce from "../../hooks/useDebounce";
 import productApi from "../../api/productApi";
 import { IProduct } from "../../interfaces/product";
 import { Link } from "react-router-dom";
+import CloseButton from "./CloseButton";
 
 interface SearchBarProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
   const [result, setResult] = useState<IProduct[]>([]);
   const [isDone, setIsDone] = useState(false);
   const debouncedQuery = useDebounce(query, 500);
+
+  console.log(setIsOpen);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim() !== "") {
@@ -144,7 +147,7 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
               : "-translate-y-full opacity-0 invisible"
           } z-50 sm:py-12 py-4 flex`}
         >
-          <div className=" w-full overflow-auto">
+          <div className=" w-full overflow-auto relative">
             <div className="max-w-5xl lg:mx-auto mx-8">
               <div className="flex">
                 <input

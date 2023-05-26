@@ -21,6 +21,7 @@ import ContactPage from "./pages/ContactPage";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./components/common/ResetPassword";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (

@@ -7,6 +7,7 @@ import {
 } from "../../../features/slice/productSlice";
 import { CartListProducts } from "../../../interfaces/product";
 import { arrayBuffer } from "stream/consumers";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
@@ -49,6 +50,19 @@ export default function AddToCart(props: any) {
     setIsAgree(!isAgree);
   };
 
+  const addSuccessfully = () => {
+    toast.success("Add successfully!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   return (
     <div className="flex flex-col my-5 ">
       <div className="flex items-center gap-4 my-4 justify-between">
@@ -82,6 +96,7 @@ export default function AddToCart(props: any) {
               })
             );
             setCount(1);
+            addSuccessfully();
           }}
           className="basis-[60%] group/button"
         >
