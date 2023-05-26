@@ -166,6 +166,7 @@ export const FilterPannel = (props: any) => {
             <div>
               {props.products?.slice(0, 2).map((product: IProduct) => (
                 <Link
+                  key={product.id}
                   style={{ textDecoration: "none", color: "gray" }}
                   to={`/products/${product.id}`}
                 >

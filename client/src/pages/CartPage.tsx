@@ -165,6 +165,7 @@ export default function Cart(props: any) {
                       name="agree"
                       id="agree"
                       onClick={handleChecked}
+                      onChange={() => {}}
                     />
                     <label
                       htmlFor="agree"

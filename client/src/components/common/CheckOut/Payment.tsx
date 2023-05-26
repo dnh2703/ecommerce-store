@@ -147,11 +147,11 @@ export default function Payment(props: IPaymentProps) {
         </div>
         <div className="py-3 flex border-b border-gray-300">
           <p className="text-gray-500 basis-[20%]">Method</p>
-          <p className="basis-[70%] flex items-center">
+          <div className="basis-[70%] flex items-center">
             <p>Standard Shipping</p>
             <p className="mx-2">-</p>
             <p className="font-medium">Free</p>
-          </p>
+          </div>
           <div className="basis-[10%]">
             <a
               onClick={() => navigate("/check-out/shipping")}

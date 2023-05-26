@@ -16,8 +16,6 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
   const [isDone, setIsDone] = useState(false);
   const debouncedQuery = useDebounce(query, 500);
 
-  console.log(setIsOpen);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim() !== "") {
       setQuery(e.target.value);

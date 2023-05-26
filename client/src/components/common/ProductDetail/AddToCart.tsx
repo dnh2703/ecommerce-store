@@ -116,6 +116,7 @@ export default function AddToCart(props: any) {
           } cursor-pointer `}
           type="radio"
           checked={isAgree}
+          onChange={() => {}}
           name="agree"
           id="agree"
           onClick={handleChecked}

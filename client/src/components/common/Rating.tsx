@@ -13,7 +13,7 @@ export default function TextRating(props: any) {
     >
       <Rating
         name="text-feedback"
-        value={props.values}
+        value={props.values ? props.values : 0}
         readOnly
         precision={0.5}
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
