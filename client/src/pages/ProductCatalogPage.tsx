@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { getProductsStart } from "../features/slice/productSlice";
 import { useAppSelector } from "../store/hooks";
 import LoadingPage from "../components/common/LoadingPage";
+import ProductsSkeleton from "../components/common/skeleton/Products";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
@@ -515,7 +516,7 @@ export default function ProductPage() {
           </Container>
         </div>
       ) : (
-        <LoadingPage />
+        <ProductsSkeleton />
       )}
     </>
   );
