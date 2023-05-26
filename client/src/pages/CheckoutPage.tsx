@@ -22,7 +22,14 @@ export default function CheckoutPage() {
   let [showOrder, setShowOrder] = useState<boolean>(false);
 
   let { userInfo } = useAppSelector((state) => state.userInfo);
-
+  const [user, setUser] = useState(() => {
+    const user = localStorage.getItem("user");
+    const userJson = user ? JSON.parse(user) : null;
+    return userJson;
+  });
+  let [email, setEmail] = useState<string>("");
+  let [name, setName] = useState<string>("");
+  let [userId, setUserId] = useState<string>("");
   useEffect(() => {
     let res = localStorage.getItem("userInfo");
     if (res !== null) {
@@ -44,6 +51,13 @@ export default function CheckoutPage() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    const { name, email, userId } = user;
+    setEmail(email);
+    setName(name);
+    setUserId(userId);
+  }, [user]);
 
   useEffect(() => {
     if (cartProducts.length > 0)
@@ -190,6 +204,7 @@ export default function CheckoutPage() {
             <div className="flex justify-center">
               {process === "information" && (
                 <Information
+                  email={email}
                   dispatch={dispatch}
                   userInfo={userInfo}
                   setPickup={() => setIsPickup(true)}
@@ -201,7 +216,11 @@ export default function CheckoutPage() {
               {process === "shipping" && <Shipping userInfo={userInfo} />}
 
               {process === "payment" && (
-                <Payment isPickup={isPickup} userInfo={userInfo} />
+                <Payment
+                  cartProducts={cartProducts}
+                  isPickup={isPickup}
+                  userInfo={userInfo}
+                />
               )}
 
               <CheckoutProducts products={cartProducts} />

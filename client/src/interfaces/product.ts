@@ -17,7 +17,7 @@ interface IProduct {
   user: string;
   createdAt: string;
   updatedAt: string;
-  review?: IReview[];
+  reviews?: IReview[];
 }
 
 export interface IProductLayout {
