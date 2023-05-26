@@ -42,9 +42,9 @@ const TopRating = () => {
   );
   return (
     <div>
-      <div className="text-center">
+      <div className=" flex justify-center items-center">
         <button
-          className={`px-10 text-4xl py-10 ease-in duration-500 ${
+          className={`px-10 text-2xl md:text-4xl py-10 ease-in duration-500 ${
             isBorder ? "text-black border-b-2 border-black" : "text-slate-700"
           }`}
           onClick={() => {
@@ -55,7 +55,7 @@ const TopRating = () => {
           Top Rating
         </button>
         <button
-          className={`px-10 text-4xl py-10 ease-in duration-500 ${
+          className={`px-10 text-2xl md:text-4xl py-10 ease-in duration-500 ${
             isBorder ? "text-slate-700" : "text-black border-b-2 border-black"
           }`}
           onClick={() => {
