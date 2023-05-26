@@ -20,6 +20,7 @@ import MainLayout from "./components/layout/MainLayout";
 import ContactPage from "./pages/ContactPage";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
+import ResetPassword from "./components/common/ResetPassword";
 
 function App() {
   return (
@@ -47,7 +48,7 @@ function App() {
             <Route path="register" element={<SignUp />} />
 
             <Route path="verify-email" element={<VerifyEmail />} />
-            <Route path="reset-password" />
+            <Route path="reset-password" element={<ResetPassword />} />
             <Route path="customer-profile" element={<CustomerProfile />} />
           </Route>
           <Route path="/check-out/:process" element={<CheckoutPage />}></Route>

@@ -9,18 +9,15 @@ import privateClient from "./client/private.client";
 import publicClient from "./client/public.client";
 
 const authApi = {
-  register: (params: IRegisterForm) =>
-    publicClient.post("auth/register", params),
-  login: (params: ILoginForm) => publicClient.post("auth/login", params),
+  register: (data: IRegisterForm) => publicClient.post("auth/register", data),
+  login: (data: ILoginForm) => publicClient.post("auth/login", data),
   logout: () => privateClient.get("auth/logout"),
-  verifyEmail: ({ email, verificationToken }: IVerifyEmail) =>
-    publicClient.post(
-      `auth/verify-email?token=${verificationToken}&email=${email}`
-    ),
-  forgotPassword: (params: IForgotPassword) =>
-    publicClient.post(`auth/forgot-password`, params),
-  resetPassword: (params: IResetPassword) =>
-    publicClient.post(`auth/reset-password`, params),
+  verifyEmail: (data: IVerifyEmail) =>
+    publicClient.post(`auth/verify-email`, data),
+  forgotPassword: (data: IForgotPassword) =>
+    publicClient.post(`auth/forgot-password`, data),
+  resetPassword: (data: IResetPassword) =>
+    publicClient.post(`auth/reset-password`, data),
   refreshToken: (token?: string) =>
     publicClient.post("auth/token", { refreshToken: token }),
 };
