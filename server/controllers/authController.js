@@ -49,8 +49,8 @@ const register = async (req, res) => {
 };
 
 const verifyEmail = async (req, res) => {
-  const { token, email } = req.params;
-  console.log(token, email);
+  const { verificationToken, email } = req.body;
+
   const user = await User.findOne({ email });
 
   if (!user) {

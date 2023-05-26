@@ -78,7 +78,7 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
     }
 
     return (
-      <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 overflow-x-auto overflow-y-hidden">
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 overflow-x overflow-y-hidden">
         <p className="text-base sm:col-span-3 col-span-2 border-b pt-8 pb-2 mb-6 flex font-light justify-between">
           <span>{result.length} results</span>
           <Link
@@ -123,12 +123,19 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
   // render an input element and a button element
   return (
     <>
-      <div className="h-screen w-screen fixed top-0 left-0 z-50">
+      <div
+        className={`${
+          isOpen ? "h-screen" : "h-0"
+        } w-screen fixed top-0 left-0 z-50 search-bar`}
+      >
         <div
-          className={`fixed h-screen w-screen bg-black opacity-10 ${
+          className={`fixed h-screen w-screen bg-black opacity-20 ${
             !isOpen && "hidden"
           }`}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            console.log("hi");
+            console.log(setIsOpen(false));
+          }}
         ></div>
         <div
           className={`bg-white transition-transform duration-300 max-h-[90%] relative overflow-x-hidden ${
