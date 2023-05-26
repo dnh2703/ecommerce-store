@@ -20,7 +20,6 @@ export default function CheckoutPage() {
   let { cartProducts } = useAppSelector((state) => state.product);
   let dispatch = useDispatch();
   let [showOrder, setShowOrder] = useState<boolean>(false);
-
   let { userInfo } = useAppSelector((state) => state.userInfo);
 
   useEffect(() => {

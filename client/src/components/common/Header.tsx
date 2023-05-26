@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import { NavLink, useNavigate } from "react-router-dom";
+import { getCartProduct } from "../../features/slice/productSlice";
+import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { CartListProducts } from "../../interfaces/product";
 
 const Header = () => {
   let links = [
@@ -12,16 +16,26 @@ const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+  let dispatch = useDispatch();
+  let { cartProducts } = useAppSelector((state) => state.product);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  useEffect(() => {
+    let res = localStorage.getItem("wishList");
+    if (res !== null) {
+      const items = JSON.parse(res);
+      if (items) {
+        dispatch(getCartProduct(items));
+      }
+    }
+  }, []);
 
   return (
     <>
       <header className="shadow-md fixed top-0 left-0 right-0 flex items-center justify-between bg-white p-4 z-10 md:flex-row">
         <div className="flex items-center order-2 md:order-1">
-          <h1 className="text-xl font-bold">FUNORI</h1>
+          <h1 className="text-xl font-bold">4BROS</h1>
         </div>
 
         <ul
@@ -126,23 +140,42 @@ const Header = () => {
               ></path>
             </svg>
           </button>
-          <button onClick={() => navigate("/cart")}>
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="w-6 h-6 text-gray-900 "
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-              ></path>
-            </svg>
-          </button>
+          <div className="relative">
+            <button onClick={() => navigate("/cart")}>
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                className="w-6 h-6 text-gray-900 "
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                ></path>
+              </svg>
+            </button>
+            <div className="text-[10px] absolute top-[-8px] right-[-8px] w-5 h-5 bg-black rounded-full flex items-center justify-center text-white">
+              <span>
+                {cartProducts.reduce(
+                  (acc: number, cartProduct: CartListProducts) => {
+                    return acc + cartProduct.quantity;
+                  },
+                  0
+                ) > 99
+                  ? "99+"
+                  : cartProducts.reduce(
+                      (acc: number, cartProduct: CartListProducts) => {
+                        return acc + cartProduct.quantity;
+                      },
+                      0
+                    )}
+              </span>
+            </div>
+          </div>
         </div>
         <div className="flex items-center space-x-4 order-1 md:hidden md:order-3">
           {isMenuOpen ? (
