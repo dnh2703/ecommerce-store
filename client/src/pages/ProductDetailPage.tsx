@@ -22,6 +22,7 @@ import { getReviewsStart } from "../features/slice/reviewSlice";
 import LoadingPage from "../components/common/LoadingPage";
 
 import { ToastContainer, toast } from "react-toastify";
+import SkeletonProductDetail from "../components/common/skeleton/ProductDetail";
 
 interface ShowModal {
   termsAndConditions: boolean;
@@ -152,8 +153,8 @@ export default function ProductDetailPage() {
               </Typography>
             </header>
 
-            <div className="flex sm:flex-wrap">
-              <div className="sm:mb-10 lg:pr-10 sm:basis-full lg:basis-1/2 relative">
+            <div className="flex max-lg:flex-wrap">
+              <div className="max-lg:mb-10 pr-10 max-lg:basis-full basis-1/2 relative">
                 <img
                   src={product?.image}
                   className={`${
@@ -190,7 +191,7 @@ export default function ProductDetailPage() {
           </Container>
         </div>
       ) : (
-        <LoadingPage />
+        <SkeletonProductDetail />
       )}
     </>
   );

@@ -8,7 +8,7 @@ export default function ProductDetail(props: any) {
   let [hours, setHours] = useState<number>(Math.floor(Math.random() * 23) + 1);
 
   return (
-    <div className="lg:pl-10 sm:basis-full lg:basis-1/2">
+    <div className="lg:pl-10 max-lg:basis-full basis-1/2">
       <div className=" mb-2">
         <Box
           sx={{ span: { fontSize: "14px" } }}

@@ -32,7 +32,7 @@ export default function ProductsSkeleton() {
             <div className="bg-slate-200 h-[90px] w-full rounded"></div>
           </div>
         </div>
-        <div className="basis-3/4 max-lg:basis-full shadow rounded-md p-4 border border-gray-300 ml-5 items-start flex flex-col">
+        <div className="basis-3/4 max-sm:ml-0 max-lg:basis-full shadow rounded-md p-4 border border-gray-300 ml-5 items-start flex flex-col">
           <div className="bg-slate-200 h-[40px] w-[187px] rounded my-4"></div>
           <div
             style={{ alignSelf: "end" }}

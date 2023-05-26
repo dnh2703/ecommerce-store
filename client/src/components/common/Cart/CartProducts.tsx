@@ -5,6 +5,7 @@ import {
   deleteCartProduct,
   minusOneItem,
 } from "../../../features/slice/productSlice";
+import Swal from "sweetalert2";
 
 export default function CartProducts(props: any) {
   return (
@@ -41,7 +42,22 @@ export default function CartProducts(props: any) {
                   <div className="flex mx-14 max-md:mx-0 justify-center mt-2 border items-center border-gray-300">
                     <button
                       onClick={() => {
-                        props.dispatch(minusOneItem(wProduct));
+                        if (wProduct.quantity === 1) {
+                          Swal.fire({
+                            title: "Do you want to remove this item?",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes",
+                            cancelButtonText: "No",
+                          }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                              props.dispatch(minusOneItem(wProduct));
+                              Swal.fire("Removed!", "", "success");
+                            }
+                          });
+                        } else {
+                          props.dispatch(minusOneItem(wProduct));
+                        }
                       }}
                       className="px-4 py-2"
                     >
@@ -65,9 +81,20 @@ export default function CartProducts(props: any) {
                   </div>
                   <div
                     onClick={() => {
-                      props.dispatch(
-                        deleteCartProduct({ product: wProduct.product })
-                      );
+                      Swal.fire({
+                        title: "Do you want to remove this item?",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                        cancelButtonText: "No",
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                          Swal.fire("Removed!", "", "success");
+                          props.dispatch(
+                            deleteCartProduct({ product: wProduct.product })
+                          );
+                        }
+                      });
                     }}
                     className="text-xs cursor-pointer text-gray-400 underline mt-2"
                   >
