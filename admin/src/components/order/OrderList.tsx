@@ -1,11 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import OrderItem from "./OrderItem";
 import { getOrdersStart } from "../../features/slice/orderSlice";
+import PaginationTable from "../common/PaginationTable";
 
 const OrderList = () => {
   const { orders, isLoading } = useAppSelector((state) => state.order);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [q, setQ] = useState("");
   const dispatch = useAppDispatch();
+
+  const filteredItems = useMemo(() => {
+    return orders.filter((item) => {
+      return item.email.toString().toLowerCase().indexOf(q.toLowerCase()) > -1;
+    });
+  }, [q, orders]);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const previousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const start = itemsPerPage * (currentPage - 1);
+  const finish = itemsPerPage * currentPage;
+
+  // const itemProducts = searchByName(productsFilter);
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const totalItems = filteredItems.length;
 
   useEffect(() => {
     dispatch(getOrdersStart());
@@ -22,7 +47,7 @@ const OrderList = () => {
       );
     }
 
-    if (orders.length === 0) {
+    if (filteredItems.length === 0) {
       return (
         <tr className=" bg-white dark:bg-gray-800 dark:border-gray-700 ">
           <th scope="row" colSpan={5} className="px-6 py-4 text-center">
@@ -32,7 +57,7 @@ const OrderList = () => {
       );
     }
 
-    return orders.map((order) => {
+    return filteredItems.slice(start, finish).map((order) => {
       return (
         <OrderItem
           key={order._id}
@@ -85,7 +110,8 @@ const OrderList = () => {
               type="search"
               id="default-search"
               className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search product name..."
+              placeholder="Search for orders"
+              onChange={(e) => setQ(e.target.value)}
               required
             />
           </div>
@@ -128,6 +154,17 @@ const OrderList = () => {
           </thead>
           <tbody>{renderListOrder()}</tbody>
         </table>
+        <PaginationTable
+          start={start}
+          finish={finish}
+          currentPage={currentPage}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          totalItems={totalItems}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+          setItemsPerPage={setItemsPerPage}
+        />
       </div>
     </>
   );
