@@ -26,13 +26,13 @@ const CustomerList = () => {
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
-  const nextPage = useCallback(() => {
-    setCurrentPage(currentPage + 1);
-  }, [currentPage]);
+  const nextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
-  const previousPage = useCallback(() => {
-    setCurrentPage(currentPage - 1);
-  }, [currentPage]);
+  const previousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   const renderListUsers = () => {
     if (isLoading) {

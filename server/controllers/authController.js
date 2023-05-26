@@ -120,7 +120,7 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: tokenUser, refreshToken, accessToken });
 };
 const logout = async (req, res) => {
-  const token = await Token.findOneAndDelete({ user: req.user._id });
+  await Token.findOneAndDelete({ user: req.user._id });
 
 
   res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
@@ -133,6 +133,8 @@ const forgotPassword = async (req, res) => {
   }
 
   const user = await User.findOne({ email });
+
+
 
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString('hex');
@@ -151,11 +153,15 @@ const forgotPassword = async (req, res) => {
     user.passwordToken = createHash(passwordToken);
     user.passwordTokenExpirationDate = passwordTokenExpirationDate;
     await user.save();
+
+    res
+      .status(StatusCodes.OK)
+      .json({ msg: 'Please check your email for reset password link' });
+  }
+  else {
+    throw new CustomError.BadRequestError('Please provide valid email');
   }
 
-  res
-    .status(StatusCodes.OK)
-    .json({ msg: 'Please check your email for reset password link' });
 };
 const resetPassword = async (req, res) => {
   const { token, email, password } = req.body;
