@@ -15,11 +15,16 @@ const SignUpForm = () => {
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const TogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+  const ToggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const onSubmit = (data: IRegisterForm) => {
@@ -33,7 +38,8 @@ const SignUpForm = () => {
       })
       .catch((error) => {
         console.log("error: ", error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -43,7 +49,7 @@ const SignUpForm = () => {
         className="bg-white  rounded-none px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mb-4">
+        <div className="mb-2">
           <input
             {...register("name", { required: true, pattern: /^[^\s]+$/ })}
             className=" appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -51,6 +57,8 @@ const SignUpForm = () => {
             type="text"
             placeholder="Name"
           />
+        </div>
+        <div className="mb-3">
           {errors.name?.type == "required" && (
             <span className="text-red-500 text-xs">Name is required</span>
           )}
@@ -58,7 +66,7 @@ const SignUpForm = () => {
             <span className="text-red-500 text-xs">Space is not valid</span>
           )}
         </div>
-        <div className="mb-4">
+        <div className="mb-2">
           <input
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             className=" appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -66,6 +74,8 @@ const SignUpForm = () => {
             type="email"
             placeholder="Email"
           />
+        </div>
+        <div className="mb-3">
           {errors.email?.type == "required" && (
             <span className="text-red-500 text-xs">
               Please enter email address
@@ -77,7 +87,7 @@ const SignUpForm = () => {
             </span>
           )}
         </div>
-        <div className="mb-4 relative">
+        <div className="mb-2 relative">
           <input
             {...register("password", {
               required: true,
@@ -117,7 +127,7 @@ const SignUpForm = () => {
             </svg>
           </button>
         </div>
-        <div>
+        <div className="mb-3">
           {errors.password?.type == "required" && (
             <span className="text-red-500 text-xs">
               Please enter the password
@@ -135,7 +145,7 @@ const SignUpForm = () => {
             </span>
           )}
         </div>
-        <div className="mb-4 relative">
+        <div className="mb-2 relative">
           <input
             {...register("confirmPassword", {
               required: true,
@@ -143,14 +153,14 @@ const SignUpForm = () => {
             })}
             className="appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="confirmPassword"
-            type="password"
+            type={showConfirmPassword ? "password" : "text"}
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <button
             type="button"
-            onClick={TogglePasswordVisibility}
+            onClick={ToggleConfirmPasswordVisibility}
             className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 cursor-pointer"
           >
             <svg
@@ -174,6 +184,8 @@ const SignUpForm = () => {
               ></path>
             </svg>
           </button>
+        </div>
+        <div>
           {errors.confirmPassword?.type === "required" && (
             <span className="text-red-500 text-xs">
               Please confirm your password
