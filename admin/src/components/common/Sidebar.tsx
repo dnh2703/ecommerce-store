@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import appRoutes from "../../routes/appRoutes";
 import authApi from "../../api/modules/authApi";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 const Sidebar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
@@ -14,17 +15,19 @@ const Sidebar = () => {
     authApi
       .logout()
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           Cookies.remove("accessToken");
           Cookies.remove("refreshToken");
-
+          Swal.fire({
+            icon: "success",
+            title: "Logout successful ",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           navigate("/");
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (
