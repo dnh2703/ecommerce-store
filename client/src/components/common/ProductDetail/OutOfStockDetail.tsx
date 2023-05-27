@@ -1,7 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function OutOfStockDetail(props: any) {
+  const handleNotify = () => {
+    Swal.fire("Success!", "We will notify you when it's in stock", "success");
+  };
   return (
     <div className="flex flex-col my-5">
       <div className="flex items-center gap-4 my-4">
@@ -16,6 +20,7 @@ export default function OutOfStockDetail(props: any) {
       </div>
       <div>
         <button
+          onClick={handleNotify}
           className={`mb-5 uppercase  leading-[50px] w-full group/buy duration-500 text-black border-black hover:bg-[#6e2f1b] text-xs tracking-[3px] border `}
         >
           <span

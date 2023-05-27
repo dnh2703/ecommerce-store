@@ -144,6 +144,7 @@ export function QuickView(props: any) {
                       );
                       setCount(1);
                       addSuccessfully();
+                      props.closeModal();
                     }}
                     className={`flex items-center justify-center uppercase py-5 w-full group/buy bg-black duration-500 text-black border-black hover:bg-[#6e2f1b] text-xs tracking-[3px] border `}
                   >

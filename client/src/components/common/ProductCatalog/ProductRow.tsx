@@ -11,6 +11,7 @@ import {
   getCartProduct,
 } from "../../../features/slice/productSlice";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export const ProductRow = (props: IProductLayout) => {
   let navigate = useNavigate();
@@ -32,6 +33,10 @@ export const ProductRow = (props: IProductLayout) => {
       }
     }
   }, []);
+
+  const handleConstruction = () => {
+    Swal.fire("Sorry!", "This feature have not released yet", "error");
+  };
 
   const addSuccessfully = () => {
     toast.success("Add successfully!", {
@@ -82,7 +87,7 @@ export const ProductRow = (props: IProductLayout) => {
             </span>
           )}
         </div>
-        <div className="hover">
+        <div className="max-lg:hidden hover flex">
           <div
             onClick={() => {
               dispatch(
@@ -97,10 +102,10 @@ export const ProductRow = (props: IProductLayout) => {
           >
             <i className="fa-solid fa-bag-shopping"></i>
           </div>
-          <div>
+          <div onClick={handleConstruction}>
             <i className="fa-regular fa-heart"></i>
           </div>
-          <div>
+          <div onClick={handleConstruction}>
             <i className="fa-solid fa-arrow-right-arrow-left"></i>
           </div>
           <div

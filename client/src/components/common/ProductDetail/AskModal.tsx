@@ -25,6 +25,7 @@ export default function AskModal(props: any) {
       "We will answer your question as soon as possible",
       "success"
     );
+    props.closeModal();
   };
   return (
     <div className="fixed z-50 w-full h-[100vh] top-0 left-0 ">
