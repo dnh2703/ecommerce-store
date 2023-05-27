@@ -34,6 +34,7 @@ const SignUpForm = () => {
       .register(data)
       .then((res) => {
         setIsSuccess(true);
+        alert("Please verify your email");
         navigate("/account/login");
       })
       .catch((error) => {

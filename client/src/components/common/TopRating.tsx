@@ -7,6 +7,7 @@ import { getProductsStart } from "../../features/slice/productSlice";
 import TextRating from "./Rating";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { QuickView } from "./QuickView";
 
 const TopRating = () => {
   // let [products, setProducts] = useState<IProduct[]>([]);
@@ -83,7 +84,7 @@ const TopRating = () => {
                   className=" group-hover/zoom:scale-110 duration-500"
                 />
                 {hoveredIndex === productIndex && (
-                  <div className="absolute inset-0 flex gap-5 items-end justify-center bg-transparent bg-opacity-50 mb-5">
+                  <div className="absolute inset-0 flex gap-0 md:gap-5 items-end justify-center bg-transparent bg-opacity-50 mb-5">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -137,6 +138,7 @@ const TopRating = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       aria-hidden="true"
                       className="h-10 w-10 p-2 bg-white rounded-full"
+                      onClick={() => <QuickView product={product} />}
                     >
                       <path
                         stroke-linecap="round"
@@ -172,7 +174,7 @@ const TopRating = () => {
                   className=" group-hover/zoom:scale-110 duration-500"
                 />
                 {hoveredIndex === productIndex && (
-                  <div className="absolute inset-0 flex gap-5 items-end justify-center bg-transparent bg-opacity-50 mb-5">
+                  <div className="absolute inset-0 flex gap-0 md:gap-5 items-end justify-center bg-transparent bg-opacity-50 mb-5">
                     <svg
                       fill="none"
                       stroke="currentColor"

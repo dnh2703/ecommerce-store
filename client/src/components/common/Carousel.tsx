@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Carosel = () => {
   const slides = [
@@ -18,6 +19,7 @@ const Carosel = () => {
       text: "Say hello to our branch new arrivals",
     },
   ];
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
@@ -38,7 +40,12 @@ const Carosel = () => {
         <div className="absolute top-[40%] left-20 text-left text-white transition-900">
           <h1 className="text-5xl mb-3">{slides[currentIndex].title}</h1>
           <p className="text-lg my-3">{slides[currentIndex].text}</p>
-          <button className="px-6 py-2 bg-white text-black">Shop now</button>
+          <button
+            className="px-6 py-2 bg-white text-black"
+            onClick={() => navigate("/products")}
+          >
+            Shop now
+          </button>
         </div>
         <div className="absolute top-[50%] -translate-x-0 translate-y-[50%] left-5 rounded-full text-2xl p-2 bg-black/20 text-white cursor-pointer">
           <svg
