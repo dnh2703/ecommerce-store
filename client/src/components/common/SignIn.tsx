@@ -16,10 +16,10 @@ const SignIn = () => {
 
   const [checkPassword, setCheckPassword] = useState<boolean>(false);
 
-  const accessToken = Cookies.get("accessToken");
   const refreshToken = Cookies.get("refreshToken");
+  const accessToken = Cookies.get("accessToken");
 
-  if (accessToken || refreshToken) {
+  if (accessToken && refreshToken) {
     navigate("/");
   }
 
@@ -39,6 +39,8 @@ const SignIn = () => {
           if (res.status === 200) {
             Cookies.set("accessToken", res.data.accessToken);
             Cookies.set("refreshToken", res.data.refreshToken);
+            console.log(Cookies.set("refreshToken", res.data.refreshToken));
+
             const useJson = JSON.stringify(res.data.user);
 
             localStorage.setItem("user", useJson);
@@ -62,7 +64,7 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="box-border px-10 flex w-full container justify-between mx-auto ">
+      <div className="box-border px-10 flex w-full container justify-between mx-auto mt-20 mb-12 ">
         <div className="">
           <h1 className="text-6xl text-center">Account</h1>
 
