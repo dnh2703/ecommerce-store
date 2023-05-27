@@ -2,6 +2,8 @@ import * as React from "react";
 
 import CloseButton from "../CloseButton";
 import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 interface Customer {
   name: string;
@@ -11,8 +13,22 @@ interface Customer {
 }
 
 export default function AskModal(props: any) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const Onsubmit = () => {
+    Swal.fire(
+      "Thank you for asking!",
+      "We will answer your question as soon as possible",
+      "success"
+    );
+    props.closeModal();
+  };
   return (
-    <div className="fixed z-[2] w-full h-[100vh] top-0 left-0 ">
+    <div className="fixed z-50 w-full h-[100vh] top-0 left-0 ">
       <div
         onClick={props.closeModal}
         className="absolute w-full h-[100vh] top-0 left-0 bg-stone-950 opacity-60 "
@@ -26,36 +42,58 @@ export default function AskModal(props: any) {
             <CloseButton closeModal={props.closeModal} />
           </div>
         </div>
-        <form
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-          className="text-sm"
-        >
+        <form onSubmit={handleSubmit(Onsubmit)} className="text-sm">
           <div className="flex gap-4 w-full mb-5">
-            <input
-              placeholder="Yourname"
-              className="bg-gray-200 leading-[50px] basis-1/2 px-5"
-              type="text"
-            />
-            <input
-              placeholder="Your email"
-              className="bg-gray-200 leading-[50px] basis-1/2 px-5"
-              type="email"
-            />
+            <div>
+              <input
+                {...register("name", { required: true })}
+                placeholder="Your name"
+                className="bg-gray-200 leading-[50px] basis-1/2 px-5"
+                type="text"
+              />
+              {errors.name?.type === "required" && (
+                <span className="text-xs text-red-500">
+                  Your name is required
+                </span>
+              )}
+            </div>
+
+            <div>
+              <input
+                {...register("email", {
+                  required: true,
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                })}
+                placeholder="Your email"
+                className="bg-gray-200 leading-[50px] basis-1/2 px-5"
+                type="email"
+              />
+              {errors.email?.type === "required" && (
+                <span className="text-xs text-red-500">Email is required</span>
+              )}
+              {errors.email?.type === "pattern" && (
+                <span className="text-xs text-red-500">
+                  Enter an invalid email
+                </span>
+              )}
+            </div>
           </div>
           <div className="mb-5">
             <input
-              placeholder="Phone number"
+              placeholder="Phone number (Optional)"
               className="bg-gray-200 leading-[50px] w-full outline-none px-5"
               type="text"
             />
           </div>
           <div className="mb-5">
             <textarea
+              {...register("message", { required: true })}
               placeholder="Your message..."
               className="bg-gray-200 h-52 leading-[50px] w-full outline-none px-5"
             />
+            {errors.message?.type === "required" && (
+              <span className="text-xs text-red-500">Message is required</span>
+            )}
           </div>
           <div className="group/message">
             <button

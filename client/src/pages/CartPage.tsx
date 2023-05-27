@@ -66,7 +66,10 @@ export default function Cart(props: any) {
             </div>
             <div className="group/message">
               <button
-                onClick={() => navigate("/products")}
+                onClick={() => {
+                  navigate("/products");
+                  window.scrollTo(0, 0);
+                }}
                 className=" uppercase mb-6 bg-black border-black border hover:border-[#6e2f1b] relative text-white text-xs tracking-[3px]"
               >
                 <div className="w-0 z-0 h-full group-hover/message:w-full duration-500 bg-[#6e2f1b] absolute"></div>
@@ -165,6 +168,7 @@ export default function Cart(props: any) {
                       name="agree"
                       id="agree"
                       onClick={handleChecked}
+                      onChange={() => {}}
                     />
                     <label
                       htmlFor="agree"

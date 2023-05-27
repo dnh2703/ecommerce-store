@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { getProductsStart } from "../features/slice/productSlice";
 import { useAppSelector } from "../store/hooks";
 import LoadingPage from "../components/common/LoadingPage";
+import ProductsSkeleton from "../components/common/skeleton/Products";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
@@ -272,6 +273,7 @@ export default function ProductPage() {
               <Typography sx={{ fontSize: "50px" }}>Products</Typography>
               <Grid
                 container
+                item
                 xs={12}
                 sx={{
                   justifyContent: "center",
@@ -316,7 +318,7 @@ export default function ProductPage() {
                   availability={["In stock", "Out of stock"]}
                 ></FilterPannel>
               </Grid>
-              <Grid xs={12} md={9}>
+              <Grid item xs={12} md={9}>
                 <select
                   className="outline-none border cursor-pointer  border-gray-300 py-2 px-6 text-sm  text-gray-500 my-4 "
                   onChange={handleSort}
@@ -355,14 +357,14 @@ export default function ProductPage() {
                         className="w-[60%] rotate-90 hover:text-white"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="3"
+                        strokeWidth="3"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M3.75 9h16.5m-16.5 6.75h16.5"
                         ></path>
                       </svg>
@@ -379,14 +381,14 @@ export default function ProductPage() {
                         className="w-[60%] rotate-90 "
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="3"
+                        strokeWidth="3"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                         ></path>
                       </svg>
@@ -402,14 +404,14 @@ export default function ProductPage() {
                         className="w-[60%] rotate-90 hover:text-white"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="3"
+                        strokeWidth="3"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
                         ></path>
                       </svg>
@@ -425,14 +427,14 @@ export default function ProductPage() {
                         className="w-[60%]"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="3"
+                        strokeWidth="3"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                         ></path>
                       </svg>
@@ -514,7 +516,7 @@ export default function ProductPage() {
           </Container>
         </div>
       ) : (
-        <LoadingPage />
+        <ProductsSkeleton />
       )}
     </>
   );

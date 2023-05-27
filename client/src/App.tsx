@@ -21,6 +21,7 @@ import ContactPage from "./pages/ContactPage";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./components/common/ResetPassword";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -31,7 +32,6 @@ function App() {
           <Route path="/products" element={<ProductPage />}></Route>
           <Route path="/contact" element={<ContactPage />}></Route>
           <Route path="/about" element={<About />}></Route>
-
           <Route path="/products/:id" element={<ProductDetailPage />}></Route>
           <Route path="/cart" element={<CartPage />}></Route>
           <Route path="/account" element={<AccountPage />}>
@@ -43,10 +43,8 @@ function App() {
                 </ProtectRoute>
               }
             />
-
             <Route path="login" element={<SignIn />} />
             <Route path="register" element={<SignUp />} />
-
             <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="customer-profile" element={<CustomerProfile />} />

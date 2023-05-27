@@ -13,7 +13,6 @@ const TopRating = () => {
   // let [products, setProducts] = useState<IProduct[]>([]);
   let dispatch = useDispatch();
   let { products, isLoading } = useAppSelector((state) => state.product);
-  console.log(isLoading);
 
   const [isShow, setIsShow] = useState(true);
   const [isBorder, setIsBorder] = useState(true);

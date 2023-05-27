@@ -4,6 +4,7 @@ import { RootState } from "../../store/store";
 import { IProduct, CartListProducts } from "../../interfaces/product";
 import productApi from "../../api/productApi";
 import { IReview } from "../../interfaces/review";
+import Swal from "sweetalert2";
 
 // Define a type for the slice state
 interface ProductState {
