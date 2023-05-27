@@ -1,18 +1,11 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   // state to store the loading status
-  const [isLoading, setIsLoading] = useState(true);
+  const refreshToken = Cookies.get("refreshToken");
 
-  return isLoading ? (
-    <>...Loading</>
-  ) : isAuthenticated ? (
-    children
-  ) : (
-    <Navigate to="/account/login" />
-  );
+  return !refreshToken ? <Navigate to="/" /> : children;
 };
 
 export default ProtectedRoute;
