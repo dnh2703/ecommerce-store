@@ -1,4 +1,5 @@
 import { IUser } from "../../interfaces/user";
+import moment from "moment";
 
 const CustomerItem = ({
   email,
@@ -7,6 +8,7 @@ const CustomerItem = ({
   role,
   _id,
   verificationToken,
+  verified,
 }: IUser) => {
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -54,15 +56,7 @@ const CustomerItem = ({
         )}
       </td>
       <td className="px-6 py-4">
-        {/* Modal toggle */}
-        <button
-          type="button"
-          data-modal-target="editUserModal"
-          data-modal-show="editUserModal"
-          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-        >
-          Edit user
-        </button>
+        {verified && moment(verified).format("MMMM Do YYYY, h:mm:ss a")}
       </td>
     </tr>
   );

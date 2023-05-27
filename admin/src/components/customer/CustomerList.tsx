@@ -62,6 +62,7 @@ const CustomerList = () => {
           name={user.name}
           role={user.role}
           isVerified={user.isVerified}
+          verified={user.verified}
           verificationToken={user.verificationToken}
           _id={user._id}
           key={user._id}
@@ -154,7 +155,7 @@ const CustomerList = () => {
                   Verify Email
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Action
+                  Verify At
                 </th>
               </tr>
             </thead>
