@@ -100,7 +100,7 @@ const ResetPassword = () => {
               message: "Confirm new password is required",
             },
             validate: (value) => {
-              if (value === watch("password")) {
+              if (value !== watch("password")) {
                 return "New password does not match";
               }
             },
