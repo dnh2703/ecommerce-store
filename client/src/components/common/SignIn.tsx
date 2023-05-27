@@ -61,7 +61,7 @@ const SignIn = () => {
   return (
     <>
       {accessToken && refreshToken ? (
-        <Navigate to="/" />
+        <Navigate to="/account/customer-profile" />
       ) : (
         <div className="box-border px-10 flex w-full container justify-between mx-auto mt-24  ">
           <div className="">
@@ -148,9 +148,9 @@ const SignIn = () => {
                         <div>
                           <p
                             onClick={handleForgotPassword}
-                            className=" mt-6  mb-6  cursor-pointer"
+                            className="underline mt-6  mb-6  cursor-pointer"
                           >
-                            Forgot your password
+                            Forgot your password!
                           </p>
                         </div>
                         <div>
