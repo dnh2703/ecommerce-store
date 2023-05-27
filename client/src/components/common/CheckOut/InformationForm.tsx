@@ -29,7 +29,6 @@ export default function InformationForm(props: IInformationFormProps) {
   let { userInfo } = useAppSelector((state) => state.userInfo);
   let dispatch = useAppDispatch();
   let [storeUserInfo, setStoreInfo] = useState<any>(userInfo);
-  console.log(storeUserInfo);
 
   useEffect(() => {
     let res = localStorage.getItem("userInfo");

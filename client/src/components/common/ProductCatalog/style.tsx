@@ -4,7 +4,7 @@ export const imgProductStyles = {
   "div.hover": {
     position: "absolute",
     justifyContent: "center",
-    display: "flex",
+
     width: "100%",
     bottom: "-100px",
 

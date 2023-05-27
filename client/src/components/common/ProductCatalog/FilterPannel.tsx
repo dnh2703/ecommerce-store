@@ -166,17 +166,11 @@ export const FilterPannel = (props: any) => {
             <div>
               {props.products?.slice(0, 2).map((product: IProduct) => (
                 <Link
+                  key={product.id}
                   style={{ textDecoration: "none", color: "gray" }}
                   to={`/products/${product.id}`}
                 >
-                  <Grid
-                    container
-                    display={"flex"}
-                    alignItems={""}
-                    item
-                    xs={12}
-                    sx={{ my: 2, div: { my: 1 } }}
-                  >
+                  <div className="flex-nowrap flex">
                     <Grid display={"inline-flex"} item xs={4} sx={{ mr: 2 }}>
                       <img
                         style={{
@@ -200,7 +194,7 @@ export const FilterPannel = (props: any) => {
                       </Typography>
                       <div>${product.price / 100}</div>
                     </Grid>
-                  </Grid>
+                  </div>
                   <hr style={{ border: "1px dashed #ccc", margin: "30px 0" }} />
                 </Link>
               ))}

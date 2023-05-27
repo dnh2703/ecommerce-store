@@ -52,7 +52,7 @@ export default function ClearFilter(props: ClearFilterProduct) {
       {props.brands.map((brand: IBrand) => {
         if (brand.checked) {
           return (
-            <Filter onClick={() => props.resetBrand(brand.id)}>
+            <Filter key={brand.id} onClick={() => props.resetBrand(brand.id)}>
               Brand: <span className="ml-1 capitalize">{brand.label}</span>{" "}
               <span>
                 <i className="fa-solid fa-xmark"></i>
@@ -60,7 +60,7 @@ export default function ClearFilter(props: ClearFilterProduct) {
             </Filter>
           );
         }
-        return <></>;
+        return <div key={Math.random()}></div>;
       })}
       {props.collection !== "all" ||
       props.isInStock ||

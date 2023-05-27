@@ -3,6 +3,7 @@ import TextRating from "./Rating";
 import CloseButton from "./CloseButton";
 import { addToCart } from "../../features/slice/productSlice";
 import { useAppDispatch } from "../../store/hooks";
+import { toast } from "react-toastify";
 
 export function QuickView(props: any) {
   let [count, setCount] = useState<number>(1);
@@ -22,6 +23,20 @@ export function QuickView(props: any) {
       setCount(count + 1);
     }
   };
+
+  const addSuccessfully = () => {
+    toast.success("Add successfully!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   return (
     <div
       className={` ${
@@ -128,6 +143,8 @@ export function QuickView(props: any) {
                         })
                       );
                       setCount(1);
+                      addSuccessfully();
+                      props.closeModal();
                     }}
                     className={`flex items-center justify-center uppercase py-5 w-full group/buy bg-black duration-500 text-black border-black hover:bg-[#6e2f1b] text-xs tracking-[3px] border `}
                   >

@@ -10,6 +10,8 @@ import {
   addToCart,
   getCartProduct,
 } from "../../../features/slice/productSlice";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export const ProductsColumn = (props: IProductLayout) => {
   let navigate = useNavigate();
@@ -32,6 +34,34 @@ export const ProductsColumn = (props: IProductLayout) => {
       }
     }
   }, []);
+
+  const addSuccessfully = () => {
+    toast.success("Add successfully!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const handleConstruction = () => {
+    Swal.fire("Sorry!", "This feature have not released yet", "error");
+  };
+
+  const addFailed = () => {
+    toast.error("Sorry, this product is out of stock!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   return (
     <Grid key={props.product.id} item xs={props.cols} sx={productStyles}>
@@ -63,24 +93,29 @@ export const ProductsColumn = (props: IProductLayout) => {
             </span>
           )}
         </div>
-        <div className="hover">
+        <div className="max-lg:hidden hover flex">
           <div
-            onClick={() =>
-              dispatch(
-                addToCart({
-                  product: props.product,
-                  quantity: 1,
-                  count: 1,
-                })
-              )
-            }
+            onClick={() => {
+              if (props.product.inventory > 0) {
+                dispatch(
+                  addToCart({
+                    product: props.product,
+                    quantity: 1,
+                    count: 1,
+                  })
+                );
+                addSuccessfully();
+              } else {
+                addFailed();
+              }
+            }}
           >
             <i className="fa-solid fa-bag-shopping"></i>
           </div>
-          <div>
+          <div onClick={handleConstruction}>
             <i className="fa-regular fa-heart"></i>
           </div>
-          <div>
+          <div onClick={handleConstruction}>
             <i className="fa-solid fa-arrow-right-arrow-left"></i>
           </div>
           <div onClick={() => setIsShowQuickView(true)}>

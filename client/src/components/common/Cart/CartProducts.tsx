@@ -5,6 +5,7 @@ import {
   deleteCartProduct,
   minusOneItem,
 } from "../../../features/slice/productSlice";
+import Swal from "sweetalert2";
 
 export default function CartProducts(props: any) {
   return (
@@ -41,7 +42,28 @@ export default function CartProducts(props: any) {
                   <div className="flex mx-14 max-md:mx-0 justify-center mt-2 border items-center border-gray-300">
                     <button
                       onClick={() => {
-                        props.dispatch(minusOneItem(wProduct));
+                        if (wProduct.quantity === 1) {
+                          Swal.fire({
+                            title: "Do you want to remove this item?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, remove it!",
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              props.dispatch(minusOneItem(wProduct));
+                              Swal.fire(
+                                "Removed!",
+                                "This item has been removed.",
+                                "success"
+                              );
+                            }
+                          });
+                        } else {
+                          props.dispatch(minusOneItem(wProduct));
+                        }
                       }}
                       className="px-4 py-2"
                     >
@@ -65,9 +87,26 @@ export default function CartProducts(props: any) {
                   </div>
                   <div
                     onClick={() => {
-                      props.dispatch(
-                        deleteCartProduct({ product: wProduct.product })
-                      );
+                      Swal.fire({
+                        title: "Do you want to remove this item?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, remove it!",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          props.dispatch(
+                            deleteCartProduct({ product: wProduct.product })
+                          );
+                          Swal.fire(
+                            "Removed!",
+                            "This item has been removed.",
+                            "success"
+                          );
+                        }
+                      });
                     }}
                     className="text-xs cursor-pointer text-gray-400 underline mt-2"
                   >

@@ -41,25 +41,41 @@ export default function Payment(props: IPaymentProps) {
   }, [props.cartProducts]);
 
   const handleOrder = () => {
-    let orderInfo: Order = {
-      tax: 1,
-      shippingFee: 1,
-      address: `[${props.userInfo.apartment}] ${props.userInfo.address}, ${props.userInfo.city}, ${props.userInfo.country}`,
-      items: orderItems,
-    };
-    setIsLoading(true);
-    orderApi
-      .createOrder(orderInfo)
-      .then((res) => {
-        dispatch(getCartProduct([]));
-        localStorage.removeItem("wishList");
-        Swal.fire("Success!", "Thank you for buying our products!", "success");
-        navigate("/");
-      })
-      .catch((e) => {
-        Swal.fire("Sorry :(", "Something went wrong!", "error");
-      })
-      .finally(() => setIsLoading(false));
+    Swal.fire({
+      title: "Are you sure you want to order?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, order now!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let orderInfo: Order = {
+          tax: 1,
+          shippingFee: 1,
+          address: `[${props.userInfo.apartment}] ${props.userInfo.address}, ${props.userInfo.city}, ${props.userInfo.country}`,
+          items: orderItems,
+        };
+        setIsLoading(true);
+        orderApi
+          .createOrder(orderInfo)
+          .then((res) => {
+            dispatch(getCartProduct([]));
+            localStorage.removeItem("wishList");
+            Swal.fire(
+              "Success!",
+              "Thank you for buying our products!",
+              "success"
+            );
+            navigate("/");
+          })
+          .catch((e) => {
+            Swal.fire("Sorry :(", "Something went wrong!", "error");
+          })
+          .finally(() => setIsLoading(false));
+      }
+    });
   };
 
   return (
@@ -147,11 +163,11 @@ export default function Payment(props: IPaymentProps) {
         </div>
         <div className="py-3 flex border-b border-gray-300">
           <p className="text-gray-500 basis-[20%]">Method</p>
-          <p className="basis-[70%] flex items-center">
+          <div className="basis-[70%] flex items-center">
             <p>Standard Shipping</p>
             <p className="mx-2">-</p>
             <p className="font-medium">Free</p>
-          </p>
+          </div>
           <div className="basis-[10%]">
             <a
               onClick={() => navigate("/check-out/shipping")}

@@ -102,6 +102,7 @@ export const CheckComponent = (props: any) => {
         {props.names?.map((name: string) => {
           return (
             <FilterSideItem
+              key={name}
               style={{ width: "100%" }}
               onClick={
                 name === "In stock" ? props.setInStock : props.setOutOfStock
@@ -109,6 +110,7 @@ export const CheckComponent = (props: any) => {
             >
               <span className="flex items-center">
                 <input
+                  onChange={() => {}}
                   checked={
                     name === "In stock" ? props.inStock : props.outOfStock
                   }
@@ -173,6 +175,7 @@ export const SideComponent = (props: any) => {
         {props.names?.map((name: string) => {
           return (
             <FilterSideItem
+              key={name}
               style={{ width: "100%" }}
               className={`${
                 props.collection === name
