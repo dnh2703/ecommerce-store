@@ -42,8 +42,8 @@ const Footer = () => {
     };
   }, []);
   return (
-    <footer className="bg-white text-gray-900 m-10 border-t border-black">
-      <div className="container mx-auto py-8">
+    <footer className="bg-white text-gray-900 border-t border-gray-500">
+      <div className="container mx-auto py-8 px-10">
         <div className="flex flex-wrap mb-4">
           <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
             <div
