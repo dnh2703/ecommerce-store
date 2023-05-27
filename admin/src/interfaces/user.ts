@@ -5,6 +5,7 @@ interface IUser {
   role: string;
   verificationToken: string;
   isVerified: boolean;
+  verified?: string;
 }
 
 interface IUserData {

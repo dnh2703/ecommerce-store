@@ -159,7 +159,7 @@ const forgotPassword = async (req, res) => {
       .json({ msg: 'Please check your email for reset password link' });
   }
   else {
-    throw new CustomError.BadRequestError('Please provide valid email');
+    throw new CustomError.BadRequestError('Email does not exist');
   }
 
 };
