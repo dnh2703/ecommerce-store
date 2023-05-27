@@ -50,10 +50,13 @@ function App() {
             <Route path="customer-profile" element={<CustomerProfile />} />
           </Route>
         </Route>
-        <Route path="/check-out/:process" element={<CheckoutPage />}></Route>
         <Route
-          path="/check-out"
-          element={<Navigate replace to="/check-out/information"></Navigate>}
+          path="/check-out/:process"
+          element={
+            <ProtectRoute>
+              <CheckoutPage />
+            </ProtectRoute>
+          }
         ></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>

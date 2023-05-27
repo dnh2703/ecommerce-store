@@ -169,6 +169,9 @@ export const FilterPannel = (props: any) => {
                   key={product.id}
                   style={{ textDecoration: "none", color: "gray" }}
                   to={`/products/${product.id}`}
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                  }}
                 >
                   <div className="flex-nowrap flex">
                     <Grid display={"inline-flex"} item xs={4} sx={{ mr: 2 }}>
