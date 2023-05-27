@@ -3,13 +3,13 @@ import CloseButton from "../CloseButton";
 
 export default function StoreInfo(props: any) {
   return (
-    <div className={`fixed z-[2] w-full h-[100vh] top-0 left-0 `}>
+    <div className={`fixed z-50 w-full h-[100vh] top-0 left-0 `}>
       <div
         onClick={props.closeModal}
         className={`absolute w-full h-[100vh] top-0 left-0 bg-stone-950 opacity-60`}
       ></div>
       <div
-        className={`animate-[modalHeight50_0.5s_ease-in-out] absolute z-[3] h-1/2 translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-white w-[500px] overflow-hidden`}
+        className={`animate-[modalHeight50_0.5s_ease-in-out] absolute z-[3] h-3/5 translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-white w-[500px] overflow-hidden`}
       >
         <div className="absolute top-3 right-3">
           <CloseButton closeModal={props.closeModal} />

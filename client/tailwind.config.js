@@ -77,7 +77,7 @@ export default {
             height: "0px",
           },
           "100%": {
-            height: "50%",
+            height: "60%",
           },
         },
         buy: {

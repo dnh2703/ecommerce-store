@@ -2,7 +2,7 @@ import CloseButton from "../CloseButton";
 
 export default function DeliveryModal(props: any) {
   return (
-    <div className="fixed z-[2] w-full h-[100vh] top-0 left-0 ">
+    <div className="fixed z-50 w-full h-[100vh] top-0 left-0 ">
       <div
         onClick={props.closeModal}
         className="absolute w-full h-[100vh] top-0 left-0 bg-stone-950 opacity-60 "

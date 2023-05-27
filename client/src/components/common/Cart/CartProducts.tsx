@@ -45,14 +45,20 @@ export default function CartProducts(props: any) {
                         if (wProduct.quantity === 1) {
                           Swal.fire({
                             title: "Do you want to remove this item?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
                             showCancelButton: true,
-                            confirmButtonText: "Yes",
-                            cancelButtonText: "No",
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, remove it!",
                           }).then((result) => {
-                            /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
                               props.dispatch(minusOneItem(wProduct));
-                              Swal.fire("Removed!", "", "success");
+                              Swal.fire(
+                                "Removed!",
+                                "This item has been removed.",
+                                "success"
+                              );
                             }
                           });
                         } else {
@@ -83,15 +89,21 @@ export default function CartProducts(props: any) {
                     onClick={() => {
                       Swal.fire({
                         title: "Do you want to remove this item?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
                         showCancelButton: true,
-                        confirmButtonText: "Yes",
-                        cancelButtonText: "No",
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, remove it!",
                       }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
-                          Swal.fire("Removed!", "", "success");
                           props.dispatch(
                             deleteCartProduct({ product: wProduct.product })
+                          );
+                          Swal.fire(
+                            "Removed!",
+                            "This item has been removed.",
+                            "success"
                           );
                         }
                       });
