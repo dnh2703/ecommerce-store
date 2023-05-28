@@ -10,8 +10,7 @@ const Contact = () => {
   } = useForm();
   const onSubmit = (data: any) => console.log(data);
   return (
-    <div className="flex justify-center gap-20 pt-20 mt-20">
-      <Header />
+    <div className="flex justify-center gap-20 pt-20 mt-20 mb-20">
       <div>
         <h1 className="">Location</h1>
         <p className="pb-10">4 Copley Place, 7th Floor, Boston,MA 6</p>
