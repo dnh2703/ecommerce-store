@@ -8,12 +8,14 @@ import {
 import { CartListProducts } from "../../../interfaces/product";
 import { arrayBuffer } from "stream/consumers";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
   let [isAgree, setIsAgree] = useState<boolean>(false);
   let { cartProducts } = useAppSelector((state) => state.product);
   let dispatch = useAppDispatch();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (cartProducts.length > 0)
@@ -56,10 +58,15 @@ export default function AddToCart(props: any) {
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
       draggable: true,
       progress: undefined,
       theme: "light",
+      onClick: () => {
+        if (window.location.pathname !== "/cart") {
+          navigate("/cart");
+        }
+        window.scrollTo(0, 0);
+      },
     });
   };
 

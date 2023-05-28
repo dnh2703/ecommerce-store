@@ -30,6 +30,19 @@ export default function CheckoutPage() {
     }
   }, []);
 
+  const [user, setUser] = useState(() => {
+    const user = localStorage.getItem("user");
+    const userJson = user ? JSON.parse(user) : null;
+    return userJson;
+  });
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    if (user !== null) {
+      const { email } = user;
+      setEmail(email);
+    }
+  }, [user]);
+
   useEffect(() => {
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
   }, [userInfo]);
@@ -189,6 +202,7 @@ export default function CheckoutPage() {
             <div className="flex justify-center">
               {process === "information" && (
                 <Information
+                  email={email}
                   dispatch={dispatch}
                   userInfo={userInfo}
                   setPickup={() => setIsPickup(true)}
@@ -197,10 +211,13 @@ export default function CheckoutPage() {
                 />
               )}
 
-              {process === "shipping" && <Shipping userInfo={userInfo} />}
+              {process === "shipping" && (
+                <Shipping userInfo={userInfo} email={email} />
+              )}
 
               {process === "payment" && (
                 <Payment
+                  email={email}
                   dispatch={dispatch}
                   cartProducts={cartProducts}
                   isPickup={isPickup}

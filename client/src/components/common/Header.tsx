@@ -21,6 +21,11 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const closeSearchBar = () => {
+    setIsSearchOpen(false);
+  };
+
   useEffect(() => {
     let res = localStorage.getItem("wishList");
     if (res !== null) {
@@ -57,6 +62,9 @@ const Header = () => {
             // </li>
             <div key={link.name}>
               <NavLink
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                }}
                 to={link.link}
                 className=" md:ml-8 text-xl my-5 py-2 md:my-0 uppercase font-light"
               >
@@ -65,13 +73,7 @@ const Header = () => {
             </div>
           ))}
         </ul>
-        <div
-          className="flex items-center space-x-4 order-3 md:order-3"
-          // onClick={(e: any) => {
-          //   console.log(e);
-          //   // setIsSearchOpen(!isSearchOpen);
-          // }}
-        >
+        <div className="flex items-center space-x-4 order-3 md:order-3">
           <button
             onClick={(e: any) => {
               setIsSearchOpen(true);
@@ -99,10 +101,11 @@ const Header = () => {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               ></path>
             </svg>
-            <SearchBar isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
+            <SearchBar isOpen={isSearchOpen} closeSearchBar={closeSearchBar} />
           </button>
           <button
             onClick={() => {
+              window.scrollTo(0, 0);
               navigate("/account/login");
             }}
           >
@@ -140,7 +143,12 @@ const Header = () => {
             </svg>
           </button>
           <div className="relative">
-            <button onClick={() => navigate("/cart")}>
+            <button
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate("/cart");
+              }}
+            >
               <svg
                 fill="none"
                 stroke="currentColor"
@@ -158,7 +166,10 @@ const Header = () => {
               </svg>
             </button>
             <div
-              onClick={() => navigate("/cart")}
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate("/cart");
+              }}
               className="text-[10px] absolute top-[-8px] right-[-8px] w-5 h-5 bg-black rounded-full flex items-center justify-center text-white"
             >
               <span>

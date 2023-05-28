@@ -17,6 +17,7 @@ export interface IPaymentProps {
   isPickup: boolean;
   cartProducts: CartListProducts[];
   dispatch: any;
+  email: string;
 }
 
 export default function Payment(props: IPaymentProps) {
@@ -24,6 +25,7 @@ export default function Payment(props: IPaymentProps) {
   let [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   let [isLoading, setIsLoading] = useState<boolean>(false);
   let dispatch = useDispatch();
+
   useEffect(() => {
     setOrderItems(() => {
       return props.cartProducts.map((cartProduct: CartListProducts) => {
@@ -51,29 +53,36 @@ export default function Payment(props: IPaymentProps) {
       confirmButtonText: "Yes, order now!",
     }).then((result) => {
       if (result.isConfirmed) {
-        let orderInfo: Order = {
-          tax: 1,
-          shippingFee: 1,
-          address: `[${props.userInfo.apartment}] ${props.userInfo.address}, ${props.userInfo.city}, ${props.userInfo.country}`,
-          items: orderItems,
-        };
-        setIsLoading(true);
-        orderApi
-          .createOrder(orderInfo)
-          .then((res) => {
-            dispatch(getCartProduct([]));
-            localStorage.removeItem("wishList");
-            Swal.fire(
-              "Success!",
-              "Thank you for buying our products!",
-              "success"
-            );
-            navigate("/");
-          })
-          .catch((e) => {
-            Swal.fire("Sorry :(", "Something went wrong!", "error");
-          })
-          .finally(() => setIsLoading(false));
+        if (props.userInfo.country !== "") {
+          let orderInfo: Order = {
+            tax: 1,
+            shippingFee: 1,
+            address: `[${props.userInfo.apartment}] ${props.userInfo.address}, ${props.userInfo.city}, ${props.userInfo.country}`,
+            items: orderItems,
+          };
+          setIsLoading(true);
+          orderApi
+            .createOrder(orderInfo)
+            .then((res) => {
+              dispatch(getCartProduct([]));
+              localStorage.removeItem("wishList");
+              Swal.fire(
+                "Success!",
+                "Thank you for buying our products!",
+                "success"
+              ).then((res) => navigate("/"));
+            })
+            .catch((e) => {
+              Swal.fire("Sorry :(", "Something went wrong!", "error");
+            })
+            .finally(() => setIsLoading(false));
+        } else {
+          Swal.fire(
+            "Error!",
+            "You have to fill in the information!",
+            "error"
+          ).then((res) => navigate("/check-out/information"));
+        }
       }
     });
   };
@@ -132,7 +141,7 @@ export default function Payment(props: IPaymentProps) {
       <div className="my-8 border items-center border-gray-300 px-5 rounded-lg text-sm">
         <div className="py-3 flex border-b border-gray-300">
           <p className="text-gray-500 basis-[20%]">Contact</p>
-          <p className="basis-[70%]">{props.userInfo.email}</p>
+          <p className="basis-[70%]">{props.email}</p>
           <div className="basis-[10%]">
             <a
               onClick={() => navigate("/check-out/information")}

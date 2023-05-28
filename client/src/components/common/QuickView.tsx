@@ -4,11 +4,12 @@ import CloseButton from "./CloseButton";
 import { addToCart } from "../../features/slice/productSlice";
 import { useAppDispatch } from "../../store/hooks";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export function QuickView(props: any) {
   let [count, setCount] = useState<number>(1);
   let dispatch = useAppDispatch();
-
+  let navigate = useNavigate();
   const handleMinus = () => {
     if (count === 1) {
       setCount(1);
@@ -30,10 +31,15 @@ export function QuickView(props: any) {
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
       draggable: true,
       progress: undefined,
       theme: "light",
+      onClick: () => {
+        if (window.location.pathname !== "/cart") {
+          navigate("/cart");
+        }
+        window.scrollTo(0, 0);
+      },
     });
   };
 

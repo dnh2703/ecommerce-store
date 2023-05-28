@@ -442,7 +442,7 @@ export default function ProductPage() {
                   </Grid>
                 </Grid>
                 {isRow ? (
-                  <Grid container spacing={2}>
+                  <Grid container spacing={2} sx={{ mt: 3, mb: "80px" }}>
                     {!isShowAllProducts
                       ? filteredProducts
                           ?.slice(0, 12)
@@ -466,7 +466,7 @@ export default function ProductPage() {
                         })}
                   </Grid>
                 ) : (
-                  <Grid spacing={5} container sx={{ my: 3 }}>
+                  <Grid spacing={5} container sx={{ mt: 3, mb: "80px" }}>
                     {!isShowAllProducts
                       ? filteredProducts
                           ?.slice(0, 12)
@@ -491,7 +491,7 @@ export default function ProductPage() {
                   </Grid>
                 )}
                 {!isShowAllProducts && filteredProducts.length > 12 ? (
-                  <div className="flex flex-col items-center my-20">
+                  <div className="flex flex-col items-center mb-20">
                     <p className="text-gray-500 text-lg">
                       You've viewed 12 of {filteredProducts.length} products
                     </p>

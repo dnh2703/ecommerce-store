@@ -2,19 +2,20 @@ import { ChangeEvent, useState, useLayoutEffect } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import productApi from "../../api/productApi";
 import { IProduct } from "../../interfaces/product";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CloseButton from "./CloseButton";
 
 interface SearchBarProps {
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeSearchBar: () => void;
 }
 
-const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
+const SearchBar = ({ isOpen, closeSearchBar }: SearchBarProps) => {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<IProduct[]>([]);
   const [isDone, setIsDone] = useState(false);
   const debouncedQuery = useDebounce(query, 500);
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim() !== "") {
@@ -22,6 +23,11 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
     } else {
       setQuery(e.target.value.trim());
     }
+  };
+
+  const handleRefresh = (path: string) => {
+    navigate(path);
+    window.location.reload();
   };
 
   useLayoutEffect(() => {
@@ -44,9 +50,9 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
         <div className="grid grid-cols-3">
           <p className="flex justify-between text-base col-span-3 border-b pt-8 pb-2 mb-6">
             Products
-            <Link
-              to="/products"
+            <div
               className="gap-3 text-gray-400 hover:text-black transition-all flex items-center"
+              onClick={() => handleRefresh("/products")}
             >
               <span>View all</span>
               <svg
@@ -63,15 +69,12 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
                   d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                 />
               </svg>
-            </Link>
+            </div>
           </p>
 
           <p className="text-base col-span-3 text-gray-400 font-light text-left">
             No results found for
-            <span className="font-semibold text-black">
-              {" "}
-              "{debouncedQuery}"
-            </span>{" "}
+            <span className="font-semibold text-black">"{debouncedQuery}"</span>
             in products
           </p>
         </div>
@@ -82,8 +85,8 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
       <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 overflow-x overflow-y-hidden">
         <p className="text-base sm:col-span-3 col-span-2 border-b pt-8 pb-2 mb-6 flex font-light justify-between">
           <span>{result.length} results</span>
-          <Link
-            to="/products"
+          <div
+            onClick={() => handleRefresh("/products")}
             className="gap-3 text-gray-400 hover:text-black transition-all flex items-center"
           >
             <span>View all</span>
@@ -101,12 +104,12 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
                 d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
               />
             </svg>
-          </Link>
+          </div>
         </p>
         {result.map((item) => {
           return (
-            <Link
-              to={`products/${item.id}`}
+            <div
+              onClick={() => handleRefresh(`products/${item.id}`)}
               key={item.id}
               className="text-left"
             >
@@ -115,7 +118,7 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
               <p className="font-light text-gray-400">
                 ${item.price.toLocaleString()}
               </p>
-            </Link>
+            </div>
           );
         })}
       </div>
@@ -128,15 +131,12 @@ const SearchBar = ({ isOpen, setIsOpen }: SearchBarProps) => {
         className={`${
           isOpen ? "h-screen" : "h-0"
         } w-screen fixed top-0 left-0 z-50 search-bar`}
+        onClick={closeSearchBar}
       >
         <div
           className={`fixed h-screen w-screen bg-black opacity-20 ${
             !isOpen && "hidden"
           }`}
-          onClick={() => {
-            console.log("hi");
-            console.log(setIsOpen(false));
-          }}
         ></div>
         <div
           className={`bg-white transition-transform duration-300 max-h-[90%] relative overflow-x-hidden ${
