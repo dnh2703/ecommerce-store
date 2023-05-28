@@ -9,8 +9,6 @@ import LoadingPage from "./components/common/LoadingPage";
 const MainLayout = React.lazy(() => import("./components/layout/MainLayout"));
 
 function App() {
-  console.log(process.env.REACT_APP_DOMAIN);
-
   return (
     <div className="App dark bg-gray-900">
       <div className="bg-gray-900 h-full">

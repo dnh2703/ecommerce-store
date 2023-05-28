@@ -64,13 +64,15 @@ export default function Payment(props: IPaymentProps) {
           orderApi
             .createOrder(orderInfo)
             .then((res) => {
-              dispatch(getCartProduct([]));
-              localStorage.removeItem("wishList");
-              Swal.fire(
-                "Success!",
-                "Thank you for buying our products!",
-                "success"
-              ).then((res) => navigate("/"));
+              if (res.status === 201) {
+                dispatch(getCartProduct([]));
+                localStorage.removeItem("wishList");
+                Swal.fire(
+                  "Success!",
+                  "Thank you for buying our products!",
+                  "success"
+                ).then((res) => navigate("/"));
+              }
             })
             .catch((e) => {
               Swal.fire("Sorry :(", "Something went wrong!", "error");
@@ -90,7 +92,7 @@ export default function Payment(props: IPaymentProps) {
   return (
     <div className="px-14 pb-14 pt-14 max-lg:pt-0 max-sm:px-0 basis-[60%] max-lg:basis-full">
       <p className="lg:block max-lg:hidden">
-        <Link className="text-2xl font-medium" to={"/home"}>
+        <Link className="text-2xl font-medium" to={"/"}>
           4bros - Ecommerce
         </Link>
       </p>

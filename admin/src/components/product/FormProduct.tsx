@@ -41,7 +41,7 @@ const FormProduct = () => {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white dark:bg-gray-800 p-4 rounded">
       <div className=" mx-auto">
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Add a new product
