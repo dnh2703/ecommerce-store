@@ -169,7 +169,7 @@ const SignIn = () => {
                   }}
                 />
               )}
-              <div className=" w-2/4 mx-7   max-[700px]:w-full ">
+              <div className=" w-2/4 mx-3   max-[700px]:w-full ">
                 <div className="max-[700px]:w-full">
                   <h1 className="text-4xl mb-10">New customer?</h1>
                   <div>
