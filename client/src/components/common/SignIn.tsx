@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import authApi from "../../api/authApi";
-import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useNavigate, Link, Navigate, NavLink } from "react-router-dom";
 import { AxiosError } from "axios";
 import { ILoginForm } from "../../interfaces/auth";
 import Cookies from "js-cookie";
@@ -181,10 +181,11 @@ const SignIn = () => {
                   </div>
                   <div>
                     <button
+                      onClick={() => navigate("/account/register")}
                       type="button"
                       className="h-12 border border-slate-500 w-36 hover:bg-red-900 bg-slate-900 text-white"
                     >
-                      <Link to="/account/register"> REGISTER</Link>
+                      REGISTER
                     </button>
                   </div>
                 </div>

@@ -19,6 +19,13 @@ const CustomerProfile = () => {
     return userJson;
   });
 
+  const [accessToken, setAccessToken] = useState(() => {
+    const oders = Cookies.get("accessToken");
+    const oderJson = oders ? oders : null;
+
+    return oderJson;
+  });
+
   const LogoutToken = () => {
     authApi
       .logout()
