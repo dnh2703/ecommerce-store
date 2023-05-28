@@ -1,20 +1,16 @@
 import React from "react";
 import { RouteType } from "./config";
+import Review from "../pages/Review";
 // Lazy load the components
-const OrderList = React.lazy(() => import("../components/order/OrderList"));
-const EditProduct = React.lazy(
-  () => import("../components/product/EditProduct")
-);
-const FormProduct = React.lazy(
-  () => import("../components/product/FormProduct")
-);
-const Overview = React.lazy(() => import("../components/product/Overview"));
-const Customer = React.lazy(() => import("../pages/Customer"));
-const Dashboard = React.lazy(() => import("../pages/Dashboard"));
-const Order = React.lazy(() => import("../pages/Order"));
-const Product = React.lazy(() => import("../pages/Product"));
-const Review = React.lazy(() => import("../pages/Review"));
-const OrderDetail = React.lazy(() => import("../components/order/OrderDetail"));
+import OrderList from "../components/order/OrderList";
+import EditProduct from "../components/product/EditProduct";
+import FormProduct from "../components/product/FormProduct";
+import Overview from "../components/product/Overview";
+import Customer from "../pages/Customer";
+import Dashboard from "../pages/Dashboard";
+import Order from "../pages/Order";
+import Product from "../pages/Product";
+import OrderDetail from "../components/order/OrderDetail";
 
 const appRoutes: RouteType[] = [
   {

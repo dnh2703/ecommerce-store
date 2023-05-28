@@ -12,26 +12,23 @@ const CustomerItem = ({
 }: IUser) => {
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-      <td className="w-4 p-4">
-        <div className="flex items-center">
-          <input
-            id="checkbox-table-search-1"
-            type="checkbox"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label htmlFor="checkbox-table-search-1" className="sr-only">
-            checkbox
-          </label>
-        </div>
-      </td>
       <th
         scope="row"
         className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
       >
-        <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-          <span className="font-medium text-gray-600 dark:text-gray-300">
-            JL
-          </span>
+        <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+          <svg
+            className="absolute w-12 h-12 text-gray-400 -left-1"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+              clipRule="evenodd"
+            />
+          </svg>
         </div>
 
         <div className="pl-3">
@@ -55,8 +52,10 @@ const CustomerItem = ({
           </div>
         )}
       </td>
-      <td className="px-6 py-4">
-        {verified && moment(verified).format("MMMM Do YYYY, h:mm:ss a")}
+      <td className="px-6 py-4 whitespace-nowrap">
+        {verified
+          ? moment(verified).format("MMMM Do YYYY, h:mm:ss a")
+          : "Email is not verified"}
       </td>
     </tr>
   );

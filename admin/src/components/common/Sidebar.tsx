@@ -14,7 +14,6 @@ const Sidebar = () => {
     authApi
       .logout()
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           Cookies.remove("accessToken");
           Cookies.remove("refreshToken");
@@ -23,7 +22,7 @@ const Sidebar = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   };
 
@@ -137,8 +136,8 @@ const Sidebar = () => {
                       <div
                         className={
                           isActive
-                            ? "bg-gray-700 flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
-                            : "flex items-center p-2 text-gray-900 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                            ? "bg-gray-700 flex items-center py-2 px-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                            : "flex items-center py-2 px-3 text-gray-900 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
                         }
                       >
                         <div

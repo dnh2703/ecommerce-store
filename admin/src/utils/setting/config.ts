@@ -24,7 +24,6 @@ const refreshAccessToken = async (): Promise<string> => {
     return refreshedToken;
   } catch (error) {
     // Handle the token refresh error
-    console.log(error);
     throw new Error("Token refresh failed");
   }
 };
