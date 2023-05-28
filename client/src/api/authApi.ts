@@ -11,7 +11,7 @@ import publicClient from "./client/public.client";
 const authApi = {
   register: (data: IRegisterForm) => publicClient.post("auth/register", data),
   login: (data: ILoginForm) => publicClient.post("auth/login", data),
-  logout: () => privateClient.get("auth/logout"),
+  logout: () => privateClient.delete("auth/logout"),
   verifyEmail: (data: IVerifyEmail) =>
     publicClient.post(`auth/verify-email`, data),
   forgotPassword: (data: IForgotPassword) =>
