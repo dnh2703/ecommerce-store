@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import authApi from "../../api/authApi";
 import { IForgotPassword } from "../../interfaces/auth";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 export default function ForgotPassword(props: any) {
   const {
     register,
@@ -25,13 +26,11 @@ export default function ForgotPassword(props: any) {
       .forgotPassword(data)
       .then((response) => {
         if (response.status === 200) {
-          alert("We've sent you an email with a link to update your password.");
+          setLoading(false);
           setSuccesmessage(
             "We've sent you an email with a link to update your password."
           );
         }
-
-        setForgotPassword();
       })
 
       .catch((err) => {
@@ -54,7 +53,17 @@ export default function ForgotPassword(props: any) {
         <div className="text-red-600 ">
           {errmessage && <p className="">{errmessage}</p>}
           <div className="text-green-600 ">
-            {succesmessage && <p className="">{succesmessage}</p>}
+            {succesmessage && (
+              <p className="">
+                {succesmessage}
+                <span
+                  onClick={handleSetForgotPassword}
+                  className=" underline ml-2 text-xl"
+                >
+                  login here
+                </span>
+              </p>
+            )}
           </div>
         </div>
 
