@@ -1,6 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import * as React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ProductRoute } from "../components/common/ProductCatalog/ProductCatalogComponent";
 import { useEffect, useState } from "react";
 import { IProduct } from "../interfaces/product";
@@ -12,16 +11,12 @@ import DeliveryModal from "../components/common/ProductDetail/DeliveryModal";
 import StoreInfo from "../components/common/ProductDetail/StoreInfo";
 import ProductReview from "../components/common/ProductDetail/ProductReview/ProductReview";
 import { IReview } from "../interfaces/review";
-import reviewApi from "../api/reviewApi";
 import ProductCarousel from "../components/common/ProductDetail/ProductCarousel";
 import BestRatingProducts from "../components/common/ProductDetail/BestRatingProduct";
 import { useAppSelector } from "../store/hooks";
 import { useDispatch } from "react-redux";
 import { getProductsStart } from "../features/slice/productSlice";
 import { getReviewsStart } from "../features/slice/reviewSlice";
-import LoadingPage from "../components/common/LoadingPage";
-
-import { ToastContainer, toast } from "react-toastify";
 import SkeletonProductDetail from "../components/common/skeleton/ProductDetail";
 
 interface ShowModal {

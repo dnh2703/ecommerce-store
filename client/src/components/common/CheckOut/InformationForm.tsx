@@ -73,19 +73,36 @@ export default function InformationForm(props: IInformationFormProps) {
           )}
         </FormControl>
         <div className="flex gap-4">
-          <TextField
-            sx={{ width: "50%", fontSize: "14px" }}
-            label="First name (optional)"
-            variant="outlined"
-            value={userInfo.firstName}
-            onChange={(e) =>
-              dispatch(getUserInfo({ ...userInfo, firstName: e.target.value }))
-            }
-          />
+          <div className="flex flex-col">
+            <TextField
+              sx={{ width: "100%", fontSize: "14px" }}
+              error={props.errors.firstName?.type === "pattern"}
+              {...props.register("firstName", { pattern: /^([^0-9]*)$/ })}
+              label="First name (optional)"
+              variant="outlined"
+              value={userInfo.firstName}
+              onChange={(e) =>
+                dispatch(
+                  getUserInfo({ ...userInfo, firstName: e.target.value })
+                )
+              }
+            />
+            {props.errors.firstName?.type === "pattern" && (
+              <span className="text-xs text-red-500">
+                First name must not have any numbers
+              </span>
+            )}
+          </div>
           <div className="basis-1/2">
             <TextField
-              error={props.errors.name?.type === "required"}
-              {...props.register("name", { required: true })}
+              error={
+                props.errors.lastName?.type === "required" ||
+                props.errors.lastName?.type === "pattern"
+              }
+              {...props.register("lastName", {
+                required: true,
+                pattern: /^([^0-9]*)$/,
+              })}
               sx={{ width: "100%", fontSize: "14px" }}
               label="Last name"
               variant="outlined"
@@ -94,9 +111,14 @@ export default function InformationForm(props: IInformationFormProps) {
                 dispatch(getUserInfo({ ...userInfo, lastName: e.target.value }))
               }
             />
-            {props.errors.name?.type === "required" && (
+            {props.errors.lastName?.type === "required" && (
               <span className="text-xs text-red-500">
                 Last name is required
+              </span>
+            )}
+            {props.errors.lastName?.type === "pattern" && (
+              <span className="text-xs text-red-500">
+                Last name must not have any numbers
               </span>
             )}
           </div>

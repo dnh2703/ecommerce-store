@@ -42,7 +42,7 @@ export default function ForgotPassword(props: any) {
     setForgotPassword();
   };
   return (
-    <div className="w-2/4 box-border max-[700px]:w-full mb-8">
+    <div className="w-2/4 box-border max-[700px]:w-full  max-[700px]:mx-3 mb-8">
       <div>
         <h1 className="text-4xl">Reset your password</h1>
         <p className="my-6 text-xl text-gray-500">

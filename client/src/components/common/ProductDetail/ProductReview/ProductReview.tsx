@@ -142,7 +142,7 @@ export default function ProductReview(props: any) {
           className="lg:hidden sm:flex items-center mb-4 justify-between cursor-pointer py-3 px-5 bg-gray-100"
         >
           <p>Shipping</p>
-          {isShow.description ? (
+          {isShow.shipping ? (
             <i className="fa-solid fa-minus"></i>
           ) : (
             <i className="fa-solid fa-plus"></i>
@@ -158,7 +158,7 @@ export default function ProductReview(props: any) {
           className="lg:hidden sm:flex items-center mb-4 justify-between cursor-pointer py-3 px-5 bg-gray-100"
         >
           <p>Return</p>
-          {isShow.description ? (
+          {isShow.return ? (
             <i className="fa-solid fa-minus"></i>
           ) : (
             <i className="fa-solid fa-plus"></i>
