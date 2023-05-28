@@ -35,7 +35,7 @@ const Testimonials = () => {
     },
   ];
   return (
-    <div>
+    <div className="mb-10">
       <h2 className="text-center py-10 text-4xl text-black">
         Our testimonials
       </h2>
