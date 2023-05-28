@@ -25,8 +25,8 @@ const CustomerProfile = () => {
 
   const { email, name } = user;
   return (
-    <div className=" box-border mx-9 h-screen">
-      <header className="py-8">
+    <div className=" box-border mx-9 h-screen ">
+      <header className="py-8  mt-24">
         <h1 className=" text-center text-6xl">My Account</h1>
       </header>
       <div className="">
