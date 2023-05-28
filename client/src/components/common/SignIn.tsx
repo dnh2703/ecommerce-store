@@ -171,7 +171,7 @@ const SignIn = () => {
               )}
               <div className=" w-2/4 mx-7   max-[700px]:w-full ">
                 <div className="max-[700px]:w-full">
-                  <h1 className="text-4xl mb-10">new customer?</h1>
+                  <h1 className="text-4xl mb-10">New customer?</h1>
                   <div>
                     <p className="text-2xl text-slate-500 leading-normal mb-7 w-3/4">
                       Sign up for early Sale access plus tailored new arrivals,
