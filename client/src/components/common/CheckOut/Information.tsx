@@ -1,7 +1,14 @@
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductRoute } from "../ProductCatalog/ProductCatalogComponent";
-import { TextField, Typography } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Dispatch, FormEvent, useEffect, useState } from "react";
 import Pickup from "./Pickup";
 import { useForm } from "react-hook-form";
@@ -39,6 +46,19 @@ export default function Information(props: IInformationProps) {
       navigate("/check-out/shipping");
     }
   };
+
+  const [user, setUser] = useState(() => {
+    const user = localStorage.getItem("user");
+    const userJson = user ? JSON.parse(user) : null;
+    return userJson;
+  });
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    if (user !== null) {
+      const { email } = user;
+      setEmail(email);
+    }
+  }, [user]);
 
   return (
     <form
@@ -118,33 +138,11 @@ export default function Information(props: IInformationProps) {
             <p className="text-lg font-medium">Contact</p>
           </div>
           <div className="mb-4">
-            <TextField
-              {...register("email", {
-                required: true,
-                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-              })}
-              error={
-                errors.email?.type === "pattern" ||
-                errors.email?.type === "required"
-              }
-              sx={{ width: "100%", fontSize: "14px" }}
-              value={props.userInfo.email}
-              label="Enter your email"
-              variant="outlined"
-              onChange={(e) =>
-                props.dispatch(
-                  getUserInfo({ ...props.userInfo, email: e.target.value })
-                )
-              }
-            />
-            {errors.email?.type === "required" && (
-              <span className="text-xs text-red-500">Email is required</span>
-            )}
-            {errors.email?.type === "pattern" && (
-              <span className="text-xs text-red-500">
-                Enter an invalid email
+            <div>
+              <span className="text-base mb-2">
+                Your email: <span className="font-medium">{email}</span>
               </span>
-            )}
+            </div>
           </div>
           <div className="flex items-center mb-4">
             <input
