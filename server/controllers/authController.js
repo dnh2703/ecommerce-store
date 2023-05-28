@@ -101,7 +101,7 @@ const login = async (req, res) => {
       throw new CustomError.UnauthenticatedError('Invalid Credentials');
     }
     refreshToken = existingToken.refreshToken;
-    const accessToken = createJWT({ payload: { user } }, "10m");
+    const accessToken = createJWT({ payload: { user } }, "1d");
 
     res.status(StatusCodes.OK).json({ user: tokenUser, refreshToken, accessToken });
     return;
@@ -110,7 +110,7 @@ const login = async (req, res) => {
 
   const userAgent = req.headers['user-agent'];
   const ip = req.ip;
-  const accessToken = createJWT({ payload: { user } }, "10m");
+  const accessToken = createJWT({ payload: { user } }, "1d");
   refreshToken = createJWT({ payload: { user } }, "7d");
 
   const userToken = { refreshToken, ip, userAgent, user: user._id };

@@ -154,18 +154,18 @@ const OrderList = () => {
           </thead>
           <tbody>{renderListOrder()}</tbody>
         </table>
-        <PaginationTable
-          start={start}
-          finish={finish}
-          currentPage={currentPage}
-          nextPage={nextPage}
-          previousPage={previousPage}
-          totalItems={totalItems}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-          setItemsPerPage={setItemsPerPage}
-        />
       </div>
+      <PaginationTable
+        start={start}
+        finish={finish}
+        currentPage={currentPage}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        totalItems={totalItems}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+        setItemsPerPage={setItemsPerPage}
+      />
     </>
   );
 };
