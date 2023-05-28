@@ -44,11 +44,17 @@ export const ProductsColumn = (props: IProductLayout) => {
       draggable: true,
       progress: undefined,
       theme: "light",
+      onClick: () => {
+        if (window.location.pathname !== "/cart") {
+          navigate("/cart");
+        }
+        window.scrollTo(0, 0);
+      },
     });
   };
 
   const handleConstruction = () => {
-    Swal.fire("Sorry!", "This feature have not released yet", "error");
+    Swal.fire("Sorry!", "This feature has not released yet", "error");
   };
 
   const addFailed = () => {
@@ -93,7 +99,7 @@ export const ProductsColumn = (props: IProductLayout) => {
             </span>
           )}
         </div>
-        <div className="max-lg:hidden hover flex">
+        <div className="max-lg:px-2 max-md:hidden w-full hover flex">
           <div
             onClick={() => {
               if (props.product.inventory > 0) {

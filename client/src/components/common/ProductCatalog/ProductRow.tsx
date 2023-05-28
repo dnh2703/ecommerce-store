@@ -35,7 +35,7 @@ export const ProductRow = (props: IProductLayout) => {
   }, []);
 
   const handleConstruction = () => {
-    Swal.fire("Sorry!", "This feature have not released yet", "error");
+    Swal.fire("Sorry!", "This feature has not released yet", "error");
   };
 
   const addSuccessfully = () => {
@@ -44,10 +44,15 @@ export const ProductRow = (props: IProductLayout) => {
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
       draggable: true,
       progress: undefined,
       theme: "light",
+      onClick: () => {
+        if (window.location.pathname !== "/cart") {
+          navigate("/cart");
+        }
+        window.scrollTo(0, 0);
+      },
     });
   };
 

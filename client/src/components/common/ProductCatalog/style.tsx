@@ -5,7 +5,6 @@ export const imgProductStyles = {
     position: "absolute",
     justifyContent: "center",
 
-    width: "100%",
     bottom: "-100px",
 
     div: {
