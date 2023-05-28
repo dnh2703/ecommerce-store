@@ -57,7 +57,7 @@ export default function Information(props: IInformationProps) {
       <div className="">
         <div>
           <p className="lg:block max-lg:hidden">
-            <Link className="text-2xl font-medium" to={"/home"}>
+            <Link className="text-2xl font-medium" to={"/"}>
               4bros - Ecommerce
             </Link>
           </p>

@@ -75,7 +75,7 @@ export default function CheckoutPage() {
           <div className="lg:hidden">
             <Container maxWidth="lg">
               <p className="lg:hidden my-6 mx-14 max-sm:mx-0">
-                <Link className="text-2xl font-medium" to={"/home"}>
+                <Link className="text-2xl font-medium" to={"/"}>
                   4bros - Ecommerce
                 </Link>
               </p>

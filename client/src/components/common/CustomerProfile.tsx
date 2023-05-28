@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { error } from "console";
 import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 const CustomerProfile = () => {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const CustomerProfile = () => {
     authApi
       .logout()
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           Cookies.remove("accessToken");
           Cookies.remove("refreshToken");
@@ -32,7 +32,7 @@ const CustomerProfile = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err);
       });
   };
 

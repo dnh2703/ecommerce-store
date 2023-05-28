@@ -123,7 +123,7 @@ export default function Shipping(props: IShippingProps) {
           }}
           className="bg-[#1773b0] flex justify-end items-center text-white p-5 rounded-lg"
         >
-          <span>Continute to payment</span>
+          <span>Continue to payment</span>
         </button>
       </div>
     </div>
