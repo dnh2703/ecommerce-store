@@ -116,7 +116,7 @@ const SignIn = () => {
                               required: true,
                               minLength: 5,
                               maxLength: 30,
-                              pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                              // pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
                             })}
                           />
                           <p

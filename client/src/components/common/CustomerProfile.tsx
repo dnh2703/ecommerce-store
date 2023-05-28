@@ -3,9 +3,11 @@ import "../../scss/styleactive.scss";
 import { useEffect, useState } from "react";
 import authApi from "../../api/authApi";
 import { any } from "prop-types";
-import axios from "axios";
+
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { error } from "console";
+import axios, { AxiosError } from "axios";
 
 const CustomerProfile = () => {
   const navigate = useNavigate();
@@ -17,10 +19,30 @@ const CustomerProfile = () => {
     return userJson;
   });
 
-  const handleRemoveCookie = () => {
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
-    navigate("/");
+  useEffect(() => {
+    async function respon() {
+      await axios
+        .get("http://localhost:5000/api/v1/orders/showAllMyOrders")
+        .then((response) => console.log("response", response));
+    }
+    respon();
+  }, []);
+
+  const LogoutToken = () => {
+    authApi
+      .logout()
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          Cookies.remove("accessToken");
+          Cookies.remove("refreshToken");
+
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const { email, name } = user;
@@ -38,7 +60,7 @@ const CustomerProfile = () => {
               </p>
 
               <p
-                onClick={handleRemoveCookie}
+                onClick={LogoutToken}
                 className="cursor-pointer h-2/4 border text-xl p-6"
               >
                 log out
@@ -49,7 +71,7 @@ const CustomerProfile = () => {
                 <p className="mb-4  text-xl text-slate-500">
                   Hello <strong>{name}</strong> ( not <strong>{name}</strong>?
                   <span
-                    onClick={handleRemoveCookie}
+                    onClick={LogoutToken}
                     className="cursor-pointer text-red-500"
                   >
                     Log Out
