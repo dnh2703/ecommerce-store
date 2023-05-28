@@ -28,6 +28,7 @@ const SearchBar = ({ isOpen, closeSearchBar }: SearchBarProps) => {
   const handleRefresh = (path: string) => {
     navigate(path);
     window.location.reload();
+    window.scrollTo(0, 0);
   };
 
   useLayoutEffect(() => {

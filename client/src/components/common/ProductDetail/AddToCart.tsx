@@ -9,6 +9,7 @@ import { CartListProducts } from "../../../interfaces/product";
 import { arrayBuffer } from "stream/consumers";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function AddToCart(props: any) {
   let [count, setCount] = useState<number>(1);
@@ -95,15 +96,23 @@ export default function AddToCart(props: any) {
         </div>
         <div
           onClick={() => {
-            dispatch(
-              addToCart({
-                product: props.product,
-                quantity: count,
-                count: count,
-              })
-            );
-            setCount(1);
-            addSuccessfully();
+            if (isAgree) {
+              dispatch(
+                addToCart({
+                  product: props.product,
+                  quantity: count,
+                  count: count,
+                })
+              );
+              setCount(1);
+              addSuccessfully();
+            } else {
+              Swal.fire(
+                "Sorry :(",
+                "You have to agree with the terms and conditions to continute!",
+                "error"
+              );
+            }
           }}
           className="basis-[60%] group/button"
         >
@@ -141,25 +150,6 @@ export default function AddToCart(props: any) {
           terms and conditions
           <span className="w-full bg-black h-[1px] absolute bottom-[-4px] left-0 group-hover/terms:w-0 duration-300"></span>
         </a>
-      </div>
-      <div>
-        <button
-          disabled={!isAgree}
-          className={`my-5 uppercase  leading-[50px] w-full group/buy duration-500 ${
-            isAgree
-              ? "text-black border-black hover:bg-[#6e2f1b]"
-              : "text-gray-300 border-gray-300"
-          } text-xs tracking-[3px] border `}
-        >
-          <span
-            className={`block   ${
-              isAgree &&
-              "hover:text-white group-hover/buy:animate-[buy_1s_ease-in-out]"
-            }`}
-          >
-            buy it now
-          </span>
-        </button>
       </div>
     </div>
   );
