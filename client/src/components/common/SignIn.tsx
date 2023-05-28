@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import authApi from "../../api/authApi";
-import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useNavigate, Link, Navigate, NavLink } from "react-router-dom";
 import { AxiosError } from "axios";
 import { ILoginForm } from "../../interfaces/auth";
 import Cookies from "js-cookie";
@@ -67,7 +67,7 @@ const SignIn = () => {
           <div className="">
             <h1 className="text-6xl text-center mb-8">Account</h1>
 
-            <div className="flex justify-between items-start   max-[700px]:block">
+            <div className="flex justify-between items-start   max-[700px]:block mb-28">
               {forgotPassword ? (
                 <>
                   <div className="w-2/4 mx-3 max-[700px]:w-full">
@@ -116,7 +116,7 @@ const SignIn = () => {
                               required: true,
                               minLength: 5,
                               maxLength: 30,
-                              pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                              // pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
                             })}
                           />
                           <p
@@ -169,9 +169,9 @@ const SignIn = () => {
                   }}
                 />
               )}
-              <div className=" w-2/4 mx-7   max-[700px]:w-full ">
+              <div className=" w-2/4 mx-3   max-[700px]:w-full ">
                 <div className="max-[700px]:w-full">
-                  <h1 className="text-4xl mb-10">new customer?</h1>
+                  <h1 className="text-4xl mb-10">New customer?</h1>
                   <div>
                     <p className="text-2xl text-slate-500 leading-normal mb-7 w-3/4">
                       Sign up for early Sale access plus tailored new arrivals,
@@ -181,10 +181,11 @@ const SignIn = () => {
                   </div>
                   <div>
                     <button
+                      onClick={() => navigate("/account/register")}
                       type="button"
                       className="h-12 border border-slate-500 w-36 hover:bg-red-900 bg-slate-900 text-white"
                     >
-                      <Link to="/account/register"> REGISTER</Link>
+                      REGISTER
                     </button>
                   </div>
                 </div>

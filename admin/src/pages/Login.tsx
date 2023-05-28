@@ -29,13 +29,14 @@ const Login = () => {
           setErrMessage("You don't have permission to access");
         } else {
           localStorage.setItem("user", JSON.stringify(res.data.user));
+          Cookies.remove("accessToken", res.data.accessToken);
+          Cookies.remove("refreshToken", res.data.refreshToken);
           Cookies.set("accessToken", res.data.accessToken);
           Cookies.set("refreshToken", res.data.refreshToken);
           navigate("/dashboard", { replace: true });
         }
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           setErrMessage(err.response.data.msg);
         } else {
@@ -46,7 +47,7 @@ const Login = () => {
   };
   return (
     <>
-      {accessToken || refreshToken ? (
+      {accessToken && refreshToken ? (
         <Navigate to="/dashboard" />
       ) : (
         <section className="bg-gray-50 dark:bg-gray-900">
