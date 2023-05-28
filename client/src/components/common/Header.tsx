@@ -57,6 +57,9 @@ const Header = () => {
             // </li>
             <div key={link.name}>
               <NavLink
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                }}
                 to={link.link}
                 className=" md:ml-8 text-xl my-5 py-2 md:my-0 uppercase font-light"
               >
@@ -103,6 +106,7 @@ const Header = () => {
           </button>
           <button
             onClick={() => {
+              window.scrollTo(0, 0);
               navigate("/account/login");
             }}
           >
@@ -140,7 +144,12 @@ const Header = () => {
             </svg>
           </button>
           <div className="relative">
-            <button onClick={() => navigate("/cart")}>
+            <button
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate("/cart");
+              }}
+            >
               <svg
                 fill="none"
                 stroke="currentColor"
@@ -158,7 +167,10 @@ const Header = () => {
               </svg>
             </button>
             <div
-              onClick={() => navigate("/cart")}
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate("/cart");
+              }}
               className="text-[10px] absolute top-[-8px] right-[-8px] w-5 h-5 bg-black rounded-full flex items-center justify-center text-white"
             >
               <span>

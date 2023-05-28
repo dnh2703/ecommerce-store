@@ -3,13 +3,16 @@ import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductRoute } from "../ProductCatalog/ProductCatalogComponent";
 import { UserInformation } from "../../../features/slice/userInfoSlice";
+import Swal from "sweetalert2";
 
 export interface IShippingProps {
   userInfo: UserInformation;
+  email: string;
 }
 
 export default function Shipping(props: IShippingProps) {
   let navigate = useNavigate();
+
   return (
     <div className="px-14 pb-14 pt-14 max-lg:pt-0 max-sm:px-0 basis-[60%] max-lg:basis-full">
       <p className="lg:block max-lg:hidden">
@@ -57,7 +60,7 @@ export default function Shipping(props: IShippingProps) {
       <div className="my-8 border items-center border-gray-300 px-5 rounded-lg text-sm">
         <div className="py-3 flex border-b border-gray-300">
           <p className="text-gray-500 basis-[20%]">Contact</p>
-          <p className="basis-[70%]">{props.userInfo.email}</p>
+          <p className="basis-[70%]">{props.email}</p>
           <div className="basis-[10%]">
             <a
               onClick={() => navigate("/check-out/information")}
@@ -107,7 +110,17 @@ export default function Shipping(props: IShippingProps) {
           <p>Return to information</p>
         </button>
         <button
-          onClick={() => navigate("/check-out/payment")}
+          onClick={() => {
+            if (props.userInfo.country !== "") {
+              navigate("/check-out/payment");
+            } else {
+              Swal.fire(
+                "Error!",
+                "You have to fill in the information!",
+                "error"
+              ).then((res) => navigate("/check-out/information"));
+            }
+          }}
           className="bg-[#1773b0] flex justify-end items-center text-white p-5 rounded-lg"
         >
           <span>Continute to payment</span>

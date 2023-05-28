@@ -29,6 +29,7 @@ interface IInformationProps {
   dispatch: Dispatch<AnyAction>;
   setShip: () => void;
   setPickup: () => void;
+  email: string;
 }
 
 export default function Information(props: IInformationProps) {
@@ -46,19 +47,6 @@ export default function Information(props: IInformationProps) {
       navigate("/check-out/shipping");
     }
   };
-
-  const [user, setUser] = useState(() => {
-    const user = localStorage.getItem("user");
-    const userJson = user ? JSON.parse(user) : null;
-    return userJson;
-  });
-  const [email, setEmail] = useState<string>("");
-  useEffect(() => {
-    if (user !== null) {
-      const { email } = user;
-      setEmail(email);
-    }
-  }, [user]);
 
   return (
     <form
@@ -104,7 +92,7 @@ export default function Information(props: IInformationProps) {
                     sx={{
                       fontSize: 12,
                       marginRight: "10px",
-                      opacity: "0.6",
+                      opacity: "0.4",
                       cursor: "default",
                     }}
                   >
@@ -127,7 +115,7 @@ export default function Information(props: IInformationProps) {
               sx={{
                 fontSize: 12,
                 marginRight: "10px",
-                opacity: "0.6",
+                opacity: "0.4",
                 cursor: "default",
               }}
             >
@@ -140,7 +128,7 @@ export default function Information(props: IInformationProps) {
           <div className="mb-4">
             <div>
               <span className="text-base mb-2">
-                Your email: <span className="font-medium">{email}</span>
+                Your email: <span className="font-medium">{props.email}</span>
               </span>
             </div>
           </div>

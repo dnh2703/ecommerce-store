@@ -89,8 +89,8 @@ const Footer = () => {
             </div>
             <div className={`${contactUs ? "hidden" : "block"}`}>
               <p className="mb-4">
-                <span className="font-semibold">Add</span> : 4 Copley Place, 7th
-                Floor, Boston
+                <span className="font-semibold">Add</span> : 17 Duy Tan, Cau
+                Giay, Hanoi, Vietnam
               </p>
               <p className="mb-4">
                 <span className="font-semibold">Tell</span> : 866.453.4748
