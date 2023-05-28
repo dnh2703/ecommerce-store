@@ -77,7 +77,6 @@ const Header = () => {
           <button
             onClick={(e: any) => {
               setIsSearchOpen(true);
-              console.log(e);
               if (
                 e.target.classList.value.match(
                   "fixed h-screen w-screen bg-black opacity-20"
