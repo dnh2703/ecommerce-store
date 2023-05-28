@@ -67,7 +67,7 @@ const SignIn = () => {
           <div className="">
             <h1 className="text-6xl text-center mb-8">Account</h1>
 
-            <div className="flex justify-between items-start   max-[700px]:block">
+            <div className="flex justify-between items-start   max-[700px]:block mb-28">
               {forgotPassword ? (
                 <>
                   <div className="w-2/4 mx-3 max-[700px]:w-full">
@@ -116,7 +116,7 @@ const SignIn = () => {
                               required: true,
                               minLength: 5,
                               maxLength: 30,
-                              pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                              // pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
                             })}
                           />
                           <p

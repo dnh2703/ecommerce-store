@@ -46,7 +46,7 @@ export default function ForgotPassword(props: any) {
       <div>
         <h1 className="text-4xl">Reset your password</h1>
         <p className="my-6 text-xl text-gray-500">
-          We will send you an email to reset your password.
+          We will send you an email to forgot password.
         </p>
       </div>
       <form onSubmit={handleSubmit(handleSubmitForgotPassword)}>
