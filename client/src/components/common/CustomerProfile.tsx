@@ -19,15 +19,6 @@ const CustomerProfile = () => {
     return userJson;
   });
 
-  useEffect(() => {
-    async function respon() {
-      await axios
-        .get("http://localhost:5000/api/v1/orders/showAllMyOrders")
-        .then((response) => console.log("response", response));
-    }
-    respon();
-  }, []);
-
   const LogoutToken = () => {
     authApi
       .logout()
