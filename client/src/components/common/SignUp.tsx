@@ -33,8 +33,11 @@ const SignUpForm = () => {
     authApi
       .register(data)
       .then((res) => {
-        setIsSuccess(true);
-        navigate("/account/login");
+        if (res.status === 200) {
+          setIsSuccess(true);
+          alert("Please verify your email");
+          navigate("/account/login");
+        }
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -108,20 +111,20 @@ const SignUpForm = () => {
             <svg
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
               className="h-5 w-5"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
               ></path>
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               ></path>
             </svg>
@@ -149,7 +152,7 @@ const SignUpForm = () => {
           <input
             {...register("confirmPassword", {
               required: true,
-              validate: (value) => value === watch("password"),
+              validate: (value: any) => value === watch("password"),
             })}
             className="appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="confirmPassword"
@@ -166,20 +169,20 @@ const SignUpForm = () => {
             <svg
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
               className="h-5 w-5"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
               ></path>
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               ></path>
             </svg>

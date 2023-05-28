@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Carosel = () => {
   const slides = [
@@ -18,6 +19,7 @@ const Carosel = () => {
       text: "Say hello to our branch new arrivals",
     },
   ];
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
@@ -38,13 +40,18 @@ const Carosel = () => {
         <div className="absolute top-[40%] left-20 text-left text-white transition-900">
           <h1 className="text-5xl mb-3">{slides[currentIndex].title}</h1>
           <p className="text-lg my-3">{slides[currentIndex].text}</p>
-          <button className="px-6 py-2 bg-white text-black">Shop now</button>
+          <button
+            className="px-6 py-2 bg-white text-black"
+            onClick={() => navigate("/products")}
+          >
+            Shop now
+          </button>
         </div>
         <div className="absolute top-[50%] -translate-x-0 translate-y-[50%] left-5 rounded-full text-2xl p-2 bg-black/20 text-white cursor-pointer">
           <svg
             fill="none"
             stroke="currentColor"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
@@ -52,8 +59,8 @@ const Carosel = () => {
             onClick={prevSlide}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
             ></path>
           </svg>
@@ -62,7 +69,7 @@ const Carosel = () => {
           <svg
             fill="none"
             stroke="currentColor"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
@@ -70,8 +77,8 @@ const Carosel = () => {
             onClick={nextSlide}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
             ></path>
           </svg>
