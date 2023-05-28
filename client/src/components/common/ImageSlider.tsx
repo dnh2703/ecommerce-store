@@ -32,7 +32,7 @@ export default () => {
 
   return (
     <div className=" bg-rose-950">
-      <h2 className="text-center py-10 text-5xl text-white">
+      <h2 className="text-center py-10 text-3xl md:text-5xl text-white">
         Shop by Department
       </h2>
       <Swiper

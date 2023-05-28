@@ -1,7 +1,19 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SearchBar from "./SearchBar";
+
 const BottomNavigation = () => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
+  const closeSearchBar = () => {
+    setIsSearchOpen(false);
+  };
   return (
     <nav className="fixed bottom-0 left-0 w-full bg-white shadow flex z-10 md:hidden">
-      <button className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center">
+      <button
+        className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center"
+        onClick={() => navigate("/")}
+      >
         <svg
           fill="none"
           stroke="currentColor"
@@ -19,7 +31,10 @@ const BottomNavigation = () => {
         </svg>
         <span className="text-gray-600">Home</span>
       </button>
-      <button className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center">
+      <button
+        className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center"
+        onClick={() => navigate("/products")}
+      >
         <svg
           fill="none"
           stroke="currentColor"
@@ -37,7 +52,19 @@ const BottomNavigation = () => {
         </svg>
         <span className="text-gray-600">Shop</span>
       </button>
-      <button className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center">
+      <button
+        className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center"
+        onClick={(e: any) => {
+          setIsSearchOpen(true);
+          if (
+            e.target.classList.value.match(
+              "fixed h-screen w-screen bg-black opacity-20"
+            )
+          ) {
+            setIsSearchOpen(false);
+          }
+        }}
+      >
         <svg
           fill="none"
           stroke="currentColor"
@@ -54,42 +81,49 @@ const BottomNavigation = () => {
           ></path>
         </svg>
         <span className="text-gray-600">Search</span>
+        <SearchBar isOpen={isSearchOpen} closeSearchBar={closeSearchBar} />
       </button>
-      <button className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center">
+      <button
+        className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center"
+        onClick={() => navigate("/about")}
+      >
         <svg
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          stroke-width="1.5"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           className="h-7 block"
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
           ></path>
         </svg>
-        <span className="text-gray-600">Account</span>
+        <span className="text-gray-600">About</span>
       </button>
-      <button className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center">
+      <button
+        className="flex-1 p-4 text-center inline-flex flex-col items-center justify-center"
+        onClick={() => navigate("/contact")}
+      >
         <svg
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          stroke-width="1.5"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           className="h-7 block"
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
           ></path>
         </svg>
-        <span className="text-gray-600">Wishlist</span>
+        <span className="text-gray-600">Contact</span>
       </button>
     </nav>
   );

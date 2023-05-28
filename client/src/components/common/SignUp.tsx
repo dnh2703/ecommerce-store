@@ -54,7 +54,7 @@ const SignUpForm = () => {
       >
         <div className="mb-2">
           <input
-            {...register("name", { required: true, pattern: /^[^\s]+$/ })}
+            {...register("name", { required: true, pattern: /^[A-Za-z]+$/ })}
             className=" appearance-none border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="name"
             type="text"
@@ -66,7 +66,9 @@ const SignUpForm = () => {
             <span className="text-red-500 text-xs">Name is required</span>
           )}
           {errors.name?.type == "pattern" && (
-            <span className="text-red-500 text-xs">Space is not valid</span>
+            <span className="text-red-500 text-xs">
+              Space and number is not valid
+            </span>
           )}
         </div>
         <div className="mb-2">

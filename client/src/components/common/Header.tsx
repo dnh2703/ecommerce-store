@@ -14,13 +14,13 @@ const Header = () => {
     { name: "Contact", link: "/contact" },
   ];
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   let dispatch = useDispatch();
   let { cartProducts } = useAppSelector((state) => state.product);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setIsMenuOpen(!isMenuOpen);
+  // };
 
   const closeSearchBar = () => {
     setIsSearchOpen(false);
@@ -44,22 +44,9 @@ const Header = () => {
         </div>
 
         <ul
-          className={` top-20 md:flex md:flex-row flex flex-col max-md:h-[100vh] gap-10 md:gap-5 md:items-center pb-12 md:pb-0 absolute md:static bg-white md:z-auto z-[-1] left-0 w-1/2 h-auto md:w-auto md:pl-0 pl-9 ${
-            isMenuOpen ? "block" : "hidden"
-          } md:order-2 `}
+          className={`shadow-lg md:shadow-none top-20 md:flex md:flex-row  max-md:h-[100vh] gap-10 md:gap-5 md:items-center pb-12 md:pb-0 absolute md:static bg-white md:z-auto z-[-1] left-0 w-1/2 h-auto md:w-auto md:pl-0 pl-9 hidden md:order-2 `}
         >
           {links.map((link, linkIndex) => (
-            // <li
-            //   key={link.name}
-            //   className="md:ml-8 text-xl my-7 md:my-0 list-none"
-            // >
-            //   <a
-            //     href={link.link}
-            //     className="text-gray-800 hover:texr-gray-500 duration-500"
-            //   >
-            //     {link.name}
-            //   </a>
-            // </li>
             <div key={link.name}>
               <NavLink
                 onClick={() => {
@@ -142,7 +129,7 @@ const Header = () => {
               ></path>
             </svg>
           </button>
-          <div className="relative">
+          <div className="relative w-6 h-6 ">
             <button
               onClick={() => {
                 window.scrollTo(0, 0);
@@ -189,43 +176,6 @@ const Header = () => {
               </span>
             </div>
           </div>
-        </div>
-        <div className="flex items-center space-x-4 order-1 md:hidden md:order-3">
-          {isMenuOpen ? (
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="h-5 w-5 text-gray-600 cursor-pointer"
-              onClick={toggleMenu}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          ) : (
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="h-5 w-5 text-gray-600 cursor-pointer"
-              onClick={toggleMenu}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              ></path>
-            </svg>
-          )}
         </div>
       </header>
     </>

@@ -10,7 +10,7 @@ const Contact = () => {
   } = useForm();
   const onSubmit = (data: any) => console.log(data);
   return (
-    <div className="flex justify-center gap-20 pt-20 mt-20 mb-20">
+    <div className="flex flex-col px-5 md:flex md:flex-row md:justify-center gap-20 pt-20 mt-20 mb-20">
       <div>
         <h1 className="">Location</h1>
         <p className="pb-10">4 Copley Place, 7th Floor, Boston,MA 6</p>
@@ -95,7 +95,7 @@ const Contact = () => {
               id="message"
               cols={50}
               rows={5}
-              className="border py-2 px-3 bg-gray-200 text-black placeholder-gray-600"
+              className="border py-2 px-3 bg-gray-200 text-black placeholder-gray-600 w-full"
               placeholder="Enter your message"
               {...register("message", { required: true })}
             ></textarea>

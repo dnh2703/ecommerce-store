@@ -24,7 +24,7 @@ const Testimonials = () => {
     {
       url: "https://cdn.shopify.com/s/files/1/0136/8467/0523/files/tes-2.jpg?v=1657105930",
       name: "Oceane",
-      title: "Great vineyard tour and tasting!",
+      title: "Great vineyard tour!",
       text: "Fits perfectly, also super comfortable! I can tell this one will be loved and in style for a very long time!",
     },
     {
