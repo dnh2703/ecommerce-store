@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RoomInspiration = () => {
   const [isHovered, setIsHovered] = useState(true);
+  const navigate = useNavigate();
 
   const handleMouseEnter = () => {
     setIsHovered(false);
@@ -24,6 +26,7 @@ const RoomInspiration = () => {
             className={`w-40 h-10 bg-black text-white duration-300`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={() => navigate("/products")}
           >
             {isHovered ? "Discovery" : "->"}
           </button>

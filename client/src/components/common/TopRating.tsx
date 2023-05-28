@@ -34,12 +34,12 @@ const TopRating = () => {
     // .catch((e) => console.error(e));
     dispatch(getProductsStart());
   }, []);
-  const ratingProduct = products.filter(
-    (product: IProduct) => product.averageRating >= 4
-  );
-  const bestSellingProduct = products.filter(
-    (product: IProduct) => product.inventory < 10
-  );
+  const ratingProduct = products
+    .filter((product: IProduct) => product.averageRating >= 4)
+    .slice(0, 4);
+  const bestSellingProduct = products
+    .filter((product: IProduct) => product.inventory < 10)
+    .slice(0, 4);
   return (
     <div>
       <div className=" flex justify-center items-center">
