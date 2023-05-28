@@ -21,6 +21,11 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const closeSearchBar = () => {
+    setIsSearchOpen(false);
+  };
+
   useEffect(() => {
     let res = localStorage.getItem("wishList");
     if (res !== null) {
@@ -68,16 +73,11 @@ const Header = () => {
             </div>
           ))}
         </ul>
-        <div
-          className="flex items-center space-x-4 order-3 md:order-3"
-          // onClick={(e: any) => {
-          //   console.log(e);
-          //   // setIsSearchOpen(!isSearchOpen);
-          // }}
-        >
+        <div className="flex items-center space-x-4 order-3 md:order-3">
           <button
             onClick={(e: any) => {
               setIsSearchOpen(true);
+              console.log(e);
               if (
                 e.target.classList.value.match(
                   "fixed h-screen w-screen bg-black opacity-20"
@@ -102,7 +102,7 @@ const Header = () => {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               ></path>
             </svg>
-            <SearchBar isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
+            <SearchBar isOpen={isSearchOpen} closeSearchBar={closeSearchBar} />
           </button>
           <button
             onClick={() => {
