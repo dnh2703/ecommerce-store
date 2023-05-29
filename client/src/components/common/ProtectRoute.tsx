@@ -1,34 +1,11 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import authApi from "../../api/authApi";
+import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   // state to store the loading status
-  const [isLoading, setIsLoading] = useState(true);
+  const refreshToken = Cookies.get("refreshToken");
 
-  useEffect(() => {
-    authApi
-      .jwtAuth()
-      .then((res) => {
-        setIsAuthenticated(true);
-        // set isLoading to false
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsAuthenticated(false);
-        // set isLoading to false
-        setIsLoading(false);
-      });
-  }, []);
-
-  return isLoading ? (
-    <>...Loading</>
-  ) : isAuthenticated ? (
-    children
-  ) : (
-    <Navigate to="/account/login" />
-  );
+  return !refreshToken ? <Navigate to="/" /> : children;
 };
 
 export default ProtectedRoute;
