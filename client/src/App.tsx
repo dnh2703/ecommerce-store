@@ -23,6 +23,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./components/common/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider, createTheme } from "@mui/material";
+import CustomerOrderList from "./components/common/CustomerOrders";
 
 function App() {
   const theme = createTheme({
@@ -55,6 +56,7 @@ function App() {
               <Route path="register" element={<SignUp />} />
               <Route path="verify-email" element={<VerifyEmail />} />
               <Route path="reset-password" element={<ResetPassword />} />
+              <Route path="orders" element={<CustomerOrderList />} />
               <Route
                 path="customer-profile"
                 element={

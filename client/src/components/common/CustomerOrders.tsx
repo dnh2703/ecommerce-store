@@ -26,6 +26,7 @@ export default function CustomerOrderList(props: ICustomerOrdersProps) {
       {!isLoading ? (
         <div className="bg-gray-100 mt-[86.8px] py-20">
           <Container maxWidth="md">
+            <div className="text-3xl mb-5">Your orders</div>
             {orders?.map((order: CustomerOrders) => {
               return <CustomerSingleOrder order={order} />;
             })}
