@@ -1,4 +1,4 @@
-# Project Documentation: E-commerce Store
+# Project : E-commerce Store
 
 ## Introduction
 
