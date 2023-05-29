@@ -6,7 +6,6 @@ interface ILoginForm {
 interface IRegisterForm {
   email: string;
   password: string;
-  confirmPassword: string;
   name: string;
 }
 

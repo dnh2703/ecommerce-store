@@ -41,18 +41,6 @@ const OrderSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    userName: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true
-    },
-    address: {
-      type: String,
-      required: true
-    },
     clientSecret: {
       type: String,
       required: true,

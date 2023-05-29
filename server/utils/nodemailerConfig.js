@@ -2,7 +2,7 @@ module.exports = {
   host: 'smtp.gmail.com',
   port: 465,
   auth: {
-    user: process.env.GMAIL,
-    pass: process.env.PASSWORD,
+    user: 'crossfire2000.lc@gmail.com',
+    pass: 'nfqfbolmxhyzcfuz',
   },
 };
