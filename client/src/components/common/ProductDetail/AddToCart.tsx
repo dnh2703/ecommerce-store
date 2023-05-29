@@ -96,23 +96,15 @@ export default function AddToCart(props: any) {
         </div>
         <div
           onClick={() => {
-            if (isAgree) {
-              dispatch(
-                addToCart({
-                  product: props.product,
-                  quantity: count,
-                  count: count,
-                })
-              );
-              setCount(1);
-              addSuccessfully();
-            } else {
-              Swal.fire(
-                "Sorry :(",
-                "You have to agree with the terms and conditions to continute!",
-                "error"
-              );
-            }
+            dispatch(
+              addToCart({
+                product: props.product,
+                quantity: count,
+                count: count,
+              })
+            );
+            setCount(1);
+            addSuccessfully();
           }}
           className="basis-[60%] group/button"
         >
@@ -124,32 +116,6 @@ export default function AddToCart(props: any) {
         <div className=" w-[50px] basis-[10%]">
           <i className="hover:bg-[#6e2f1b] duration-300 hover:text-white fa-regular fa-heart leading-[50px] text-lg  flex justify-center items-center cursor-pointer border-[1px] border-gray-200"></i>
         </div>
-      </div>
-      <div className="flex items-center ">
-        <input
-          className={`h-4 mr-2 ${
-            isAgree ? "opacity-100" : "opacity-30"
-          } cursor-pointer `}
-          type="radio"
-          checked={isAgree}
-          onChange={() => {}}
-          name="agree"
-          id="agree"
-          onClick={handleChecked}
-        />
-        <label
-          htmlFor="agree"
-          className="text-[13px] text-gray-400 cursor-pointer"
-        >
-          I agree with the{" "}
-        </label>
-        <a
-          onClick={props.showModal}
-          className="text-[13px] ml-1 inline-block text-black cursor-pointer relative group/terms hover:text-amber-800"
-        >
-          terms and conditions
-          <span className="w-full bg-black h-[1px] absolute bottom-[-4px] left-0 group-hover/terms:w-0 duration-300"></span>
-        </a>
       </div>
     </div>
   );

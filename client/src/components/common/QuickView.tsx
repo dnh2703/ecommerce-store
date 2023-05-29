@@ -94,7 +94,9 @@ export function QuickView(props: any) {
                 {props.product.company}
               </a>
             </p>
-            <p className="mt-4 mb-8 text-2xl">${props.product.price}</p>
+            <p className="mt-4 mb-8 text-2xl">
+              ${props.product.price.toLocaleString()}
+            </p>
           </div>
           <div className="pt-8 pb-4">
             <p className="leading-[1.5] text-gray-400">

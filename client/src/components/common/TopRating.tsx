@@ -72,7 +72,10 @@ const TopRating = () => {
             <div
               key={product.id}
               className="border-none p-4 hover:cursor-pointer "
-              onClick={() => navigate(`/products/${product.id}`)}
+              onClick={() => {
+                navigate(`/products/${product.id}`);
+                window.scrollTo(0, 0);
+              }}
               onMouseEnter={() => setHoveredIndex(productIndex)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -162,7 +165,10 @@ const TopRating = () => {
             <div
               key={product.id}
               className="border-none p-4 hover:cursor-pointer "
-              onClick={() => navigate(`/products/${product.id}`)}
+              onClick={() => {
+                navigate(`/products/${product.id}`);
+                window.scrollTo(0, 0);
+              }}
               onMouseEnter={() => setHoveredIndex(productIndex)}
               onMouseLeave={() => setHoveredIndex(null)}
             >

@@ -113,7 +113,7 @@ export default function AskModal(props: any) {
             <div className="basis-4/5 flex flex-col justify-center gap-2">
               <p className="capitalize">{props.product?.name}</p>
               <p className="text-gray-400">
-                ${props.product?.price && props.product?.price}
+                ${props.product?.price && props.product?.price.toLocaleString()}
               </p>
             </div>
           </div>

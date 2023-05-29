@@ -22,6 +22,7 @@ import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./components/common/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
+import CustomerOrders from "./components/common/CustomerOrders";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="customer-profile" element={<CustomerProfile />} />
+            <Route path="orders" element={<CustomerOrders />} />
           </Route>
         </Route>
         <Route
