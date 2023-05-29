@@ -22,46 +22,60 @@ import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./components/common/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
-import CustomerOrders from "./components/common/CustomerOrders";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 function App() {
+  const theme = createTheme({
+    typography: {
+      fontFamily: ["Questrial", "sans-serif"].join(","),
+    },
+  });
+
   return (
     <>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<HomePage />}></Route>
-          <Route path="/products" element={<ProductPage />}></Route>
-          <Route path="/contact" element={<ContactPage />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/products/:id" element={<ProductDetailPage />}></Route>
-          <Route path="/cart" element={<CartPage />}></Route>
-          <Route path="/account" element={<AccountPage />}>
-            <Route
-              index
-              element={
-                <ProtectRoute>
-                  <Dashboard />
-                </ProtectRoute>
-              }
-            />
-            <Route path="login" element={<SignIn />} />
-            <Route path="register" element={<SignUp />} />
-            <Route path="verify-email" element={<VerifyEmail />} />
-            <Route path="reset-password" element={<ResetPassword />} />
-            <Route path="customer-profile" element={<CustomerProfile />} />
-            <Route path="orders" element={<CustomerOrders />} />
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route index element={<HomePage />}></Route>
+            <Route path="/products" element={<ProductPage />}></Route>
+            <Route path="/contact" element={<ContactPage />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/products/:id" element={<ProductDetailPage />}></Route>
+            <Route path="/cart" element={<CartPage />}></Route>
+            <Route path="/account" element={<AccountPage />}>
+              <Route
+                index
+                element={
+                  <ProtectRoute>
+                    <Dashboard />
+                  </ProtectRoute>
+                }
+              />
+              <Route path="login" element={<SignIn />} />
+              <Route path="register" element={<SignUp />} />
+              <Route path="verify-email" element={<VerifyEmail />} />
+              <Route path="reset-password" element={<ResetPassword />} />
+              <Route
+                path="customer-profile"
+                element={
+                  <ProtectRoute>
+                    <CustomerProfile />
+                  </ProtectRoute>
+                }
+              />
+            </Route>
           </Route>
-        </Route>
-        <Route
-          path="/check-out/:process"
-          element={
-            <ProtectRoute>
-              <CheckoutPage />
-            </ProtectRoute>
-          }
-        ></Route>
-        <Route path="*" element={<NotFoundPage />}></Route>
-      </Routes>
+          <Route
+            path="/check-out/:process"
+            element={
+              <ProtectRoute>
+                <CheckoutPage />
+              </ProtectRoute>
+            }
+          ></Route>
+          <Route path="*" element={<NotFoundPage />}></Route>
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }
