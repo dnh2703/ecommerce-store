@@ -2,7 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const publicClient = axios.create({
-  baseURL: `http://localhost:5000/api/v1/`,
+  baseURL: `https://backend-store-ecommerce.onrender.com/api/v1/`,
   headers: {
     "Content-Type": "application/json",
   },
