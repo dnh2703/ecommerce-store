@@ -11,15 +11,18 @@ export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
 
   return (
     <div
-      className="bg-white mb-5 text-sm py-5 px-10 border border-black"
+      className="bg-white relative mb-5 text-sm cursor-pointer py-5 px-10 border border-black"
       key={props.order?._id}
+      onClick={() => {
+        setIsShow(!isShow);
+      }}
     >
-      <div
-        onClick={() => {
-          setIsShow(!isShow);
-        }}
-        className="capitalize flex justify-between cursor-pointer"
-      >
+      {isShow && (
+        <div className="absolute bottom-1 left-1/2 translate-x-[-50%]">
+          <i className="fa-solid fa-chevron-up"></i>
+        </div>
+      )}
+      <div className="capitalize flex justify-between">
         <div>Order: {props.order?._id}</div>
         <div className="flex items-center">
           <p>{props.order?.status}</p>
@@ -33,7 +36,7 @@ export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
         </div>
       </div>
 
-      <div>
+      <div className="cursor-default" onClick={(e) => e.stopPropagation()}>
         {isShow && (
           <div>
             <div>

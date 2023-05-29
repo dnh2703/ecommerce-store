@@ -19,8 +19,6 @@ export default function CustomerOrderList(props: ICustomerOrdersProps) {
       .catch((e) => console.log(e))
       .finally(() => setIsLoading(false));
   }, []);
-  console.log(orders);
-
   return (
     <>
       {!isLoading ? (
@@ -28,7 +26,7 @@ export default function CustomerOrderList(props: ICustomerOrdersProps) {
           <Container maxWidth="md">
             <div className="text-3xl mb-5">Your orders</div>
             {orders?.map((order: CustomerOrders) => {
-              return <CustomerSingleOrder order={order} />;
+              return <CustomerSingleOrder key={order._id} order={order} />;
             })}
           </Container>
         </div>
