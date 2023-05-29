@@ -55,9 +55,9 @@ export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
                         ${item.price?.toLocaleString()}
                       </p>
                       <p className="flex items-center">
-                        <div>
+                        <span>
                           <i className="text-sm fa-solid fa-xmark"></i>
-                        </div>
+                        </span>
                         {item.amount}
                       </p>
                     </div>
