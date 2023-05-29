@@ -8,7 +8,7 @@ export interface ICustomerSingleOrderProps {
 
 export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
   let [isShow, setIsShow] = useState<boolean>(false);
-
+  let [date, setDate] = useState<Date>(new Date(props.order.createdAt));
   return (
     <div
       className="bg-white relative mb-5 text-sm cursor-pointer py-5 px-10 border border-black"
@@ -39,6 +39,22 @@ export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
       <div className="cursor-default" onClick={(e) => e.stopPropagation()}>
         {isShow && (
           <div>
+            <div>
+              <div className="my-5 flex gap-2">
+                <p>Order at:</p>
+                <p>{`${date.getDate()}-${
+                  date.getMonth() + 1
+                }-${date.getFullYear()}`}</p>
+              </div>
+              <div className="my-5">
+                <p>Ship to:</p>
+                <p>{props.order.address}</p>
+              </div>
+              <div className="my-5">
+                <p>Contact:</p>
+                <p>{props.order.email}</p>
+              </div>
+            </div>
             <div>
               {props.order?.orderItems?.map((item: OrderItem) => {
                 return (
