@@ -244,7 +244,7 @@ export const SliderProton = (props: any) => {
         value={props.value}
         onChange={props.changePrice}
         min={0}
-        max={3000}
+        max={300000}
         size="small"
       />
     </div>

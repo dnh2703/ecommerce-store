@@ -30,6 +30,9 @@ export default function Review(props: IProductReview) {
     }
   }, [user]);
 
+  console.log(props.product?.reviews);
+  console.log(userId);
+
   return (
     <div
       className={`${

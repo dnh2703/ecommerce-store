@@ -195,7 +195,7 @@ export const FilterPannel = (props: any) => {
                       <Typography color={"gray"} textTransform={"capitalize"}>
                         {product.name}
                       </Typography>
-                      <div>${product.price / 100}</div>
+                      <div>${product.price.toLocaleString()}</div>
                     </Grid>
                   </div>
                   <hr style={{ border: "1px dashed #ccc", margin: "30px 0" }} />

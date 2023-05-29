@@ -94,7 +94,7 @@ export default function Shipping(props: IShippingProps) {
             <p>Standard Shipping</p>
           </div>
           <div className="basis-1/2 text-right mx-2">
-            <p className="font-medium">Free</p>
+            <p className="font-medium">$50.00</p>
           </div>
         </div>
       </div>

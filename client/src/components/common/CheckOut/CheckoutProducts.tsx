@@ -17,7 +17,7 @@ export default function CheckoutProducts(props: any) {
                   src={cartProduct.product.image}
                   alt=""
                 />
-                <span className="text-xs text-white border bg-gray-500 absolute top-[-10px] text-center right-[-10px] h-5 w-5 rounded-full">
+                <span className="text-xs text-white border flex items-center justify-center bg-gray-500 absolute top-[-10px] text-center right-[-10px] h-5 w-5 rounded-full">
                   {cartProduct.quantity}
                 </span>
               </div>
@@ -25,7 +25,7 @@ export default function CheckoutProducts(props: any) {
                 {cartProduct.product.name}
               </p>
               <div className="text-right w-1/4 text-sm">
-                {format(cartProduct.product.price / 100, "$")}
+                {format(cartProduct.product.price, "$")}
               </div>
             </div>
           );
@@ -35,41 +35,20 @@ export default function CheckoutProducts(props: any) {
         <p className="text-sm flex my-1 justify-between">
           <span>Subtotal</span>
           <span className="font-medium">
-            {format(
-              props.products.reduce(
-                (acc: number, cartProduct: CartListProducts) => {
-                  return (
-                    acc +
-                    cartProduct.quantity * (cartProduct.product.price / 100)
-                  );
-                },
-                0
-              ),
-              "$"
-            )}
+            ${props.productsPrice.toLocaleString()}
           </span>
         </p>
         <p className="text-sm flex my-1 justify-between">
           <span>Shipping</span>
-          <span className="">Free</span>
+          <span className="">$50.00</span>
+        </p>
+        <p className="text-sm flex my-1 justify-between">
+          <span>Tax</span>
+          <span className="">${props.tax.toLocaleString()}</span>
         </p>
         <p className="text-lg font-medium flex my-1 justify-between">
           <span className="">Total</span>
-          <span>
-            {" "}
-            {format(
-              props.products?.reduce(
-                (acc: number, cartProduct: CartListProducts) => {
-                  return (
-                    acc +
-                    cartProduct.quantity * (cartProduct.product.price / 100)
-                  );
-                },
-                0
-              ),
-              "$"
-            )}
-          </span>
+          <span>${props.total.toLocaleString()}</span>
         </p>
       </div>
     </div>

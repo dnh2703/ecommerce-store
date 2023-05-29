@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { error } from "console";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import orderApi from "../../api/orderApi";
 
 const CustomerProfile = () => {
   const navigate = useNavigate();
@@ -36,6 +37,10 @@ const CustomerProfile = () => {
       });
   };
 
+  useEffect(() => {
+    orderApi.getCurrentUserOrders().then((res) => console.log(res));
+  }, []);
+
   const { email, name } = user;
   return (
     <div className=" box-border mx-9 h-screen ">
@@ -46,15 +51,15 @@ const CustomerProfile = () => {
         <div className="">
           <div className="flex max-[700px]:block">
             <div className="w-1/4 max-[700px]:w-full">
-              <p className="h-2/4 border p-6 text-xl bg-orange-900 text-white">
-                dashboard
+              <p className="h-2/4 border flex items-center p-6 text-xl bg-orange-900 text-white">
+                Dashboard
               </p>
 
               <p
                 onClick={LogoutToken}
-                className="cursor-pointer h-2/4 border text-xl p-6"
+                className="cursor-pointer  flex items-center h-2/4 border text-xl p-6"
               >
-                log out
+                Log out
               </p>
             </div>
             <div className="w-3/4 mx-9 max-[700px]:w-full max-[700px]:mx-0  max-[700px]:pt-4  ">

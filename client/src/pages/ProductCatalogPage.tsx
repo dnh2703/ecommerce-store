@@ -34,7 +34,7 @@ export default function ProductPage() {
   let [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
   let [collection, setCollection] = useState<string>("all");
 
-  const [price, setPrice] = useState<number[]>([0, 3000]);
+  const [price, setPrice] = useState<number[]>([0, 300000]);
   const [isPriceChange, setIsPriceChange] = useState<boolean>(false);
   let [sort, setSort] = useState<string>("");
   const [brands, setBrands] = useState([
@@ -135,7 +135,7 @@ export default function ProductPage() {
 
     newProducts = newProducts.filter(
       (product: IProduct) =>
-        product.price / 100 >= minPrice && product.price / 100 <= maxPrice
+        product.price >= minPrice && product.price <= maxPrice
     );
 
     setFilteredProducts(newProducts);
@@ -205,7 +205,7 @@ export default function ProductPage() {
   };
 
   const resetPrice = () => {
-    setPrice([0, 3000]);
+    setPrice([0, 300000]);
     setIsPriceChange(false);
     setIsShowAllProducts(false);
   };

@@ -34,7 +34,7 @@ export default function CartProducts(props: any) {
                   <div className="basis-[85%] flex flex-col justify-center">
                     <p className="mb-3 text-sm ">{wProduct.product.name}</p>
                     <p className="text-gray-500 text-sm ">
-                      ${wProduct.product.price / 100}
+                      ${wProduct.product.price}
                     </p>
                   </div>
                 </div>
@@ -116,7 +116,7 @@ export default function CartProducts(props: any) {
                 <div className="basis-1/4 max-md:basis-1/2  flex items-center justify-end">
                   <div className="text-sm">
                     {props.format2(
-                      (wProduct.product.price / 100) * wProduct.quantity,
+                      wProduct.product.price * wProduct.quantity,
                       "$"
                     )}
                   </div>

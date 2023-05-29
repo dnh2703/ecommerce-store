@@ -21,6 +21,17 @@ export default function CheckoutPage() {
   let dispatch = useDispatch();
   let [showOrder, setShowOrder] = useState<boolean>(false);
   let { userInfo } = useAppSelector((state) => state.userInfo);
+  let [productsPrice, setProductsPrice] = useState<number>(() => {
+    let price = cartProducts.reduce(
+      (acc: number, cartProduct: CartListProducts) => {
+        return acc + cartProduct.quantity * cartProduct.product.price;
+      },
+      0
+    );
+    return price;
+  });
+  let [tax, setTax] = useState<number>(productsPrice * 0.1);
+  let [total, setTotal] = useState<number>(tax + productsPrice + 50);
 
   useEffect(() => {
     let res = localStorage.getItem("userInfo");
@@ -58,8 +69,9 @@ export default function CheckoutPage() {
   }, []);
 
   useEffect(() => {
-    if (cartProducts.length > 0)
+    if (cartProducts.length > 0) {
       localStorage.setItem("wishList", JSON.stringify(cartProducts));
+    }
   }, [cartProducts]);
 
   function format2(n: any, currency: any) {
@@ -101,21 +113,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                   <div>
-                    <p>
-                      $
-                      {cartProducts
-                        .reduce(
-                          (init: number, cartProduct: CartListProducts) => {
-                            return (
-                              init +
-                              (cartProduct.product.price / 100) *
-                                cartProduct.quantity
-                            );
-                          },
-                          0
-                        )
-                        .toLocaleString()}
-                    </p>
+                    <p>${total.toLocaleString()}</p>
                   </div>
                 </div>
                 <div
@@ -144,7 +142,7 @@ export default function CheckoutPage() {
                             {cartProduct.product.name}
                           </p>
                           <div className="text-right w-3/6 text-sm">
-                            {format2(cartProduct.product.price / 100, "$")}
+                            {format2(cartProduct.product.price, "$")}
                           </div>
                         </div>
                       );
@@ -154,43 +152,20 @@ export default function CheckoutPage() {
                     <p className="text-sm flex my-1 justify-between">
                       <span>Subtotal</span>
                       <span className="font-medium">
-                        {format2(
-                          cartProducts.reduce(
-                            (acc: number, cartProduct: CartListProducts) => {
-                              return (
-                                acc +
-                                cartProduct.quantity *
-                                  (cartProduct.product.price / 100)
-                              );
-                            },
-                            0
-                          ),
-                          "$"
-                        )}
+                        {format2(productsPrice, "$")}
                       </span>
                     </p>
                     <p className="text-sm flex my-1 justify-between">
                       <span>Shipping</span>
-                      <span className="">Free</span>
+                      <span className="">$50.00</span>
+                    </p>
+                    <p className="text-sm flex my-1 justify-between">
+                      <span>Tax</span>
+                      <span className="">${tax.toLocaleString()}</span>
                     </p>
                     <p className="text-lg font-medium flex my-1 justify-between">
                       <span className="">Total</span>
-                      <span>
-                        {" "}
-                        {format2(
-                          cartProducts?.reduce(
-                            (acc: number, cartProduct: CartListProducts) => {
-                              return (
-                                acc +
-                                cartProduct.quantity *
-                                  (cartProduct.product.price / 100)
-                              );
-                            },
-                            0
-                          ),
-                          "$"
-                        )}
-                      </span>
+                      <span> {format2(total, "$")}</span>
                     </p>
                   </div>
                 </div>
@@ -222,10 +197,16 @@ export default function CheckoutPage() {
                   cartProducts={cartProducts}
                   isPickup={isPickup}
                   userInfo={userInfo}
+                  tax={tax}
                 />
               )}
 
-              <CheckoutProducts products={cartProducts} />
+              <CheckoutProducts
+                tax={tax}
+                products={cartProducts}
+                total={total}
+                productsPrice={productsPrice}
+              />
             </div>
           </Container>
         </div>

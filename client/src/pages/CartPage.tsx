@@ -136,8 +136,7 @@ export default function Cart(props: any) {
                         cartProducts.reduce(
                           (acc: number, product: CartListProducts) => {
                             return (
-                              acc +
-                              (product.product.price / 100) * product.quantity
+                              acc + product.product.price * product.quantity
                             );
                           },
                           0

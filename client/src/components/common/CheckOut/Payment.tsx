@@ -18,6 +18,7 @@ export interface IPaymentProps {
   cartProducts: CartListProducts[];
   dispatch: any;
   email: string;
+  tax: number;
 }
 
 export default function Payment(props: IPaymentProps) {
@@ -55,8 +56,8 @@ export default function Payment(props: IPaymentProps) {
       if (result.isConfirmed) {
         if (props.userInfo.country !== "") {
           let orderInfo: Order = {
-            tax: 1,
-            shippingFee: 1,
+            tax: props.tax,
+            shippingFee: 50,
             address: `[${props.userInfo.apartment}] ${props.userInfo.address}, ${props.userInfo.city}, ${props.userInfo.country}`,
             items: orderItems,
           };
@@ -177,7 +178,7 @@ export default function Payment(props: IPaymentProps) {
           <div className="basis-[70%] flex items-center">
             <p>Standard Shipping</p>
             <p className="mx-2">-</p>
-            <p className="font-medium">Free</p>
+            <p className="font-medium">$50.00</p>
           </div>
           <div className="basis-[10%]">
             <a

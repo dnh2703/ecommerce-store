@@ -27,7 +27,10 @@ export default function FormReview(props: any) {
       .then((res) => {
         props.closeWriteReview();
         Swal.fire("Success!", "Thank you for reviewing!", "success").then(
-          (res) => window.location.reload()
+          (res) => {
+            window.scrollTo(0, 0);
+            window.location.reload();
+          }
         );
       })
       .catch((e) => Swal.fire("Sorry :(", "Something went wrong!", "error"))

@@ -21,7 +21,9 @@ export default function ProductDetail(props: any) {
         </Box>
       </div>
       <h2 className="capitalize text-3xl py-1">{props.product?.name}</h2>
-      <p className="text-2xl py-1 mb-2">${props.product?.price / 100}</p>
+      <p className="text-2xl py-1 mb-2">
+        ${props.product?.price.toLocaleString()}
+      </p>
       <p className="capitalize py-4 border-b-[1px]">
         By <span className="text-amber-800">{props.product?.company}</span>
       </p>

@@ -28,7 +28,7 @@ export default function ProductCarousel(props: any) {
                   window.location.reload();
                   window.scrollTo(0, 0);
                 }}
-                className={`item sm:mx-5 lg:mx-14 w-[25%] cursor-pointer `}
+                className={`item max-lg:mx-3 lg:mx-14 w-[25%] cursor-pointer `}
               >
                 <div>
                   <img className="w-full" src={product.image} alt="" />
@@ -41,7 +41,9 @@ export default function ProductCarousel(props: any) {
                   <span>({product.numOfReviews})</span>
                 </Box>
                 <p className="text-lg mb-2">{product.name}</p>
-                <p className="text-gray-400">${product.price / 100}</p>
+                <p className="text-gray-400">
+                  ${product.price.toLocaleString()}
+                </p>
               </div>
             );
           })}

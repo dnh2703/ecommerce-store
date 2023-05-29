@@ -146,7 +146,7 @@ export const ProductRow = (props: IProductLayout) => {
         </div>
         <div>
           <Typography fontSize={20} variant="body1" color="gray">
-            ${props.product.price / 100}
+            ${props.product.price.toLocaleString()}
           </Typography>
         </div>
         <hr

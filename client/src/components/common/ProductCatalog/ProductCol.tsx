@@ -139,7 +139,7 @@ export const ProductsColumn = (props: IProductLayout) => {
         </Typography>
       </Link>
       <Typography variant="body1" color="gray">
-        ${props.product.price / 100}
+        ${props.product.price.toLocaleString()}
       </Typography>
     </Grid>
   );

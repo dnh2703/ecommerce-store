@@ -157,23 +157,21 @@ const Header = () => {
                 window.scrollTo(0, 0);
                 navigate("/cart");
               }}
-              className="text-[10px] absolute top-[-8px] right-[-8px] w-5 h-5 bg-black rounded-full flex items-center justify-center text-white"
+              className="text-[8px] cursor-pointer absolute top-[-5px] right-[-5px] w-4 h-4 bg-black rounded-full flex items-center justify-center text-white"
             >
-              <span>
-                {cartProducts.reduce(
-                  (acc: number, cartProduct: CartListProducts) => {
-                    return acc + cartProduct.quantity;
-                  },
-                  0
-                ) > 99
-                  ? "99+"
-                  : cartProducts.reduce(
-                      (acc: number, cartProduct: CartListProducts) => {
-                        return acc + cartProduct.quantity;
-                      },
-                      0
-                    )}
-              </span>
+              {cartProducts.reduce(
+                (acc: number, cartProduct: CartListProducts) => {
+                  return acc + cartProduct.quantity;
+                },
+                0
+              ) > 99
+                ? "99+"
+                : cartProducts.reduce(
+                    (acc: number, cartProduct: CartListProducts) => {
+                      return acc + cartProduct.quantity;
+                    },
+                    0
+                  )}
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import { QuickView } from "../QuickView";
 
 export default function BestRatingProducts(props: any) {
   let navigate = useNavigate();
-  let [isShowQuickView, setIsShowQuickView] = useState<boolean>(false);
 
   return (
     <div className="mb-20">
@@ -17,28 +16,25 @@ export default function BestRatingProducts(props: any) {
         {props.products?.map((product: IProduct) => (
           <div
             key={product.id}
-            className="cursor-pointer max-lg:px-2 max-lg:mb-6"
+            className="cursor-pointer basis-1/4 max-lg:basis-1/2 max-lg:px-2 max-lg:mb-6 "
+            onClick={() => {
+              navigate(`/products/${product.id}`);
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
           >
-            <div
-              onClick={() => {
-                navigate(`/products/${product.id}`);
-                window.location.reload();
-                window.scrollTo(0, 0);
-              }}
-            >
-              <div className="group/icon relative overflow-hidden">
-                <img src={product.image} alt="" />
-              </div>
-              <Box
-                sx={{ span: { fontSize: 14 } }}
-                className="flex items-center my-3"
-              >
-                <TextRating values={product.averageRating}></TextRating>
-                <span>({product.numOfReviews})</span>
-              </Box>
-              <p className="text-lg mb-2">{product.name}</p>
-              <p className="text-gray-400">${product.price / 100}</p>
+            <div className="group/icon relative overflow-hidden">
+              <img src={product.image} className="" alt="" />
             </div>
+            <Box
+              sx={{ span: { fontSize: 14 } }}
+              className="flex items-center my-3"
+            >
+              <TextRating values={product.averageRating}></TextRating>
+              <span>({product.numOfReviews})</span>
+            </Box>
+            <p className="text-lg mb-2">{product.name}</p>
+            <p className="text-gray-400">${product.price.toLocaleString()}</p>
           </div>
         ))}
       </div>

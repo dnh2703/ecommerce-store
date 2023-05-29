@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function Heading() {
   return (
-    <div>
+    <div className="mb-20">
       <p className="text-center text-[40px] pb-16">Shopping Cart</p>
       <div className="text-center">
         <div className="flex justify-center items-center ">
@@ -14,9 +14,6 @@ export default function Heading() {
           </div>
         </div>
       </div>
-      <p className="mt-8 mb-12 text-center text-gray-500 text-sm">
-        Congratulations , you've got free shipping!
-      </p>
     </div>
   );
 }

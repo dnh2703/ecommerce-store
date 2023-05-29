@@ -73,7 +73,7 @@ export default function InformationForm(props: IInformationFormProps) {
           )}
         </FormControl>
         <div className="flex gap-4">
-          <div className="flex flex-col">
+          <div className="flex flex-col basis-1/2">
             <TextField
               sx={{ width: "100%", fontSize: "14px" }}
               error={props.errors.firstName?.type === "pattern"}

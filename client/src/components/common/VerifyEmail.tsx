@@ -5,8 +5,6 @@ import LoadingPage from "./LoadingPage";
 
 const VerifyEmail = () => {
   let [searchParams] = useSearchParams();
-  console.log(searchParams.get("email"));
-  console.log(searchParams.get("token"));
   const email = searchParams.get("email");
   const token = searchParams.get("token");
   const [isLoading, setIsLoading] = useState(false);
