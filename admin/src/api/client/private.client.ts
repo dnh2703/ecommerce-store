@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const privateClient: AxiosInstance = axios.create({
-  baseURL: `http://localhost:5000/api/v1/`,
+  baseURL: `https://backend-store-ecommerce.onrender.com/api/v1/`,
 });
 
 privateClient.interceptors.request.use(
