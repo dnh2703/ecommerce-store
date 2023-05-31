@@ -52,11 +52,7 @@ export default () => {
         {images.map((img, i) => {
           return (
             <SwiperSlide key={i} className=" ">
-              <img
-                className="hover:animate-[buy_1s_linear] mb-5"
-                src={img.url}
-                alt=""
-              />
+              <img className=" mb-5" src={img.url} alt="" />
               <h3 className="text-center pb-5 text-white ">
                 {img.text}
                 <span className="w-full bg-black h-[1px] absolute bottom-[-4px] left-0 group-hover/terms:w-0 duration-300"></span>
