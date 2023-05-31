@@ -41,10 +41,10 @@ const TopRating = () => {
     .filter((product: IProduct) => product.inventory < 10)
     .slice(0, 4);
   return (
-    <div>
-      <div className=" flex justify-center items-center">
+    <div className="py-20">
+      <div className=" flex justify-center items-center mb-12">
         <button
-          className={`px-10 text-2xl md:text-4xl py-10 ease-in duration-500 ${
+          className={`mx-5 text-3xl  ease-in  ${
             isBorder ? "text-black border-b-2 border-black" : "text-slate-700"
           }`}
           onClick={() => {
@@ -55,7 +55,7 @@ const TopRating = () => {
           Top Rating
         </button>
         <button
-          className={`px-10 text-2xl md:text-4xl py-10 ease-in duration-500 ${
+          className={`mx-5 text-3xl  ease-in  ${
             isBorder ? "text-slate-700" : "text-black border-b-2 border-black"
           }`}
           onClick={() => {

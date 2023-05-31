@@ -82,7 +82,7 @@ export default function Review(props: IProductReview) {
       {props.reviews?.map((review: IReview) => (
         <div
           key={review._id}
-          className="border border-gray-300 py-8 px-10 my-10"
+          className="border border-gray-300 py-8 px-10 my-10 max-sm:px-3"
         >
           <div className="flex  items-center ">
             <Box sx={{ span: { fontSize: 15 }, mr: 1 }}>

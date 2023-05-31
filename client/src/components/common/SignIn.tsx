@@ -6,6 +6,8 @@ import { AxiosError } from "axios";
 import { ILoginForm } from "../../interfaces/auth";
 import Cookies from "js-cookie";
 import ForgotPassword from "./ForgotPassword";
+import Container from "@mui/material/Container";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -36,15 +38,17 @@ const SignIn = () => {
           if (res.status === 200) {
             Cookies.set("accessToken", res.data.accessToken);
             Cookies.set("refreshToken", res.data.refreshToken);
-            const useJson = JSON.stringify(res.data.user);
-
-            localStorage.setItem("user", useJson);
-
-            navigate("/account/customer-profile");
+            const userJson = JSON.stringify(res.data.user);
+            localStorage.setItem("user", userJson);
+            Swal.fire(
+              "Success!",
+              `Hi ${res.data.user.name}, Welcome back!`,
+              "success"
+            ).then((res) => navigate("/account/customer-profile"));
           }
         })
         .catch((err) => {
-          setError(`${err.response?.data.msg}`);
+          Swal.fire("Sorry :(", "Your password is not correct", "error");
         })
         .finally(() => setLoading(false));
     }
@@ -63,119 +67,122 @@ const SignIn = () => {
       {accessToken && refreshToken ? (
         <Navigate to="/account/customer-profile" />
       ) : (
-        <div className="box-border px-10 flex w-full justify-between mt-24 ">
-          <div className="">
-            <h1 className="text-6xl text-center mb-8">Account</h1>
-
-            <div className="flex justify-between items-start   max-[700px]:block mb-28 gap-20">
-              {forgotPassword ? (
-                <>
-                  <div className="w-2/4 mx-3 max-[700px]:w-full">
-                    <div>
-                      <h1 className="text-4xl">Sign In</h1>
+        <Container maxWidth="lg">
+          <div className="box-border px-10 flex w-full mt-[86.8px] ">
+            <div className="">
+              <h2 className="text-5xl text-center my-10">Account</h2>
+              <div className="flex max-md:flex-wrap items-start mb-28 gap-10">
+                {forgotPassword ? (
+                  <>
+                    <div className="w-2/4 max-md:w-full">
                       <div>
-                        <p className="text-red-500">{error}</p>
-                      </div>
-                      <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                          <input
-                            className="border border-slate-400 h-12 w-full mt-4 max-[700px]:w-full pl-2 mb-2 "
-                            id="email"
-                            placeholder="Email"
-                            {...register("email", {
-                              required: true,
-                              minLength: 5,
-                              maxLength: 30,
-                              pattern: /^\S+@\S+$/i,
-                            })}
-                          />
+                        <h2 className="text-2xl mb-7">Sign In</h2>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                           <div>
-                            {errors.email?.type === "required" && (
-                              <p className="text-red-600">
-                                you can not your email
-                              </p>
-                            )}
-                            {errors.email?.type === "minLength" && (
-                              <p className="  text-red-600">min length 5</p>
-                            )}
-                            {errors.email?.type === "maxLength" && (
-                              <p className="  text-red-600">Max length 30</p>
-                            )}
-                            {errors.email?.type === "pattern" && (
-                              <p className="  text-red-600">
-                                Please enter a valid email address
-                              </p>
-                            )}
+                            <input
+                              className="border border-slate-400 w-full py-3 px-5 "
+                              id="email"
+                              placeholder="Email"
+                              {...register("email", {
+                                required: true,
+                                minLength: 5,
+                                maxLength: 30,
+                                pattern: /^\S+@\S+$/i,
+                              })}
+                            />
+
+                            <div>
+                              {errors.email?.type === "required" && (
+                                <p className="text-red-600 mt-1 text-xs">
+                                  Enter a valid email
+                                </p>
+                              )}
+                              {errors.email?.type === "minLength" && (
+                                <p className="  text-red-600 mt-1 text-xs">
+                                  min length 5
+                                </p>
+                              )}
+                              {errors.email?.type === "maxLength" && (
+                                <p className="  text-red-600 mt-1 text-xs">
+                                  Max length 30
+                                </p>
+                              )}
+                              {errors.email?.type === "pattern" && (
+                                <p className="  text-red-600 mt-1 text-xs">
+                                  Please enter a valid email address
+                                </p>
+                              )}
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="relative">
-                          <input
-                            type={checkPassword ? "text" : "password"}
-                            className="border border-slate-400 h-12 w-full mt-5 max-[700px]:w-full  pl-2 mb-2"
-                            id="password"
-                            placeholder="Password"
-                            {...register("password", {
-                              required: true,
-                            })}
-                          />
-                          <p
-                            className="absolute right-4 top-8 "
-                            onClick={handleCheckPassword}
-                          >
-                            <i className="fa-solid fa-eye "></i>
-                          </p>
-                        </div>
+                          <div className="relative">
+                            <input
+                              type={checkPassword ? "text" : "password"}
+                              className="border border-slate-400 py-3 my-3 px-5 w-full max-[700px]:w-full"
+                              id="password"
+                              placeholder="Password"
+                              {...register("password", {
+                                required: true,
+                              })}
+                            />
+                            <div
+                              className="absolute top-1/2 right-4 cursor-pointer translate-y-[-50%]"
+                              onClick={handleCheckPassword}
+                            >
+                              <i className="fa-solid fa-eye "></i>
+                            </div>
+                          </div>
 
-                        <div>
-                          <p
-                            onClick={handleForgotPassword}
-                            className="underline mt-6  mb-6  cursor-pointer"
-                          >
-                            Forgot your password!
-                          </p>
-                        </div>
+                          <div>
+                            <p
+                              onClick={handleForgotPassword}
+                              className="underline mt-6  mb-6  cursor-pointer"
+                            >
+                              Forgot your password?
+                            </p>
+                          </div>
 
-                        <div>
-                          <button className="border border-slate-400 h-12 w-full hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
-                            {loading ? "loading..." : " Sign In"}
-                          </button>
-                        </div>
-                      </form>
+                          <div>
+                            <button className="border border-slate-400 uppercase text-xs tracking-[3px] h-12 w-full hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
+                              {loading ? "loading..." : " Sign In"}
+                            </button>
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                </>
-              ) : (
-                <ForgotPassword
-                  setForgotPassword={() => {
-                    setForgotPassword(!forgotPassword);
-                  }}
-                />
-              )}
-              <div className=" w-2/4 mx-3   max-[700px]:w-full max-[700px]:mt-20">
-                <div className="max-[700px]:w-full">
-                  <h1 className="text-4xl mb-10">New customer?</h1>
-                  <div>
-                    <p className="text-2xl text-slate-500 leading-normal mb-7 w-3/4">
-                      Sign up for early Sale access plus tailored new arrivals,
-                      trends and promotions. To opt out, click unsubscribe in
-                      our emails.
-                    </p>
-                  </div>
-                  <div>
-                    <button
-                      onClick={() => navigate("/account/register")}
-                      type="button"
-                      className="h-12 border border-slate-500 w-36 hover:bg-red-900 bg-slate-900 text-white"
-                    >
-                      REGISTER
-                    </button>
+                  </>
+                ) : (
+                  <ForgotPassword
+                    setForgotPassword={() => {
+                      setForgotPassword(!forgotPassword);
+                    }}
+                  />
+                )}
+                <div className=" w-2/4 mx-3   max-md:w-full ">
+                  <div className="">
+                    <h2 className="text-2xl mb-6">New Customers?</h2>
+                    <div>
+                      <p className="text-md text-slate-500 mb-6 leading-normal">
+                        Sign up for early Sale access plus tailored new
+                        arrivals, trends and promotions. To opt out, click
+                        unsubscribe in our emails.
+                      </p>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => navigate("/account/register")}
+                        type="button"
+                        className="h-12 text-xs tracking-[3px] border border-slate-500 w-36 hover:bg-red-900 bg-slate-900 text-white"
+                      >
+                        REGISTER
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       )}
     </>
   );

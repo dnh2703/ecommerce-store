@@ -33,12 +33,10 @@ const SignUpForm = () => {
     authApi
       .register(data)
       .then((res) => {
-        if (res.status === 200) {
-          setIsSuccess(true);
-          Swal.fire("Check email", "Please verify your email!", "warning").then(
-            (res) => navigate("/account/login")
-          );
-        }
+        setIsSuccess(true);
+        Swal.fire("Check email", "Please verify your email!", "warning").then(
+          (res) => navigate("/account/login")
+        );
       })
       .catch((error) => {
         console.log("error: ", error);

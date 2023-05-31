@@ -12,7 +12,7 @@ export default function ProductCarousel(props: any) {
   let [count, setCount] = useState<number>(0);
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 max-sm:hidden">
       <p className="text-3xl text-center mb-9">The same brand</p>
       <div className="overflow-hidden relative my-10 ">
         <div
