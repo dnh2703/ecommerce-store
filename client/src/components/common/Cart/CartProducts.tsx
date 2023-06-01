@@ -21,10 +21,10 @@ export default function CartProducts(props: any) {
             return (
               <div
                 key={wProduct.product.id}
-                className="flex py-4  max-md:justify-end"
+                className="flex py-4 max-sm:justify-between max-sm:flex-wrap  max-md:justify-end"
               >
-                <div className="basis-1/2 flex max-md:basis-full">
-                  <div className="basis-1/4 max-md:basis-full mr-5 max-md:mb-2">
+                <div className="basis-1/2 max-sm:basis-full flex max-md:basis-full">
+                  <div className="basis-1/4 max-sm:basis-1/3 max-md:basis-full mr-5 max-md:mb-2">
                     <img
                       className="w-full"
                       src={wProduct.product.image}
@@ -38,7 +38,7 @@ export default function CartProducts(props: any) {
                     </p>
                   </div>
                 </div>
-                <div className="basis-1/4 max-md:basis-1/4 max-md:inline-flex flex-col items-center flex justify-center">
+                <div className="basis-1/4  max-md:basis-1/4 max-md:inline-flex flex-col items-center flex justify-center">
                   <div className="flex mx-14 max-md:mx-0 justify-center mt-2 border items-center border-gray-300">
                     <button
                       onClick={() => {
@@ -113,7 +113,7 @@ export default function CartProducts(props: any) {
                     Remove
                   </div>
                 </div>
-                <div className="basis-1/4 max-md:basis-1/2  flex items-center justify-end">
+                <div className="basis-1/4 max-md:basis-2/3 max-sm:basis-0  flex items-center justify-end">
                   <div className="text-sm">
                     {props.format2(
                       wProduct.product.price * wProduct.quantity,
