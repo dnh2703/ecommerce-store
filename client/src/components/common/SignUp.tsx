@@ -14,7 +14,6 @@ const SignUpForm = () => {
     watch,
   } = useForm<IRegisterForm>();
 
-  const [isSuccess, setIsSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
@@ -33,13 +32,15 @@ const SignUpForm = () => {
     authApi
       .register(data)
       .then((res) => {
-        setIsSuccess(true);
-        Swal.fire("Check email", "Please verify your email!", "warning").then(
-          (res) => navigate("/account/login")
-        );
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          html:
+            `<p class="font-bold text-xl pb-2"> You have register for your account </p>` +
+            `<p className="text-xs">Check your email for your account activation link. </p>`,
+        }).then((res) => navigate("/account/login"));
       })
       .catch((error) => {
-        console.log("error: ", error);
         Swal.fire("Sorry :(", "Something went wrong", "error");
       })
       .finally(() => setLoading(false));
@@ -213,7 +214,7 @@ const SignUpForm = () => {
           <button
             className="bg-gray-900 hover:bg-orange-900 text-white  py-2 px-4 rounded-none focus:outline-none focus:shadow-outline w-full mb-5 transition-all"
             type="submit"
-            disabled={loading || isSuccess}
+            disabled={loading}
           >
             {loading ? (
               <svg
@@ -250,12 +251,6 @@ const SignUpForm = () => {
           </button>
         </div>
       </form>
-      {isSuccess && (
-        <div className="bg-green-200 text-green-800 p-4 rounded">
-          Registration successful! Please check your email to verify your
-          account.
-        </div>
-      )}
     </div>
   );
 };
