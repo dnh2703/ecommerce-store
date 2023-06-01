@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import Header from "../components/common/Header";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const {
@@ -8,7 +10,14 @@ const Contact = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  let navigate = useNavigate();
+  const onSubmit = (data: any) => {
+    Swal.fire(
+      "Done!",
+      "We will contact you as soon as possible!",
+      "success"
+    ).then((res) => navigate("/"));
+  };
   return (
     <div className="flex flex-col px-5 md:flex md:flex-row md:justify-center gap-20 pt-20 mt-20 mb-20">
       <div>
@@ -58,7 +67,7 @@ const Contact = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <input
-              {...register("name", { required: true, pattern: /^[^\s]+$/ })}
+              {...register("name", { required: true, pattern: /^([^0-9]*)$/ })}
               className=" appearance-none border rounded-none w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-200 text-black placeholder-gray-600"
               id="name"
               type="text"
@@ -68,7 +77,7 @@ const Contact = () => {
               <span className="text-red-500 text-xs">Name is required</span>
             )}
             {errors.name?.type == "pattern" && (
-              <span className="text-red-500 text-xs">Space is not valid</span>
+              <span className="text-red-500 text-xs">Number is not valid</span>
             )}
           </div>
           <div className="mb-4">

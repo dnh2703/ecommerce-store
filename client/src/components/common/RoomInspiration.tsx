@@ -13,7 +13,7 @@ const RoomInspiration = () => {
     setIsHovered(true);
   };
   return (
-    <div className="flex flex-col md:flex-row pt-10">
+    <div className="flex flex-col md:flex-row ">
       <div className="md:w-2/5 bg-gray-800 text-white pl-10  ">
         <div className="h-full flex flex-col justify-center my-5">
           <h3 className="text-5xl pb-5">Room </h3>

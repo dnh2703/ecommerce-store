@@ -24,7 +24,7 @@ export default function ProductPage() {
   let { products, isLoading } = useAppSelector((state) => state.product);
 
   // let [products, setProducts] = useState<IProduct[]>([]);
-  let [cols, setCols] = useState<number>(4);
+  let [cols, setCols] = useState<number>(6);
   let [isRow, setIsRow] = useState<boolean>(false);
   let [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   let [isShowAllProducts, setIsShowAllProducts] = useState<boolean>(false);
@@ -222,7 +222,7 @@ export default function ProductPage() {
             <div
               className={` ${
                 isShowFilter ? "w-full" : " w-0"
-              } fixed h-full z-20 top-0 left-0 duration-500 ml-8`}
+              } fixed h-full z-20 top-0 left-0 duration-500 `}
               onClick={(e) => {
                 setIsShowFilter(false);
               }}
@@ -239,8 +239,8 @@ export default function ProductPage() {
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                className={`py-20 duration-500 h-full overflow-hidden absolute bg-white z-50 ${
-                  isShowFilter ? "w-2/5" : "w-0"
+                className={`py-20 duration-500 h-full overflow-x-scroll absolute bg-white z-50 ${
+                  isShowFilter ? "w-2/5 max-sm:w-full pl-8" : "w-0"
                 }`}
               >
                 <div
@@ -291,13 +291,13 @@ export default function ProductPage() {
             <Grid
               onClick={() => setIsShowFilter(true)}
               sx={{ display: { md: "none", xs: "inline-flex" } }}
-              className="text-sm mx-6 border border-black py-2 px-7 uppercase justify-center items-center cursor-pointer hover:text-white hover:bg-black duration-500"
+              className="text-sm mx-6 max-sm:mx-1 border border-black py-2 px-7 uppercase justify-center items-center cursor-pointer hover:text-white hover:bg-black duration-500"
             >
               <i className="fa-solid fa-sliders mr-2"></i>{" "}
               <span className="font-bold">filter</span>
             </Grid>
 
-            <Grid container sx={{ px: 3 }}>
+            <Grid container className="px-6 max-sm:px-1">
               <Grid item sx={{ justifyContent: "center", width: "0" }} md={3}>
                 <FilterPannel
                   filteredProducts={filteredProducts}
@@ -345,8 +345,17 @@ export default function ProductPage() {
                     isPriceChange={isPriceChange}
                     price={price}
                   />
-                  <Grid item xs={4} container sx={{ justifyContent: "end" }}>
+
+                  <Grid
+                    item
+                    sm={4}
+                    container
+                    sx={{
+                      justifyContent: "end",
+                    }}
+                  >
                     <GridView
+                      className="md:hidden"
                       onClick={() => {
                         setIsRow(false);
                         setCols(6);

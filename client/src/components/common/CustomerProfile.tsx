@@ -1,13 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../scss/styleactive.scss";
 import { useEffect, useState } from "react";
 import authApi from "../../api/authApi";
-import { any } from "prop-types";
-
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { error } from "console";
-import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import orderApi from "../../api/orderApi";
 import LoadingPage from "./LoadingPage";
@@ -31,7 +27,7 @@ const CustomerProfile = () => {
         if (res.status === 200) {
           Cookies.remove("accessToken");
           Cookies.remove("refreshToken");
-
+          window.scrollTo(0, 0);
           navigate("/");
         }
       })
@@ -49,83 +45,77 @@ const CustomerProfile = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const { email, name } = user;
   return (
     <div>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         {isLoading ? (
           <LoadingPage />
         ) : (
-          <div className=" box-border mx-9 h-screen ">
-            <header className="py-8  mt-24">
-              <h1 className=" text-center text-6xl">My Account</h1>
-            </header>
-            <div className="">
-              <div className="">
-                <div className="flex max-[700px]:block">
-                  <div className="w-2/5 max-[700px]:w-full">
-                    <p className="h-2/4 border flex items-center p-6 text-xl bg-orange-900 text-white">
-                      Dashboard
-                    </p>
+          <div className=" box-border mx-9 pb-28  pt-[86.8px]">
+            <h2 className="text-5xl text-center my-10">My Account</h2>
 
-                    <p
+            <div className="flex max-md:block gap-7">
+              <div className="basis-[25%] max-md:w-full  mb-7">
+                <p className=" border flex items-center py-3 px-5 bg-orange-900 text-white">
+                  Dashboard
+                </p>
+
+                <p
+                  onClick={LogoutToken}
+                  className="cursor-pointer  flex items-center  border py-3 px-5"
+                >
+                  Log out
+                </p>
+              </div>
+              <div className="basis-[75%] max-md:w-full">
+                <div className="mb-5 text-sm page-account__welcome">
+                  <p className="mb-4  text-slate-500">
+                    Hello <strong>{user.name}</strong> ( not{" "}
+                    <strong>{user.name}</strong>?
+                    <span
                       onClick={LogoutToken}
-                      className="cursor-pointer  flex items-center h-2/4 border text-xl p-6"
+                      className="cursor-pointer ml-1 text-red-500"
                     >
-                      Log out
-                    </p>
-                  </div>
-                  <div className="w-3/5 mx-9 max-[700px]:w-full max-[700px]:mx-0  max-[700px]:pt-4  ">
-                    <div className="page-account__welcome">
-                      <p className="mb-4  text-xl text-slate-500">
-                        Hello <strong>{name}</strong> ( not{" "}
-                        <strong>{name}</strong>?
-                        <span
-                          onClick={LogoutToken}
-                          className="cursor-pointer text-red-500"
+                      Log Out
+                    </span>
+                    )
+                  </p>
+                  <p className=" text-slate-500">
+                    Email: <strong>{user.email}</strong>
+                  </p>
+                </div>
+                <div className="">
+                  <h2 className=" text-xl mb-2">Order History</h2>
+                  <div className="box-account__content">
+                    {orders?.length > 0 ? (
+                      <div className=" text-slate-500">
+                        <i className="fa-solid fa-clock mr-2 text-orange-400"></i>
+                        <Link
+                          to="/account/orders"
+                          onClick={() => {
+                            window.scrollTo(0, 0);
+                          }}
+                          className="text-orange-400 mr-2"
                         >
-                          Log Out
-                        </span>
-                        )
-                      </p>
-                      <p className=" text-xl text-slate-500">
-                        Email: <strong>{email}</strong>
-                      </p>
-                    </div>
-                    <div className="page-account__order">
-                      <h1 className="box-account__heading">Order History</h1>
-                      <div className="box-account__content">
-                        {orders?.length > 0 ? (
-                          <div className=" text-xl text-slate-500">
-                            <i className="fa-solid fa-clock mr-4 text-orange-400 text-2xl"></i>
-                            <Link
-                              to="/account/orders"
-                              onClick={() => {
-                                window.scrollTo(0, 0);
-                              }}
-                              className="text-orange-400 mr-2"
-                            >
-                              SHOW YOUR ORDERS
-                            </Link>
-                            You have {orders.length} order(s)
-                          </div>
-                        ) : (
-                          <div className=" text-xl text-slate-500">
-                            <i className="fa-solid fa-circle-exclamation mr-4 text-lime-600 text-2xl"></i>
-                            <Link
-                              to="/products"
-                              onClick={() => {
-                                window.scrollTo(0, 0);
-                              }}
-                              className="text-lime-600 mr-2"
-                            >
-                              CREARTE YOUR FISRST ORDER
-                            </Link>
-                            You haven't placed any orders yet.
-                          </div>
-                        )}
+                          SHOW YOUR ORDERS
+                        </Link>
+                        You have {orders.length} order(s)
                       </div>
-                    </div>
+                    ) : (
+                      <div className=" text-slate-500">
+                        <i className="fa-solid fa-circle-exclamation mr-2 text-lime-600"></i>
+                        <Link
+                          to="/products"
+                          onClick={() => {
+                            window.scrollTo(0, 0);
+                          }}
+                          className="text-lime-600 mr-2"
+                        >
+                          CREARTE YOUR FISRST ORDER
+                        </Link>
+                        You haven't placed any orders yet.
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

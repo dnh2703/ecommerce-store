@@ -39,7 +39,7 @@ export const FilterPannel = (props: any) => {
   let [isShow, setIsShow] = useState<boolean>(true);
 
   return (
-    <>
+    <div className="">
       <SideComponent
         onclik={props.onclick}
         names={["bedroom", "kitchen", "office"]}
@@ -205,6 +205,6 @@ export const FilterPannel = (props: any) => {
           </FeaturedProductItem>
         </Grid>
       )}
-    </>
+    </div>
   );
 };

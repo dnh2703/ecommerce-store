@@ -8,7 +8,7 @@ const TwoImage = () => {
     },
   ];
   return (
-    <div className="flex flex-col md:flex-row pt-10 gap-10 px-10 py-20">
+    <div className="flex flex-col md:flex-row gap-10 px-10 py-20 border-b border-back">
       <div className="text-center">
         <div className="overflow-hidden group/zoom mb-10">
           <img

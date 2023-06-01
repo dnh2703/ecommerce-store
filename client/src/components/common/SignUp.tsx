@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 import authApi from "../../api/authApi";
 import { Navigate, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SignUpForm = () => {
   const {
@@ -29,18 +30,17 @@ const SignUpForm = () => {
 
   const onSubmit = (data: IRegisterForm) => {
     setLoading(true);
-    console.log(data);
     authApi
       .register(data)
       .then((res) => {
-        if (res.status === 200) {
-          setIsSuccess(true);
-          alert("Please verify your email");
-          navigate("/account/login");
-        }
+        setIsSuccess(true);
+        Swal.fire("Check email", "Please verify your email!", "warning").then(
+          (res) => navigate("/account/login")
+        );
       })
       .catch((error) => {
         console.log("error: ", error);
+        Swal.fire("Sorry :(", "Something went wrong", "error");
       })
       .finally(() => setLoading(false));
   };

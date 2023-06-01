@@ -35,8 +35,8 @@ const Testimonials = () => {
     },
   ];
   return (
-    <div className="mb-10">
-      <h2 className="text-center py-10 text-4xl text-black">
+    <div className="py-20 px-5">
+      <h2 className="text-center mb-10 text-3xl text-black">
         Our testimonials
       </h2>
       <Swiper
@@ -56,7 +56,7 @@ const Testimonials = () => {
         {images.map((img, i) => {
           return (
             <SwiperSlide key={i} className="text-center">
-              <div className="flex items-center justify-center pb-5">
+              <div className="flex items-center justify-center pb-2 ">
                 <svg
                   aria-hidden="true"
                   className="w-5 h-5 text-yellow-400"
@@ -109,7 +109,7 @@ const Testimonials = () => {
                 </svg>
               </div>
               <h2 className="text-2xl text-black pb-5">{img.title}</h2>
-              <p className="text-md text-black pb-5">{img.text}</p>
+              <p className="text-sm pb-5 px-5 text-gray-500">{img.text}</p>
               <img
                 className=" mb-5 rounded-full text-center inline-block"
                 src={img.url}

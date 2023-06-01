@@ -33,7 +33,7 @@ export default function AskModal(props: any) {
         onClick={props.closeModal}
         className="absolute w-full h-[100vh] top-0 left-0 bg-stone-950 opacity-60 "
       ></div>
-      <div className="h-4/5 absolute z-[3]  translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-gray-100 w-[500px] p-8 animate-[modalHeight_0.5s_ease-in-out]  overflow-y-scroll">
+      <div className="max-sm:w-full max-sm:top-[40%] h-4/5 absolute z-[3]  translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-gray-100 w-[500px] p-8 animate-[modalHeight_0.5s_ease-in-out]  overflow-y-scroll">
         <div className="border-b-[1px] flex justify-between border-gray-300 mb-8">
           <h2 className="pb-4 text-3xl border-b-2 border-black inline-block">
             Ask a question

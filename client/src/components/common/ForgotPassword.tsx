@@ -21,7 +21,6 @@ export default function ForgotPassword(props: any) {
 
   const handleSubmitForgotPassword = (data: IForgotPassword) => {
     setLoading(true);
-    console.log(data);
     authApi
       .forgotPassword(data)
       .then((response) => {
@@ -42,10 +41,10 @@ export default function ForgotPassword(props: any) {
     setForgotPassword();
   };
   return (
-    <div className="w-2/4 box-border max-[700px]:w-full  max-[700px]:mx-3 mb-8">
+    <div className="w-2/4 box-border max-md:w-full">
       <div>
-        <h1 className="text-4xl">Reset your password</h1>
-        <p className="my-6 text-xl text-gray-500">
+        <h2 className="text-2xl mb-1">Reset your password</h2>
+        <p className=" text-gray-500 mb-5">
           We will send you an email to forgot password.
         </p>
       </div>
@@ -68,7 +67,7 @@ export default function ForgotPassword(props: any) {
         </div>
 
         <input
-          className="border border-slate-400 h-12 w-full mt-4 max-[700px]:w-full pl-2 mb-2 "
+          className="border border-slate-400 w-full py-3 px-5 "
           id="email"
           placeholder="Email"
           {...register("email", {
@@ -78,18 +77,18 @@ export default function ForgotPassword(props: any) {
           })}
         />
         {errors.email?.type === "required" && (
-          <p className="text-red-600">you can not your email</p>
+          <p className="text-red-600 mt-1 text-xs">Enter a valid email</p>
         )}
         {errors.email?.type === "pattern" && (
           <p className="  text-red-600">Please enter a valid email address</p>
         )}
         <div className="mt-6">
-          <button className=" text-xl  border border-slate-400 h-14 w-1/2 hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
+          <button className="  border text-xs tracking-[3px] border-slate-400 h-12 w-1/2 hover:bg-red-900 bg-slate-900 text-white  max-[700px]:w-full">
             {loading ? "loading..." : "SUBMIT"}
           </button>
           <p
             onClick={handleSetForgotPassword}
-            className="max-[700px]:w-full max-[700px]: mt-4  text-xl w-2/4 inline-block text-center cursor-pointer underline"
+            className="max-[700px]:w-full max-[700px]: mt-4  w-2/4 inline-block text-center cursor-pointer underline"
           >
             Cancel
           </p>

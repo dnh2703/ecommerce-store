@@ -79,7 +79,7 @@ export default function ProductDetailPage() {
   return (
     <>
       {!isLoading ? (
-        <div className="relative px-8 mt-[100px]">
+        <div className="relative max-sm:px-1 px-8 mt-[100px]">
           {isScroll && (
             <div
               onClick={() => window.scrollTo(0, 0)}
@@ -149,7 +149,7 @@ export default function ProductDetailPage() {
             </header>
 
             <div className="flex max-lg:flex-wrap">
-              <div className="max-lg:mb-10 pr-10 max-lg:basis-full basis-1/2 relative">
+              <div className="max-lg:mb-10 lg:pr-10 max-lg:basis-full basis-1/2 relative">
                 <img
                   src={product?.image}
                   className={`${

@@ -125,7 +125,7 @@ export const ProductRow = (props: IProductLayout) => {
       <Grid
         item
         xs={7}
-        sx={{ pl: 7, cursor: "pointer" }}
+        sx={{ pl: 7, cursor: "pointer", width: "100%" }}
         onClick={() => navigate(`/products/${props.product.id}`)}
       >
         <div className="flex items-center ">
