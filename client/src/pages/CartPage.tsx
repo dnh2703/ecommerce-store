@@ -91,7 +91,7 @@ export default function Cart(props: any) {
               />
             )}
           </>
-          <div className="py-20 px-10">
+          <div className="py-20 max-sm:px-1 px-10">
             <Heading />
             <div>
               <CartProducts
@@ -194,7 +194,7 @@ export default function Cart(props: any) {
                         }
                         window.scrollTo(0, 0);
                       }}
-                      className={`my-5 uppercase  leading-[50px] w-1/2  group/buy duration-500 ${
+                      className={`my-5 uppercase max-sm:w-full  leading-[50px] w-1/2  group/buy duration-500 ${
                         isAgree
                           ? "text-black border-black hover:bg-[#6e2f1b]"
                           : "text-gray-300 border-gray-300"

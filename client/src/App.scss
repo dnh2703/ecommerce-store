@@ -43,6 +43,16 @@ a.active {
   animation: spin-anim 1.2s linear infinite;
 }
 
+.notShow {
+  display: block;
+}
+
+@media only screen and (max-width: 640px) {
+  .notShow {
+    display: none !important;
+  }
+}
+
 @keyframes spin-anim {
   0% {
     transform: rotate(0deg);

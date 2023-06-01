@@ -68,7 +68,7 @@ const SignIn = () => {
         <Navigate to="/account/customer-profile" />
       ) : (
         <Container maxWidth="lg">
-          <div className="box-border px-10 flex w-full mt-[86.8px] ">
+          <div className="box-border px-10 max-sm:px-1 flex w-full mt-[86.8px] ">
             <div className="">
               <h2 className="text-5xl text-center my-10">Account</h2>
               <div className="flex max-md:flex-wrap items-start mb-28 gap-10">

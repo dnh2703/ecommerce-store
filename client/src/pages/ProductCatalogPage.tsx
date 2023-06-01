@@ -24,7 +24,7 @@ export default function ProductPage() {
   let { products, isLoading } = useAppSelector((state) => state.product);
 
   // let [products, setProducts] = useState<IProduct[]>([]);
-  let [cols, setCols] = useState<number>(6);
+  let [cols, setCols] = useState<number>(window.innerWidth <= 640 ? 6 : 4);
   let [isRow, setIsRow] = useState<boolean>(false);
   let [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   let [isShowAllProducts, setIsShowAllProducts] = useState<boolean>(false);
@@ -353,6 +353,7 @@ export default function ProductPage() {
                     sx={{
                       justifyContent: "end",
                     }}
+                    className="notShow"
                   >
                     <GridView
                       className="md:hidden"

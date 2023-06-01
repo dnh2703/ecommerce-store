@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function SkeletonProductDetail() {
   return (
-    <div className="animate-pulse px-8 mt-[100px]">
+    <div className="animate-pulse px-8 max-sm:px-0 mt-[100px]">
       <div className="px-6">
         <div className="py-5">
           <div className="bg-slate-200 h-[18px] w-[240px] rounded"></div>

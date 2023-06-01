@@ -11,11 +11,11 @@ export default function About() {
           <h1 className="text-5xl text-white z-[1]">About Us</h1>
         </div>
       </div>
-      <div className="mx-16">
+      <div className="mx-16 max-sm:mx-4">
         <h1 className=" my-14 font-medium text-3xl text-center">
           WELCOME OUR STORE!
         </h1>
-        <div className="text-base">
+        <div className="text-base text-justify">
           <p className="mb-8 ">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
             hic amet repellendus assumenda voluptatem iste. In exercitationem

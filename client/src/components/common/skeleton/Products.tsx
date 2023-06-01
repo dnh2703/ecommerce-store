@@ -2,12 +2,12 @@ import * as React from "react";
 
 export default function ProductsSkeleton() {
   return (
-    <div className="animate-pulse pt-10 mt-[86.8px] px-5">
+    <div className="animate-pulse pt-10 mt-[86.8px] px-5 max-sm:px-1">
       <div className="flex items-center w-full justify-center flex-col mb-10 pb-8">
         <div className="bg-slate-200 h-[50px] w-[199px] rounded mb-5"></div>
         <div className="bg-slate-200 h-[18px] w-[122px] rounded"></div>
       </div>
-      <div className="flex px-6 ">
+      <div className="flex px-6 max-sm:px-1 ">
         <div className="basis-1/4 max-lg:hidden max-h-[950px] shadow rounded-md p-4 border border-gray-300">
           <div>
             <div className="bg-slate-200 h-[24px] w-full rounded mb-4"></div>

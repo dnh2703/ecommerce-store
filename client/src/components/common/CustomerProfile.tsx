@@ -51,7 +51,7 @@ const CustomerProfile = () => {
         {isLoading ? (
           <LoadingPage />
         ) : (
-          <div className=" box-border mx-9 pb-28  pt-[86.8px]">
+          <div className=" box-border mx-9 pb-28 max-sm:mx-1 pt-[86.8px]">
             <h2 className="text-5xl text-center my-10">My Account</h2>
 
             <div className="flex max-md:block gap-7">

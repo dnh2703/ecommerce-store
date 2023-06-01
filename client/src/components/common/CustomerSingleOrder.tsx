@@ -11,7 +11,7 @@ export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
   let [date, setDate] = useState<Date>(new Date(props.order.createdAt));
   return (
     <div
-      className="bg-white relative mb-5 text-sm cursor-pointer py-5 px-10 border border-black"
+      className="bg-white relative mb-5 text-sm cursor-pointer py-5 max-sm:px-4 px-10 border border-black"
       key={props.order?._id}
       onClick={() => {
         setIsShow(!isShow);
@@ -24,7 +24,7 @@ export default function CustomerSingleOrder(props: ICustomerSingleOrderProps) {
       )}
       <div className="capitalize flex justify-between">
         <div>Order: {props.order?._id}</div>
-        <div className="flex items-center">
+        <div className="flex max-sm:ml-4 items-center">
           <p>{props.order?.status}</p>
           <div className="flex items-center h-full">
             <i
