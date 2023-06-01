@@ -33,7 +33,7 @@ const register = async (req, res) => {
     role,
     verificationToken,
   });
-  const origin = process.env.ORIGIN 
+  const origin = process.env.ORIGIN
 
   await sendVerificationEmail({
     name: user.name,
@@ -77,12 +77,12 @@ const login = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new CustomError.UnauthenticatedError("Email is not correct");
+    throw new CustomError.UnauthenticatedError("Incorrect email or password!");
   }
   const isPasswordCorrect = await user.comparePassword(password);
 
   if (!isPasswordCorrect) {
-    throw new CustomError.UnauthenticatedError("Password is not correct");
+    throw new CustomError.UnauthenticatedError("Incorrect email or password!");
   }
   if (!user.isVerified) {
     throw new CustomError.UnauthenticatedError("Please verify your email");
@@ -138,7 +138,7 @@ const forgotPassword = async (req, res) => {
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString("hex");
     // send email
-    const origin = process.env.ORIGIN 
+    const origin = process.env.ORIGIN
     await sendResetPasswordEmail({
       name: user.name,
       email: user.email,

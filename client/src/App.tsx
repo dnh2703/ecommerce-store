@@ -56,7 +56,14 @@ function App() {
               <Route path="register" element={<SignUp />} />
               <Route path="verify-email" element={<VerifyEmail />} />
               <Route path="reset-password" element={<ResetPassword />} />
-              <Route path="orders" element={<CustomerOrderList />} />
+              <Route
+                path="orders"
+                element={
+                  <ProtectRoute>
+                    <CustomerOrderList />
+                  </ProtectRoute>
+                }
+              />
               <Route
                 path="customer-profile"
                 element={

@@ -62,9 +62,9 @@ const Contact = () => {
           <p className="mb-2">Copyright © 2023. All Rights Reserved.</p>
         </div>
       </div>
-      <div>
+      <div className="md:w-[500px]">
         <h1>Contact Form</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="mb-4">
             <input
               {...register("name", { required: true, pattern: /^([^0-9]*)$/ })}
@@ -74,7 +74,9 @@ const Contact = () => {
               placeholder="Enter your name"
             />
             {errors.name?.type == "required" && (
-              <span className="text-red-500 text-xs">Name is required</span>
+              <span className="text-red-500 text-xs">
+                Your name is required
+              </span>
             )}
             {errors.name?.type == "pattern" && (
               <span className="text-red-500 text-xs">Number is not valid</span>
@@ -101,12 +103,12 @@ const Contact = () => {
           </div>
           <div className="mb-4">
             <textarea
-              id="message"
+              id="body"
               cols={50}
               rows={5}
               className="border py-2 px-3 bg-gray-200 text-black placeholder-gray-600 w-full"
               placeholder="Enter your message"
-              {...register("message", { required: true })}
+              {...register("body", { required: true })}
             ></textarea>
             {errors.email?.type == "required" && (
               <span className="text-red-500 text-xs">
