@@ -28,6 +28,11 @@ const refreshAccessToken = async (): Promise<string> => {
   }
 };
 
+const removeToken = () => {
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
+};
+
 const updateAccessToken = (newAccessToken: any) => {
   Cookies.remove("accessToken");
 
@@ -35,4 +40,4 @@ const updateAccessToken = (newAccessToken: any) => {
   Cookies.set("accessToken", newAccessToken);
 };
 
-export { refreshAccessToken, updateAccessToken, isTokenExpired };
+export { refreshAccessToken, updateAccessToken, isTokenExpired, removeToken };

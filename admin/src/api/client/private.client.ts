@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import {
   isTokenExpired,
   refreshAccessToken,
+  removeToken,
   updateAccessToken,
 } from "../../utils/setting/config";
 import { useNavigate } from "react-router-dom";
@@ -14,8 +15,14 @@ const privateClient: AxiosInstance = axios.create({
 privateClient.interceptors.request.use(
   async (config: any) => {
     const accessToken = Cookies.get("accessToken");
+    const refreshToken = Cookies.get("refreshToken");
 
-    if (accessToken && !isTokenExpired(accessToken)) {
+    if (
+      accessToken &&
+      refreshToken &&
+      !isTokenExpired(accessToken) &&
+      !isTokenExpired(refreshToken)
+    ) {
       config.headers = {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
@@ -31,14 +38,18 @@ privateClient.interceptors.request.use(
           "Content-Type": "application/json",
         };
       } catch (err) {
-        
+        const navigate = useNavigate();
+        removeToken();
+        navigate("/");
         return Promise.reject(err);
       }
     }
     return config;
   },
   function (err) {
-   
+    const navigate = useNavigate();
+    removeToken();
+    navigate("/");
     return Promise.reject(err);
   }
 );
@@ -48,7 +59,7 @@ privateClient.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 500) {
       const navigate = useNavigate();
-      navigate('/error-server');
+      navigate("/error-server");
     }
     return Promise.reject(error);
   }

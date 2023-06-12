@@ -10,6 +10,7 @@ const Login = () => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<ILoginForm>();
 
@@ -19,6 +20,11 @@ const Login = () => {
 
   const accessToken = Cookies.get("accessToken");
   const refreshToken = Cookies.get("refreshToken");
+
+  const demoAccount = () => {
+    setValue("email", "admin@gmail.com");
+    setValue("password", "so1laocaiaa");
+  };
 
   const onSubmit: SubmitHandler<ILoginForm> = async (data) => {
     setLoading(true);
@@ -106,13 +112,13 @@ const Login = () => {
                     <input
                       {...register("email", {
                         required: true,
-                        minLength: 6,
                       })}
                       type="email"
                       id="email"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@gmail.com"
                       required
+                      minLength={6}
                     />
                   </div>
                   <div>
@@ -125,13 +131,13 @@ const Login = () => {
                     <input
                       {...register("password", {
                         required: true,
-                        minLength: 6,
                       })}
                       type="password"
                       id="password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required
+                      minLength={6}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -156,8 +162,9 @@ const Login = () => {
                     <button
                       type="button"
                       className={`text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 decoration-transparent `}
+                      onClick={demoAccount}
                     >
-                      Forgot password?
+                      Demo account?
                     </button>
                   </div>
                   <button

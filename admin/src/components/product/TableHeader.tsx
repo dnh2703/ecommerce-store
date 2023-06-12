@@ -21,8 +21,10 @@ const TableHeader = ({ setQ, setCurrentPage }: TableHeaderProps) => {
   const handleCategory = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
     if (checked) {
+      setCurrentPage(1);
       dispatch(filterCategoriesAction([...filterCategories, value]));
     } else {
+      setCurrentPage(1);
       const removeValue = filterCategories.filter((item) => item !== value);
       dispatch(filterCategoriesAction([...removeValue]));
     }
