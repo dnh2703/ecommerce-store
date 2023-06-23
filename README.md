@@ -1,5 +1,9 @@
 # Project : E-commerce Store
 
+## Report 
+
+https://docs.google.com/document/d/18q2GSBhM6ICBOLIq2mpN5FvNmRvpt5rfCIzUvLAC34w/edit?usp=sharing
+
 ## Introduction
 
 This document provides an overview and guidelines for the E-commerce Store project, which utilizes the MERN (MongoDB, Express.js, React.js, and Node.js) stack.
